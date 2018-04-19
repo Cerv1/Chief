@@ -1,8 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 var Nuxeo = require('nuxeo');
 
 // create the Nuxeo client
@@ -24,6 +19,3 @@ nuxeo.connect()
     // wrong credentials / auth method / ...
     throw error;
 });
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
