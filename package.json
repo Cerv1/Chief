@@ -1,0 +1,31 @@
+{
+  "name": "chief",
+  "version": "0.0.1",
+  "description": "Ayuda a la labor policial open source",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cerv1/Chief.git"
+  },
+  "author": "Sergio Cervilla",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Cerv1/Chief/issues"
+  },
+  "homepage": "https://github.com/Cerv1/Chief#readme",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.0.15",
+    "nodemon": "^1.17.3"
+  }
+}
