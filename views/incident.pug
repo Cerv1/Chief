@@ -6,12 +6,25 @@ block content
       .col-md-6.col-md-offset-3
         h1.display-4.m-b-2 Nuevo telefonema
         form(method='POST' action='/new_incident')
+
           div.form-group
             label(for='email') Dependencia
-            input.form-control(type='text' id='dependencia' placeholder='Dependencia' name='dependencia')
+            input.form-control(type='text' id='dependencia' placeholder='Dependencia' name='dependency', required)
+          
+          div.form-group
+            label(for='email') CEN
+            input.form-control(type='text' id='cen' placeholder='Cen' name='cen', required)
+          
+          div.form-group
+            label(for='email') PP.LL
+            input.form-control(type='text' id='ppll' placeholder='PP.LL' name='ppll', required)
 
           div.form-group
             label(for='password') Hecho
-            input.form-control(type='text' id='hecho' placeholder='Hecho' name='hecho')
+            input.form-control(type='text' id='hecho' placeholder='Hecho' name='issue', required)
+
+          div.form-group
+            label(for='password') Actuación
+            input.form-control(type='text' id='actuacion' placeholder='Actuación' name='operation', required)
             
           button.btn.btn-primary(type='submit') Añadir

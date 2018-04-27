@@ -1,4 +1,6 @@
 var express = require('express');
+var Incident = require('../models/incident');
+
 var router = express.Router();
 
 var isAuthenticated = function (req, res, next) {
@@ -52,9 +54,25 @@ module.exports = function(passport){
 	router.get('/incident', isAuthenticated, function (req, res) {
 		res.render('incident', { user: req.user });
 	});
+	
 
+	router.post('/new_incident', isAuthenticated, function(req, res){
+		var newIncident = new Incident();
+		newIncident.number_id = 1;
+		newIncident.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+		newIncident.dep = req.param('dep');
+		newIncident.cen = req.param('cen');
+		newIncident.ppll = req.param('ppll');
+		newIncident.issue = req.param('issue');
+		newIncident.operation = req.param('operation');
+		newIncident.save(function (err) {
+			if (err) {
+				console.log('Error in Saving Incident: ' + err);
+				throw err;
+			}
+			console.log('Incident Saved Successfully');
+		});
 
-	router.post('/new_incident', function(req, res){
 		console.log("Nuevo telefonema añadido");
 		res.redirect('home');
 	});
