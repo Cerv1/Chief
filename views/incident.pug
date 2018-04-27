@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .main.container
+    .row
+      .col-md-6.col-md-offset-3
+        h1.display-4.m-b-2 Nuevo telefonema
+        form(method='POST' action='/new_incident')
+          div.form-group
+            label(for='email') Dependencia
+            input.form-control(type='text' id='dependencia' placeholder='Dependencia' name='dependencia')
+
+          div.form-group
+            label(for='password') Hecho
+            input.form-control(type='text' id='hecho' placeholder='Hecho' name='hecho')
+            
+          button.btn.btn-primary(type='submit') Añadir

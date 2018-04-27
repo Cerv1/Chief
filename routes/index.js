@@ -49,6 +49,16 @@ module.exports = function(passport){
 		res.redirect('/');
 	});
 
+	router.get('/incident', isAuthenticated, function (req, res) {
+		res.render('incident', { user: req.user });
+	});
+
+
+	router.post('/new_incident', function(req, res){
+		console.log("Nuevo telefonema añadido");
+		res.redirect('home');
+	});
+
 	return router;
 }
 
