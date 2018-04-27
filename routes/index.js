@@ -58,7 +58,7 @@ module.exports = function(passport){
 
 	router.post('/new_incident', isAuthenticated, function(req, res){
 		var newIncident = new Incident();
-		newIncident.number_id = 1;
+		newIncident.number_id = req.param('number_id');
 		newIncident.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
 		newIncident.dep = req.param('dep');
 		newIncident.cen = req.param('cen');
