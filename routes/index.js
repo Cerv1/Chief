@@ -3,6 +3,10 @@ var Incident = require('../models/incident');
 const fs = require('fs');
 const carbone = require('carbone');
 
+const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+	"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+];
+
 
 var router = express.Router();
 
@@ -97,23 +101,43 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_turn', isAuthenticated, function(req, res){
-		console.log(req.body)
-		var new_turn_data ={
-			'' : '',
-			'' : '',
-			'' : '',
-			'' : '',
-			'' : '',
-			'' : '',
+
+		var new_turn_data = {
+			'pl1' : req.body.pl1,
+			'pl2' : req.body.pl2,
+			'pl3' : req.body.pl3,
+			'pl4' : req.body.pl4,
+			'morning' : 'XX',
+			'evening' : ' ',
+			'night' : ' ',
+			'timetable' : '7:00 a 15:00',
+			'turn_chief' : req.body.turn_chief,
+			'year' : new Date().getFullYear(),
+			'month' : monthNames[new Date().getMonth()]
+		};
+
+		if(req.body.turns_radio == "evening"){
+			new_turn_data.morning = ' ';
+			new_turn_data.evening = 'XX';
+			new_turn_data.timetable = '15:00 a 22:00';
+
+		}
+		else if (req.body.turns_radio == "night") {
+			new_turn_data.morning = ' ';
+			new_turn_data.night = 'XX';
+			new_turn_data.timetable = '22:00 a 7:00';
 		}
 
-		// carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
-		// 	if (err) {
-		// 		return console.log(err);
-		// 	}
-		// 	// write the result
-		// 	fs.writeFileSync('result.odt', result);
-		// });
+		console.log(new_turn_data);
+
+
+		carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', new_turn_data, function (err, result) {
+			if (err) {
+				return console.log(err);
+			}
+			// write the result
+			fs.writeFileSync('result.odt', result);
+		});
 		res.redirect('home');
 	});
 
