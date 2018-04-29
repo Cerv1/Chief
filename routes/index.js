@@ -101,7 +101,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_turn', isAuthenticated, function(req, res){
-
+		var date = new Date();
 		var new_turn_data = {
 			'pl1' : req.body.pl1,
 			'pl2' : req.body.pl2,
@@ -112,8 +112,9 @@ module.exports = function(passport){
 			'night' : ' ',
 			'timetable' : '7:00 a 15:00',
 			'turn_chief' : req.body.turn_chief,
-			'year' : new Date().getFullYear(),
-			'month' : monthNames[new Date().getMonth()]
+			'year' : date.getFullYear(),
+			'month' : monthNames[date.getMonth()],
+			'date' : date.getDate() + ' / ' + date.getMonth() + ' / ' + date.getFullYear()
 		};
 
 		if(req.body.turns_radio == "evening"){
