@@ -134,3 +134,11 @@ ul.user-details{
 .checkbox-label{
     margin-right: 5%;
 }
+
+#timetable{
+    display: none;
+}
+
+.police_ids{
+    margin-right: 5px;
+}

@@ -11,19 +11,30 @@ block content
                label.checkbox-label Turno: 
                .radio
                   label
-                  input#optionsRadios1(type="radio", name="optionsRadios", value="morning", checked)
+                  input(type="radio", name="turns_radio", value="morning", checked)
                   | Mañana
                .radio
                   label
-                  input#optionsRadios2(type="radio", name="optionsRadios", value="evening")
+                  input(type="radio", name="turns_radio", value="evening")
                   | Tarde
                .radio
                   label
-                  input#optionsRadios3(type="radio", name="optionsRadios", value="night")
+                  input(type="radio", name="turns_radio", value="night")
                   | Noche
-               .radio
-                  label
-                  input#optionsRadios3(type="radio", name="optionsRadios", value="reinforcement")
-                  | Refuerzo
+
+            h3 Policías en turno
             div.form-group
-               button.btn.btn-primary(type='submit') Añadir
+              label.police_ids(for='pl1') Policía 1
+                input.form-control(type='text' id='pl1' placeholder='ID' name='pl1')
+              label.police_ids(for='pl2') Policía 2
+                input.form-control(type='text' id='pl2' placeholder='ID' name='pl2')
+            div.form-group
+              label.police_ids(for='pl3') Policía 3
+                input.form-control(type='text' id='pl3' placeholder='ID' name='pl3')
+              label.police_ids(for='pl4') Policía 4
+                input.form-control(type='text' id='pl4' placeholder='ID' name='pl4')
+              
+            div.form-group
+              label(for='turn_chief') Jefe de guardia
+              input.form-control(type='text' id='turn_chief' placeholder='Jefe de guardia' name='turn_chief')
+            button.btn.btn-primary(type='submit') Añadir
