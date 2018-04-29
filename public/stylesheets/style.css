@@ -125,3 +125,12 @@ ul.user-details{
 #inputfile + label:hover {
     background-color: goldenrod;
 }
+
+.radio{
+    display: inline-block !important;
+    margin-right: 5% !important;
+}
+
+.checkbox-label{
+    margin-right: 5%;
+}

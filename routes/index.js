@@ -3,10 +3,6 @@ var Incident = require('../models/incident');
 const fs = require('fs');
 const carbone = require('carbone');
 
-// Data to inject
-var data = {
-	chief_name: 'JOSE MANUEL CERVILLA LEMOS'
-};
 
 var router = express.Router();
 
@@ -58,20 +54,28 @@ module.exports = function(passport){
 		res.redirect('/');
 	});
 
-	router.get('/incident', isAuthenticated, function (req, res) {
-		res.render('incident', { user: req.user });
+	router.get('/incident_home', isAuthenticated, function (req, res) {
+		res.render('incident_home', { user: req.user });
+	});
+
+	router.get('/fill_incident', isAuthenticated, function (req, res) {
+		res.render('fill_incident', { user: req.user });
+	});
+
+	router.get('/fill_new_turn', isAuthenticated, function (req, res) {
+		res.render('fill_new_turn', { user: req.user });
 	});
 	
 
 	router.post('/new_incident', isAuthenticated, function(req, res){
 		var newIncident = new Incident();
-		newIncident.number_id = req.params.number_id;
+		newIncident.number_id = req.body.number_id;
 		newIncident.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
-		newIncident.dep = req.params.dep;
-		newIncident.cen = req.params.cen;
-		newIncident.ppll = req.params.ppll;
-		newIncident.issue = req.params.issue;
-		newIncident.operation = req.params.operation;
+		newIncident.dep = req.body.dep;
+		newIncident.cen = req.body.cen;
+		newIncident.ppll = req.body.ppll;
+		newIncident.issue = req.body.issue;
+		newIncident.operation = req.body.operation;
 		newIncident.save(function (err) {
 			if (err) {
 				console.log('Error in Saving Incident: ' + err);
@@ -82,13 +86,35 @@ module.exports = function(passport){
 
 		console.log("Nuevo telefonema añadido");
 
-		carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
-			if (err) {
-				return console.log(err);
-			}
-			// write the result
-			fs.writeFileSync('result.odt', result);
-		});
+		// carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
+		// 	if (err) {
+		// 		return console.log(err);
+		// 	}
+		// 	// write the result
+		// 	fs.writeFileSync('result.odt', result);
+		// });
+		res.redirect('home');
+	});
+
+	router.post('/new_turn', isAuthenticated, function(req, res){
+		var new_turn_data ={
+			'' : '',
+			'' : '',
+			'' : '',
+			'' : '',
+			'' : '',
+			'' : '',
+		}
+
+		console.log("Nuevo telefonema añadido");
+
+		// carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
+		// 	if (err) {
+		// 		return console.log(err);
+		// 	}
+		// 	// write the result
+		// 	fs.writeFileSync('result.odt', result);
+		// });
 		res.redirect('home');
 	});
 

@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  .main.container
+   .row
+      .col-md-6.col-md-offset-3
+         h1.display-4.m-b-2 Nuevo parte de servicio
+
+         form(method='POST' action='/new_turn')
+            div.form-group
+               label.checkbox-label Turno: 
+               .radio
+                  label
+                  input#optionsRadios1(type="radio", name="optionsRadios", value="morning", checked)
+                  | Mañana
+               .radio
+                  label
+                  input#optionsRadios2(type="radio", name="optionsRadios", value="evening")
+                  | Tarde
+               .radio
+                  label
+                  input#optionsRadios3(type="radio", name="optionsRadios", value="night")
+                  | Noche
+               .radio
+                  label
+                  input#optionsRadios3(type="radio", name="optionsRadios", value="reinforcement")
+                  | Refuerzo
+            div.form-group
+               button.btn.btn-primary(type='submit') Añadir
