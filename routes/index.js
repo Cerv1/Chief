@@ -97,6 +97,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_turn', isAuthenticated, function(req, res){
+		console.log(req.body)
 		var new_turn_data ={
 			'' : '',
 			'' : '',
@@ -105,8 +106,6 @@ module.exports = function(passport){
 			'' : '',
 			'' : '',
 		}
-
-		console.log("Nuevo telefonema añadido");
 
 		// carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
 		// 	if (err) {
