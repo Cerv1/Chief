@@ -1,13 +1,9 @@
 var express = require('express');
 var Incident = require('../models/incident');
-const fs = require('fs');
-const carbone = require('carbone');
-
-const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-	"Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
+var Doc = require('../doc_functions.js');
 
 
+var doc = new Doc();
 var router = express.Router();
 
 var isAuthenticated = function (req, res, next) {
@@ -63,6 +59,7 @@ module.exports = function(passport){
 	});
 
 	router.get('/fill_incident', isAuthenticated, function (req, res) {
+		// console.log(Incident.find({}));
 		res.render('fill_incident', { user: req.user });
 	});
 
@@ -80,6 +77,9 @@ module.exports = function(passport){
 		newIncident.ppll = req.body.ppll;
 		newIncident.issue = req.body.issue;
 		newIncident.operation = req.body.operation;
+
+		// doc.writeNewIncident(newIncident);
+
 		newIncident.save(function (err) {
 			if (err) {
 				console.log('Error in Saving Incident: ' + err);
@@ -90,55 +90,15 @@ module.exports = function(passport){
 
 		console.log("Nuevo telefonema añadido");
 
-		// carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', data, function (err, result) {
-		// 	if (err) {
-		// 		return console.log(err);
-		// 	}
-		// 	// write the result
-		// 	fs.writeFileSync('result.odt', result);
-		// });
 		res.redirect('home');
+
+		
 	});
 
+
+
 	router.post('/new_turn', isAuthenticated, function(req, res){
-		var date = new Date();
-		var new_turn_data = {
-			'pl1' : req.body.pl1,
-			'pl2' : req.body.pl2,
-			'pl3' : req.body.pl3,
-			'pl4' : req.body.pl4,
-			'morning' : 'XX',
-			'evening' : ' ',
-			'night' : ' ',
-			'timetable' : '7:00 a 15:00',
-			'turn_chief' : req.body.turn_chief,
-			'year' : date.getFullYear(),
-			'month' : monthNames[date.getMonth()],
-			'date' : date.getDate() + ' / ' + date.getMonth() + ' / ' + date.getFullYear()
-		};
-
-		if(req.body.turns_radio == "evening"){
-			new_turn_data.morning = ' ';
-			new_turn_data.evening = 'XX';
-			new_turn_data.timetable = '15:00 a 22:00';
-
-		}
-		else if (req.body.turns_radio == "night") {
-			new_turn_data.morning = ' ';
-			new_turn_data.night = 'XX';
-			new_turn_data.timetable = '22:00 a 7:00';
-		}
-
-		console.log(new_turn_data);
-
-
-		carbone.render('/home/cervi/Escritorio/plantillas/telefonema_template.odt', new_turn_data, function (err, result) {
-			if (err) {
-				return console.log(err);
-			}
-			// write the result
-			fs.writeFileSync('result.odt', result);
-		});
+		doc.writeBeginTurn(req.body);
 		res.redirect('home');
 	});
 
