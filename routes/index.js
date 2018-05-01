@@ -66,12 +66,18 @@ module.exports = function(passport){
 	router.get('/fill_new_turn', isAuthenticated, function (req, res) {
 		res.render('fill_new_turn', { user: req.user });
 	});
+
+	router.get('/fill_end_turn', isAuthenticated, function (req, res) {
+		res.render('fill_end_turn', { user: req.user });
+	});
 	
 
 	router.post('/new_incident', isAuthenticated, function(req, res){
+		var date = new Date();
 		var newIncident = new Incident();
 		newIncident.number_id = req.body.number_id;
-		newIncident.date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
+		newIncident.date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+		newIncident.time = (date.getUTCHours() + 2) + ':' + (date.getUTCMinutes());
 		newIncident.dep = req.body.dep;
 		newIncident.cen = req.body.cen;
 		newIncident.ppll = req.body.ppll;
@@ -96,10 +102,14 @@ module.exports = function(passport){
 	});
 
 
-
 	router.post('/new_turn', isAuthenticated, function(req, res){
 		doc.writeBeginTurn(req.body);
 		res.redirect('home');
+	});
+
+	router.post('/end_turn', function(req, res){
+		doc.writeEndTurn();
+		// res.redirect('home');
 	});
 
 	return router;

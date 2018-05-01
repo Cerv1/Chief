@@ -2,9 +2,7 @@
 
 const fs = require('fs');
 const carbone = require('carbone');
-const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-];
+var Incident = require('./models/incident');
 
 class Doc {
    constructor() {
@@ -27,8 +25,28 @@ class Doc {
          'timetable': '7:00 a 15:00',
          'turn_chief': data.turn_chief,
          'year': date.getFullYear(),
-         'month': monthNames[date.getMonth()],
-         'date': date.getDate() + ' / ' + (date.getMonth()+1) + ' / ' + date.getFullYear()
+         'month': this.monthNames[date.getMonth()],
+         'date': date.getDate() + ' / ' + (date.getMonth()+1) + ' / ' + date.getFullYear(),
+         'all_incidents' : [
+            {
+               'number_id' : '{d.all_incidents[i].number_id}',
+               'date' : '{d.all_incidents[i].date}',
+               'time' : '{d.all_incidents[i].time}',
+               'cen' : '{d.all_incidents[i].cen}',
+               'ppll' : '{d.all_incidents[i].ppll}',
+               'issue' : '{d.all_incidents[i].issue}',
+               'operation' : '{d.all_incidents[i].operation}'
+            },
+            {
+               'number_id': '{d.all_incidents[i+1].number_id}',
+               'date': '{d.all_incidents[i+1].date}',
+               'time': '{d.all_incidents[i+1].time}',
+               'cen': '{d.all_incidents[i+1].cen}',
+               'ppll': '{d.all_incidents[i+1].ppll}',
+               'issue': '{d.all_incidents[i+1].issue}',
+               'operation': '{d.all_incidents[i+1].operation}'
+            }
+         ]
       };
 
       if (data.turns_radio == "evening") {
@@ -48,12 +66,30 @@ class Doc {
             return console.log(err);
          }
          // write the result
-         fs.writeFileSync('/home/cervi/ChiefTemplates/result.odt', result);
+         fs.writeFileSync('/home/cervi/ChiefTemplates/new_turn_filled.odt', result);
       });
    }
 
-   writeEndTurn(data){
-      
+   writeEndTurn(){
+      Incident.find({}, function (err, incidents) {
+         var all_incidents = [];
+         var index = 0;
+         incidents.forEach(function (incident) {
+            all_incidents[index] = incident;
+            index++;
+         });
+         
+         var incidents_data = {
+            "all_incidents" : all_incidents
+         }
+         carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', incidents_data, function (err, result) {
+            if (err) {
+               return console.log(err);
+            }
+            fs.writeFileSync('/home/cervi/ChiefTemplates/result_incidents.odt', result);
+         });
+      });
+
    }
    
 }
