@@ -19,6 +19,8 @@ class Doc {
 
       var date = new Date();
       var new_turn_data = {
+         'year': date.getFullYear(),
+         'month': this.monthNames[date.getMonth()],
          'pl1': data.pl1,
          'pl2': data.pl2,
          'pl3': data.pl3,
