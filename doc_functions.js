@@ -10,6 +10,9 @@ class Doc {
          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
       ];
       this.route_to_save = '/home/cervi/ChiefTemplates/';
+      this.morning = true;
+      this.evening = false;
+      this.night = false;
    }
 
    writeBeginTurn(data){
@@ -56,12 +59,16 @@ class Doc {
          new_turn_data.morning = ' ';
          new_turn_data.evening = 'XX';
          new_turn_data.timetable = '15:00 a 22:00';
-
+         this.morning = false;
+         this.evening = true;
       }
       else if (data.turns_radio == "night") {
          new_turn_data.morning = ' ';
          new_turn_data.night = 'XX';
          new_turn_data.timetable = '22:00 a 7:00';
+         this.morning = false;
+         this.night = true;
+         
       }
 
       carbone.render('/home/cervi/ChiefTemplates/incident_template.odt', new_turn_data, function (err, result) {
@@ -75,22 +82,40 @@ class Doc {
 
    writeEndTurn(){
       var date = new Date();
+      var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+      var begin_turn, end_turn;
       var writeName = this.route_to_save + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
                      + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() +'.odt';
-      Incident.find({}, function (err, incidents) {
+
+      if(this.morning){
+         begin_turn = '07:00';
+         end_turn = '15:00';
+      }
+      else if(this.evening){
+         begin_turn = '15:00';
+         end_turn = '22:00';
+      }
+      else if(this.night){
+         begin_turn = '22:00';
+         end_turn = '07:00';
+      }
+
+      Incident.find({'date' : today}, function (err, incidents) {
          var all_incidents = [];
          var index = 0;
          incidents.forEach(function (incident) {
-            all_incidents[index] = incident;
-            index++;
-         });
+            console.log(incident.time);
 
+            console.log(incident.time >= begin_turn);
+            if(incident.time >= begin_turn && incident.time <= end_turn){
+               all_incidents[index] = incident;
+               index++;
+            }
+         });
 
          var incidents_data = {
             "all_incidents" : all_incidents
          }
-
-         console.log(incidents_data);
 
          carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', incidents_data, function (err, result) {
             if (err) {

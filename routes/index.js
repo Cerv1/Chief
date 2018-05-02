@@ -77,7 +77,14 @@ module.exports = function(passport){
 		var newIncident = new Incident();
 		newIncident.number_id = req.body.number_id;
 		newIncident.date = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-		newIncident.time = (date.getUTCHours() + 2) + ':' + (date.getUTCMinutes());
+		
+		if ((date.getUTCHours()+2) < 10 ){
+			newIncident.time = '0'+(date.getUTCHours() + 2) + ':' + (date.getUTCMinutes());
+		}
+		else{
+			newIncident.time = (date.getUTCHours() + 2) + ':' + (date.getUTCMinutes());
+		}
+
 		newIncident.dep = req.body.dep;
 		newIncident.cen = req.body.cen;
 		newIncident.ppll = req.body.ppll;
