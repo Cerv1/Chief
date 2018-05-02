@@ -9,6 +9,7 @@ class Doc {
       this.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
       ];
+      this.route_to_save = '/home/cervi/ChiefTemplates/';
    }
 
    writeBeginTurn(data){
@@ -33,6 +34,7 @@ class Doc {
                'date' : '{d.all_incidents[i].date}',
                'time' : '{d.all_incidents[i].time}',
                'cen' : '{d.all_incidents[i].cen}',
+               'dep': '{d.all_incidents[i].dep}',
                'ppll' : '{d.all_incidents[i].ppll}',
                'issue' : '{d.all_incidents[i].issue}',
                'operation' : '{d.all_incidents[i].operation}'
@@ -42,6 +44,7 @@ class Doc {
                'date': '{d.all_incidents[i+1].date}',
                'time': '{d.all_incidents[i+1].time}',
                'cen': '{d.all_incidents[i+1].cen}',
+               'dep': '{d.all_incidents[i+1].dep}',
                'ppll': '{d.all_incidents[i+1].ppll}',
                'issue': '{d.all_incidents[i+1].issue}',
                'operation': '{d.all_incidents[i+1].operation}'
@@ -71,6 +74,9 @@ class Doc {
    }
 
    writeEndTurn(){
+      var date = new Date();
+      var writeName = this.route_to_save + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
+                     + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() +'.odt';
       Incident.find({}, function (err, incidents) {
          var all_incidents = [];
          var index = 0;
@@ -78,15 +84,19 @@ class Doc {
             all_incidents[index] = incident;
             index++;
          });
-         
+
+
          var incidents_data = {
             "all_incidents" : all_incidents
          }
+
+         console.log(incidents_data);
+
          carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', incidents_data, function (err, result) {
             if (err) {
                return console.log(err);
             }
-            fs.writeFileSync('/home/cervi/ChiefTemplates/result_incidents.odt', result);
+            fs.writeFileSync(writeName, result);
          });
       });
 
