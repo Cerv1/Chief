@@ -54,7 +54,41 @@ class Doc {
                'issue': '{d.all_incidents[i+1].issue}',
                'operation': '{d.all_incidents[i+1].operation}'
             }
-         ]
+         ],
+         'various_ord' : '{d.various_ord}',
+         'road_incidents' : '{d.road_incidents}',
+         'reports' : '{d.reports}',
+         'others' : '{d.others}',
+         'denounce_4-15' : '{d.denounce_4-15}',
+         'appre_rec' : '{d.appre_rec}',
+         'identifications' : '{d.identifications}',
+         'crowded' : '{d.crowded}',
+         'arrested' : '{d.arrested}',
+         'alcoho' : '{d.alcoho}',
+         'appearances' : '{d.appearances}',
+         'cranes' : '{d.cranes}',
+         'friendly_acc' : '{d.friendly_acc}',
+         'injured_acc' : '{d.injured_acc}',
+         'no_injured_acc' : '{d.no_injured_acc}',
+         'others_acc' : '{d.others_acc}',
+         'pl1_ord_tr' : '{d.pl1_ord_tr}',
+         'pl1_jp_tr' : '{d.pl1_jp_tr}',
+         'pl2_ord_tr' : '{d.pl2_ord_tr}',
+         'pl2_jp_tr' : '{d.pl2_jp_tr}',
+         'pl3_ord_tr' : '{d.pl3_ord_tr}',
+         'pl3_jp_tr' : '{d.pl3_jp_tr}',
+         'pl4_ord_tr' : '{d.pl4_ord_tr}',
+         'pl4_jp_tr' : '{d.pl4_jp_tr}',
+         'pl5_ord_tr' : '{d.pl5_ord_tr}',
+         'pl5_jp_tr' : '{d.pl5_jp_tr}',
+         'vehicles' : '{d.vehicles}',
+         'motorcycles' : '{d.motorcycles}',
+         'catered' : '{d.catered}',
+         'done' : '{d.done}',
+         'km_begin' : '{d.km_begin}',
+         'km_end' : '{d.km_end}',
+         'exterior' : '{d.exterior}',
+         'interior' : '{d.interior}'
       };
 
       if (data.turns_radio == "evening") {
