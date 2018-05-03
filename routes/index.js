@@ -115,7 +115,13 @@ module.exports = function(passport){
 	});
 
 	router.post('/end_turn', function(req, res){
-		doc.writeEndTurn();
+		for(key in req.body){
+			if(req.body[key] == ''){
+				req.body[key] = '0';
+			}
+		}
+		console.log(req.body);
+		doc.writeEndTurn(req.body);
 		// res.redirect('home');
 	});
 

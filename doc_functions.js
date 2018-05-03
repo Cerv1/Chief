@@ -116,7 +116,7 @@ class Doc {
       });
    }
 
-   writeEndTurn(){
+   writeEndTurn(end_turn_data){
       var date = new Date();
       var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       var begin_turn, end_turn;
@@ -148,12 +148,13 @@ class Doc {
                index++;
             }
          });
+         var end_turn_parameters = end_turn_data;
+         end_turn_parameters['all_incidents'] = all_incidents;
 
-         var incidents_data = {
-            "all_incidents" : all_incidents
-         }
 
-         carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', incidents_data, function (err, result) {
+         console.log(end_turn_parameters);
+
+         carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', end_turn_parameters, function (err, result) {
             if (err) {
                return console.log(err);
             }

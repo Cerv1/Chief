@@ -142,3 +142,15 @@ ul.user-details{
 .police_ids{
     margin-right: 5px;
 }
+
+.end_turn_inputs{
+    width: 40% !important;
+}
+
+.end_turn_left{
+    width: 40% !important;
+}
+
+.form_container{
+    overflow: auto;
+}
