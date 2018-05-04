@@ -28,7 +28,7 @@ class Doc {
          'morning': 'XX',
          'evening': ' ',
          'night': ' ',
-         'timetable': '7:00 a 15:00',
+         'timetable': '07:00 a 15:00',
          'turn_chief': data.turn_chief,
          'year': date.getFullYear(),
          'month': this.monthNames[date.getMonth()],
@@ -101,7 +101,7 @@ class Doc {
       else if (data.turns_radio == "night") {
          new_turn_data.morning = ' ';
          new_turn_data.night = 'XX';
-         new_turn_data.timetable = '22:00 a 7:00';
+         new_turn_data.timetable = '22:00 a 07:00';
          this.morning = false;
          this.night = true;
          
@@ -141,6 +141,7 @@ class Doc {
          var index = 0;
          incidents.forEach(function (incident) {
             console.log(incident.time);
+            console.log(begin_turn);
 
             console.log(incident.time >= begin_turn);
             if(incident.time >= begin_turn && incident.time <= end_turn){
