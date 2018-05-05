@@ -2,25 +2,26 @@ extends layout
 
 block content
 		div.row
-			div.col-md-5.functionality-container
-				p Fotografía de los hechos
-				input#inputfile(type="file", accept="image/*", capture="camera")
-				<label for="inputfile">Hacer foto</label>
-
-			div.col-md-5.col-md-offset-2.functionality-container(onclick="window.location.href = '/incident_home'")
+			div.col-md-5.functionality-container(onclick="window.location.href = '/home_incident'")
 				p Partes de servicio
-
-		div.row
-			div.col-md-5.functionality-container(onclick="window.location.href = '/ordinance_home'")
+			div.col-md-5.col-md-offset-2.functionality-container(onclick="window.location.href = '/home_ordinance'")
 				p Ordenanzas
+			
 
-			div.col-md-5.col-md-offset-2.functionality-container
-				p fourth functionality
+
 		div.row
 			div.col-md-5.functionality-container
-				p fifth functionality
+				//- p Fotografía de los hechos
+				//- input#inputfile(type="file", accept="image/*", capture="camera")
+				//- <label for="inputfile">Hacer foto</label>
+
 			div.col-md-5.col-md-offset-2.functionality-container
-				p sixth functionality
+				//- p fourth functionality
+		div.row
+			div.col-md-5.functionality-container
+				//- p fifth functionality
+			div.col-md-5.col-md-offset-2.functionality-container
+				//- p sixth functionality
 
 		
 		
