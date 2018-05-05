@@ -1,0 +1,81 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				h1.display-4.m-b-2 Nueva ordenanza de limpieza
+				form(method='POST' action='/new_clean_ordinance')
+					div.form-group.col-md-12
+						h3 Datos
+						div.form-group.col-md-7
+							label(for='number_id') Nombre
+							input.form-control(type='text' id='name' placeholder='Nombre' name='name', required)
+						
+						div.form-group.col-md-5
+							label(for='dni') DNI
+							input.form-control(type='text' id='dni' placeholder='DNI' name='dni', required)
+						
+						div.form-group.col-md-7
+							label(for='residency') Residencia
+							input.form-control(type='text' id='residency' placeholder='Residencia' name='residency', required)
+						
+						div.form-group.col-md-5
+							label(for='other') Otros datos
+							input.form-control(type='text' id='other' placeholder='Otros datos' name='other')
+						
+						div.form-group.col-md-12
+							label(for='place') Lugar
+							input.form-control(type='text' id='place' placeholder='Lugar' name='place', required)
+					
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
+					
+					div.form-group.col-md-12
+						h3 Infracciones
+
+						div.form-group.col-md-12
+						.checkbox
+							label
+							input(type="checkbox", name="infractions_checkbox", value="1")
+							| Orinar en la vía pública
+						.checkbox
+							label
+							input(type="checkbox", name="infractions_checkbox", value="2")
+							| Tirar la basura fuera del horario establecido
+						.checkbox
+							label
+							input(type="checkbox", name="infractions_checkbox", value="3")
+							| Arrojar papeles u otros desperdicios al suelo
+						.checkbox
+							label
+							input(type="checkbox", name="infractions_checkbox", value="4")
+							| Verter líquidos al suelo
+						.checkbox
+							label
+							input(type="checkbox", name="infractions_checkbox", value="5")
+							| No recoger los escrementos de los animales
+						.checkbox
+							label
+							input(type="checkbox", id="other_infraction", name="infractions_checkbox", value="6", onclick="hideShowOther();")
+							| Otros 
+							input.form-control(type='text' id='desc_6' placeholder='Otra infracción' name='desc_6')
+				
+					button.btn.btn-primary.btn-block(type='submit') Añadir
+	script.
+		function hideShowOther(){
+			if(document.getElementById('other_infraction').checked){
+				document.getElementById('desc_6').style.display = 'block';
+			}
+			else{
+				document.getElementById('desc_6').style.display = 'none';
+			}
+		}

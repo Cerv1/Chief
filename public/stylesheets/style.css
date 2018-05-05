@@ -154,3 +154,7 @@ ul.user-details{
 .form_container{
     overflow: auto;
 }
+
+#desc_6{
+    display: none;
+}
