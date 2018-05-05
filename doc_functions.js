@@ -197,9 +197,6 @@ class Doc {
          ordinance_clean_data[data.infractions_checkbox[i]] = 'X';
       }
       
-     
-      console.log(ordinance_clean_data);
-
       carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_clean_data, function (err, result) {
          if (err) {
             return console.log(err);
