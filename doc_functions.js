@@ -9,12 +9,19 @@ class Doc {
       this.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
       ];
-      this.route_to_save = '/home/cervi/ChiefTemplates/';
+      this.route_to_save_incidents = '/home/cervi/ChiefTemplates/Incidentes/';
+      this.route_to_save_ordinance = '/home/cervi/ChiefTemplates/Ordenanzas/';
       this.morning = true;
       this.evening = false;
       this.night = false;
    }
 
+
+
+	// -----------------------------------------------------------------------
+	// -------------------------- INCIDENTS METHODS --------------------------
+   // -----------------------------------------------------------------------
+   
    writeBeginTurn(data){
 
       var date = new Date();
@@ -107,12 +114,12 @@ class Doc {
          
       }
 
-      carbone.render('/home/cervi/ChiefTemplates/incident_template.odt', new_turn_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Incidentes/incident_template.odt', new_turn_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
          // write the result
-         fs.writeFileSync('/home/cervi/ChiefTemplates/new_turn_filled.odt', result);
+         fs.writeFileSync('/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt', result);
       });
    }
 
@@ -120,29 +127,29 @@ class Doc {
       var date = new Date();
       var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       var begin_turn, end_turn;
-      var writeName = this.route_to_save + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
-                     + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() +'.odt';
+      var writeName = this.route_to_save_incidents + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
+                     + date.getFullYear();
 
       if(this.morning){
          begin_turn = '07:00';
          end_turn = '15:00';
+         writeName += '_Mañana.odt';
       }
       else if(this.evening){
          begin_turn = '15:00';
          end_turn = '22:00';
+         writeName += '_Tarde.odt';
       }
       else if(this.night){
          begin_turn = '22:00';
          end_turn = '07:00';
+         writeName += '_Noche.odt';
       }
 
       Incident.find({'date' : today}, function (err, incidents) {
          var all_incidents = [];
          var index = 0;
          incidents.forEach(function (incident) {
-            console.log(incident.time);
-            console.log(begin_turn);
-
             console.log(incident.time >= begin_turn);
             if(incident.time >= begin_turn && incident.time <= end_turn){
                all_incidents[index] = incident;
@@ -152,17 +159,53 @@ class Doc {
          var end_turn_parameters = end_turn_data;
          end_turn_parameters['all_incidents'] = all_incidents;
 
-
-         console.log(end_turn_parameters);
-
-         carbone.render('/home/cervi/ChiefTemplates/new_turn_filled.odt', end_turn_parameters, function (err, result) {
+         carbone.render('/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt', end_turn_parameters, function (err, result) {
             if (err) {
                return console.log(err);
             }
             fs.writeFileSync(writeName, result);
          });
       });
+   }
 
+	// -----------------------------------------------------------------------
+	// -------------------------- ORDINANCES METHODS -------------------------
+   // -----------------------------------------------------------------------
+   
+   writeCleanOrdinance(data){
+      var date = new Date();
+      var writeName = this.route_to_save_ordinance+'Limpieza/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+      var ordinance_clean_data = {
+         'name': data.name,
+         'dni': data.dni,
+         'residency': data.residency,
+         'other': data.other,
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'desc_6': data.desc_6,
+         'place' : data.place,
+         'date': date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+         'time': date.getHours() + ':' + date.getMinutes(),
+         'day': date.getDate(),
+         'month' : this.monthNames[date.getMonth()],
+         'year' : date.getFullYear()
+      }
+
+      var i;
+      for(i in data.infractions_checkbox){
+         ordinance_clean_data[data.infractions_checkbox[i]] = 'X';
+      }
+      
+     
+      console.log(ordinance_clean_data);
+
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_clean_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
    }
    
 }

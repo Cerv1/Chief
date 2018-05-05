@@ -54,12 +54,17 @@ module.exports = function(passport){
 		res.redirect('/');
 	});
 
-	router.get('/incident_home', isAuthenticated, function (req, res) {
-		res.render('incident_home', { user: req.user });
+
+	// ----------------------------------------------------------------------
+	// -------------------------- INCIDENTS ROUTES --------------------------
+	// ----------------------------------------------------------------------
+	
+
+	router.get('/home_incident', isAuthenticated, function (req, res) {
+		res.render('home_incident', { user: req.user });
 	});
 
 	router.get('/fill_incident', isAuthenticated, function (req, res) {
-		// console.log(Incident.find({}));
 		res.render('fill_incident', { user: req.user });
 	});
 
@@ -71,7 +76,6 @@ module.exports = function(passport){
 		res.render('fill_end_turn', { user: req.user });
 	});
 	
-
 	router.post('/new_incident', isAuthenticated, function(req, res){
 		var date = new Date();
 		var newIncident = new Incident();
@@ -91,8 +95,6 @@ module.exports = function(passport){
 		newIncident.issue = req.body.issue;
 		newIncident.operation = req.body.operation;
 
-		// doc.writeNewIncident(newIncident);
-
 		newIncident.save(function (err) {
 			if (err) {
 				console.log('Error in Saving Incident: ' + err);
@@ -100,12 +102,7 @@ module.exports = function(passport){
 			}
 			console.log('Incident Saved Successfully');
 		});
-
-		console.log("Nuevo telefonema añadido");
-
 		res.redirect('home');
-
-		
 	});
 
 
@@ -114,14 +111,33 @@ module.exports = function(passport){
 		res.redirect('home');
 	});
 
+
 	router.post('/end_turn', function(req, res){
 		for(key in req.body){
 			if(req.body[key] == ''){
 				req.body[key] = '0';
 			}
 		}
-		console.log(req.body);
 		doc.writeEndTurn(req.body);
+		res.redirect('home');
+	});
+
+	// -----------------------------------------------------------------------
+	// -------------------------- ORDINANCES ROUTES --------------------------
+	// -----------------------------------------------------------------------
+
+	router.get('/home_ordinance', isAuthenticated, function (req, res) {
+		res.render('home_ordinance', { user: req.user });
+	});
+
+
+	router.get('/fill_clean_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_clean_ordinance', { user: req.user });
+	});
+
+
+	router.post('/new_clean_ordinance', function (req, res) {
+		doc.writeCleanOrdinance(req.body);
 		// res.redirect('home');
 	});
 
