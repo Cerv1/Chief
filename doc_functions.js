@@ -174,6 +174,13 @@ class Doc {
    writeCleanOrdinance(data){
       var writeName = this.route_to_save_ordinance+'Limpieza/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
          + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var minutes; 
+      if(this.date.getMinutes() < 10 ){
+         minutes = '0' + this.date.getMinutes();
+      }
+      else{
+         minutes = this.date.getMinutes();
+      }
       var ordinance_clean_data = {
          'name': data.name,
          'dni': data.dni,
@@ -184,7 +191,7 @@ class Doc {
          'desc_6': data.desc_6,
          'place' : data.place,
          'date': this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getFullYear(),
-         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'time': this.date.getHours() + ':' + minutes,
          'day': this.date.getDate(),
          'month' : this.monthNames[this.date.getMonth()],
          'year' : this.date.getFullYear()
@@ -206,6 +213,13 @@ class Doc {
    writeBotellonOrdinance(data){
       var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
          + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var minutes; 
+      if(this.date.getMinutes() < 10 ){
+         minutes = '0' + this.date.getMinutes();
+      }
+      else{
+         minutes = this.date.getMinutes();
+      }
       var ordinance_botellon_data = {
          'locality': data.locality,
          'city': data.city,
@@ -217,7 +231,7 @@ class Doc {
          'pl1': data.pl1,
          'pl2': data.pl2,
          'incident_number': data.incident_number,
-         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'time': this.date.getHours() + ':' + minutes,
          'place': data.place,
          'cause': data.cause,
          'name': data.name,
