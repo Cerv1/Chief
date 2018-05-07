@@ -1,0 +1,96 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				h1.display-4.m-b-2 Medición de ruidos
+				form(method='POST' action='/new_noise_measurement_ordinance')
+				
+					div.form-group.col-md-12
+						h3 Datos generales
+						div.form-group.col-md-6
+							label(for='locality') Localidad
+							input.form-control(type='text' id='locality' placeholder='Localidad' name='locality', required)
+						
+						div.form-group.col-md-6
+							label(for='city') Ciudad
+							input.form-control(type='text' id='city' placeholder='Ciudad' name='city', required)
+						
+						div.form-group.col-md-6
+							label(for='place_type') Tipo
+							input.form-control(type='text' id='place_type' placeholder='Domicilio, Local...' name='place_type', required)
+						
+						div.form-group.col-md-6
+							label(for='place') Lugar
+							input.form-control(type='text' id='place' placeholder='Lugar' name='place',required)
+						
+						div.form-group.col-md-6
+							label(for='incident_number') Nº Teléfonema
+							input.form-control(type='text' id='incident_number' placeholder='Nº Teléfonema' name='incident_number',required)
+
+						div.form-group.col-md-6
+							label(for='article') Nº Artículo denuncia
+							input.form-control(type='text' id='article' placeholder='Artículo' name='article',required)
+
+					div.form-group.col-md-12
+						h3 Establecimiento
+						div.form-group.col-md-7
+							label(for='establishment_name') Nombre
+							input.form-control(type='text' id='establishment_name' placeholder='Nombre del establecimiento' name='establishment_name', required)
+						
+						div.form-group.col-md-5
+							label(for='establishment_activity') Actividad 
+							input.form-control(type='text' id='establishment_activity' placeholder='Actividad autorizada' name='establishment_activity', required)
+                     
+						div.form-group.col-md-12
+							label(for='establishment_place') Lugar del establecimiento
+							input.form-control(type='text' id='establishment_place' placeholder='Lugar del establecimiento' name='establishment_place', required)
+
+					div.form-group.col-md-12
+						h3 Especificaciones técnicas
+						div.form-group.col-md-6
+							label(for='sonometer_brand') Marca del sonómetro
+							input.form-control(type='text' id='sonometer_brand' placeholder='Marca del sonómetro' name='sonometer_brand', required)
+						
+						div.form-group.col-md-6
+							label(for='sonometer_model') Modelo del sonómetro
+							input.form-control(type='text' id='sonometer_model' placeholder='Modelo del sonómetro' name='sonometer_model', required)
+
+						div.form-group.col-md-12
+							label(for='sonometer_serial_number') Número de serie
+							input.form-control(type='text' id='sonometer_serial_number' placeholder='Número de serie' name='sonometer_serial_number', required)
+						
+					div.form-group.col-md-12
+						h3 Datos de ruido
+						div.form-group.col-md-6
+							label(for='medition_spot') Lugar de medición
+							input.form-control(type='text' id='medition_spot' placeholder='Lugar de medición' name='medition_spot', required)
+						
+						div.form-group.col-md-6
+							label(for='db_measured') Decibelios medidos
+							input.form-control(type='text' id='db_measured' placeholder='Decibelios medidos' name='db_measured', required)
+
+						div.form-group.col-md-12
+							label(for='db_exceeds') Sobrepasa (dB)
+							input.form-control(type='text' id='db_exceeds' placeholder='Decibelios por encima' name='db_exceeds', required)
+						
+						div.form-group.col-md-12
+							label(for='db_maximum') No sobrepasa (dB)
+							input.form-control(type='text' id='db_maximum' placeholder='Decibelios máximos permitidos' name='db_maximum', required)
+						
+
+					
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
+
+				
+					button.btn.btn-primary.btn-block(type='submit') Añadir
