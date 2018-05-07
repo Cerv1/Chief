@@ -153,6 +153,15 @@ module.exports = function(passport){
 		res.redirect('home');
 	});
 
+	router.get('/fill_noise_residency_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_noise_residency_ordinance', { user: req.user });
+	});
+
+	router.post('/new_noise_residency_ordinance', function (req, res) {
+		doc.writeNoiseResidencyOrdinance(req.body);
+		res.redirect('home');
+	});
+
 	return router;
 }
 

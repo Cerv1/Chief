@@ -211,6 +211,7 @@ class Doc {
          'city': data.city,
          'hour': this.date.getHours(),
          'day': this.date.getDate(),
+         'date': this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear(),
          'month_name' : this.monthNames[this.date.getMonth()],
          'year' : this.date.getFullYear(),
          'pl1': data.pl1,
@@ -226,6 +227,42 @@ class Doc {
       }
   
       carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Botellon/acta_denuncia_botellon.odt', ordinance_botellon_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
+   }
+
+   writeNoiseResidencyOrdinance(data){
+      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
+         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var ordinance_botellon_data = {
+         'locality': data.locality,
+         'city': data.city,
+         'hour': this.date.getHours(),
+         'day': this.date.getDate(),
+         'date': this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear(),
+         'month_name': this.monthNames[this.date.getMonth()],
+         'year': this.date.getFullYear(),
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'incident_number': data.incident_number,
+         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'place_type': data.place_type,
+         'place': data.place,
+         'owner_dni': data.owner_dni,
+         'owner_name': data.owner_dni,
+         'cause': data.cause,
+         'cause_place': data.cause_place,
+         'name': data.name,
+         'responsable_name': data.responsable_name,
+         'responsable_dni': data.responsable_dni,
+         'responsable_residency': data.responsable_residency,
+         'article': data.article
+      }
+  
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt', ordinance_botellon_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
