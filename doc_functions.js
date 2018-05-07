@@ -181,7 +181,7 @@ class Doc {
       else{
          minutes = date.getMinutes();
       }
-      var ordinance_clean_data = {
+      var ordinance_data = {
          'name': data.name,
          'dni': data.dni,
          'residency': data.residency,
@@ -199,10 +199,10 @@ class Doc {
 
       var i;
       for(i in data.infractions_checkbox){
-         ordinance_clean_data[data.infractions_checkbox[i]] = 'X';
+         ordinance_data[data.infractions_checkbox[i]] = 'X';
       }
       
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_clean_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
@@ -215,13 +215,15 @@ class Doc {
       var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
       var minutes; 
+
       if(date.getMinutes() < 10 ){
          minutes = '0' + date.getMinutes();
       }
       else{
          minutes = date.getMinutes();
       }
-      var ordinance_botellon_data = {
+
+      var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
@@ -241,7 +243,7 @@ class Doc {
          'elements': data.elements
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Botellon/acta_denuncia_botellon.odt', ordinance_botellon_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Botellon/acta_denuncia_botellon.odt', ordinance_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
@@ -250,10 +252,20 @@ class Doc {
    }
 
    writeNoiseResidencyOrdinance(data){
+
+      
       var date = new Date();
+      var minutes;
+
+      if (date.getMinutes() < 10) {
+         minutes = '0' + date.getMinutes();
+      }
+      else {
+         minutes = date.getMinutes();
+      }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
-      var ordinance_botellon_data = {
+      var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
@@ -278,7 +290,7 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt', ordinance_botellon_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt', ordinance_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
@@ -288,9 +300,17 @@ class Doc {
 
    writeNoiseEstablishmentOrdinance(data){
       var date = new Date();
+      var minutes;
+
+      if (date.getMinutes() < 10) {
+         minutes = '0' + date.getMinutes();
+      }
+      else {
+         minutes = date.getMinutes();
+      }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Establecimientos/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
-      var ordinance_botellon_data = {
+      var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
@@ -318,7 +338,58 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/acta_denuncia_ruidos_establecimientos.odt', ordinance_botellon_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/acta_denuncia_ruidos_establecimientos.odt', ordinance_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
+   }
+
+   writeNoiseMeasurementOrdinance(data){
+      var date = new Date();
+      var minutes;
+
+      if (date.getMinutes() < 10) {
+         minutes = '0' + date.getMinutes();
+      }
+      else {
+         minutes = date.getMinutes();
+      }
+      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+      var ordinance_botellon_data = {
+         'locality': data.locality,
+         'city': data.city,
+         'hour': date.getHours(),
+         'day': date.getDate(),
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'month_name': this.monthNames[date.getMonth()],
+         'year': date.getFullYear(),
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'incident_number': data.incident_number,
+         'time': date.getHours() + ':' + minutes,
+         'place_type': data.place_type,
+         'place': data.place,
+         'dni': data.dni,
+         'name': data.name,
+         'cause': data.cause,
+         'establishment_place': data.establishment_place,
+         'establishment_name': data.establishment_name,
+         'establishment_activity': data.establishment_activity,
+         'sonometer_brand': data.sonometer_brand,
+         'sonometer_model': data.sonometer_model,
+         'sonometer_serial_number': data.sonometer_serial_number,
+         'medition_spot': data.sonometer_serial_number,
+         'db_measured': data.db_measured,
+         'db_exceeds': data.db_exceeds,
+         'db_maximum': data.db_maximum,
+         'minutes': data.minutes,
+         'article': data.article
+      }
+  
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_botellon_data, function (err, result) {
          if (err) {
             return console.log(err);
          }

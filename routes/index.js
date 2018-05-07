@@ -169,6 +169,15 @@ module.exports = function(passport){
 	router.post('/new_noise_establishment_ordinance', function (req, res) {
 		doc.writeNoiseEstablishmentOrdinance(req.body);
 		res.redirect('home');
+	}); 
+	
+	router.get('/fill_noise_measurement_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_noise_measurement_ordinance', { user: req.user });
+	});
+
+	router.post('/new_noise_measurement_ordinance', function (req, res) {
+		doc.writeNoiseMeasurementOrdinance(req.body);
+		res.redirect('home');
 	});
 
 	return router;
