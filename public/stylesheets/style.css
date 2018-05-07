@@ -158,3 +158,7 @@ ul.user-details{
 #desc_6{
     display: none;
 }
+
+textarea {
+    resize: none;
+}

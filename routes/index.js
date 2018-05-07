@@ -130,15 +130,27 @@ module.exports = function(passport){
 		res.render('home_ordinance', { user: req.user });
 	});
 
+	router.get('/home_noise_ordinance', isAuthenticated, function (req, res) {
+		res.render('home_noise_ordinance', { user: req.user });
+	});
+
 
 	router.get('/fill_clean_ordinance', isAuthenticated, function (req, res) {
 		res.render('fill_clean_ordinance', { user: req.user });
 	});
 
-
 	router.post('/new_clean_ordinance', function (req, res) {
 		doc.writeCleanOrdinance(req.body);
-		// res.redirect('home');
+		res.redirect('home');
+	});
+
+	router.get('/fill_botellon_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_botellon_ordinance', { user: req.user });
+	});
+
+	router.post('/new_botellon_ordinance', function (req, res) {
+		doc.writeBotellonOrdinance(req.body);
+		res.redirect('home');
 	});
 
 	return router;

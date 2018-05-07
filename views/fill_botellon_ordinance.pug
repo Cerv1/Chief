@@ -1,0 +1,64 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				h1.display-4.m-b-2 Acta denuncia por botellón
+				form(method='POST' action='/new_botellon_ordinance')
+				
+					div.form-group.col-md-12
+						h3 Datos generales
+						div.form-group.col-md-6
+							label(for='locality') Localidad
+							input.form-control(type='text' id='locality' placeholder='Localidad' name='locality', required)
+						
+						div.form-group.col-md-6
+							label(for='city') Ciudad
+							input.form-control(type='text' id='city' placeholder='Ciudad' name='city', required)
+						
+						div.form-group.col-md-6
+							label(for='place') Lugar del hecho
+							input.form-control(type='text' id='place' placeholder='Residencia' name='place', required)
+						
+						div.form-group.col-md-6
+							label(for='incident_number') Nº Teléfonema
+							input.form-control(type='text' id='incident_number' placeholder='Nº Teléfonema' name='incident_number',required)
+
+						div.form-group.col-md-12
+							label(for='cause') Hecho
+							textarea.form-control(type='text' rows="3" id='cause' placeholder='Lugar' name='cause', required)
+                     
+						div.form-group.col-md-12
+							label(for='elements') Objetos incautados
+							input.form-control(type='text' id='elements' placeholder='Objetos incautados' name='elements', required)
+
+
+					div.form-group.col-md-12
+						h3 Datos del denunciado
+						div.form-group.col-md-7
+							label(for='number_id') Nombre
+							input.form-control(type='text' id='name' placeholder='Nombre' name='name', required)
+						
+						div.form-group.col-md-5
+							label(for='dni') DNI
+							input.form-control(type='text' id='dni' placeholder='DNI' name='dni', required)
+						
+						div.form-group.col-md-12
+							label(for='residency') Residencia
+							input.form-control(type='text' id='residency' placeholder='Residencia' name='residency', required)
+
+					
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
+
+				
+					button.btn.btn-primary.btn-block(type='submit') Añadir
