@@ -9,25 +9,23 @@ class Doc {
       this.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
       ];
-      this.date = new Date();
       this.route_to_save_incidents = '/home/cervi/ChiefTemplates/Incidentes/';
       this.route_to_save_ordinance = '/home/cervi/ChiefTemplates/Ordenanzas/';
       this.morning = true;
       this.evening = false;
       this.night = false;
    }
-
-
+   
 
 	// -----------------------------------------------------------------------
 	// -------------------------- INCIDENTS METHODS --------------------------
    // -----------------------------------------------------------------------
    
    writeBeginTurn(data){
-
+      var date = new Date();
       var new_turn_data = {
-         'year': this.date.getFullYear(),
-         'month': this.monthNames[this.date.getMonth()],
+         'year': date.getFullYear(),
+         'month': this.monthNames[date.getMonth()],
          'pl1': data.pl1,
          'pl2': data.pl2,
          'pl3': data.pl3,
@@ -37,9 +35,9 @@ class Doc {
          'night': ' ',
          'timetable': '07:00 a 15:00',
          'turn_chief': data.turn_chief,
-         'year': this.date.getFullYear(),
-         'month': this.monthNames[this.date.getMonth()],
-         'date': this.date.getDate() + ' / ' + (this.date.getMonth()+1) + ' / ' + this.date.getFullYear(),
+         'year': date.getFullYear(),
+         'month': this.monthNames[date.getMonth()],
+         'date': date.getDate() + ' / ' + (date.getMonth()+1) + ' / ' + date.getFullYear(),
          'all_incidents' : [
             {
                'number_id' : '{d.all_incidents[i].number_id}',
@@ -124,10 +122,11 @@ class Doc {
    }
 
    writeEndTurn(end_turn_data){
-      var today = this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getFullYear();
+      var date = new Date();
+      var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       var begin_turn, end_turn;
-      var writeName = this.route_to_save_incidents + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' 
-                     + this.date.getFullYear();
+      var writeName = this.route_to_save_incidents + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
+                     + date.getFullYear();
 
       if(this.morning){
          begin_turn = '07:00';
@@ -172,14 +171,15 @@ class Doc {
    // -----------------------------------------------------------------------
    
    writeCleanOrdinance(data){
-      var writeName = this.route_to_save_ordinance+'Limpieza/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
-         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var date = new Date();
+      var writeName = this.route_to_save_ordinance+'Limpieza/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
       var minutes; 
-      if(this.date.getMinutes() < 10 ){
-         minutes = '0' + this.date.getMinutes();
+      if(date.getMinutes() < 10 ){
+         minutes = '0' + date.getMinutes();
       }
       else{
-         minutes = this.date.getMinutes();
+         minutes = date.getMinutes();
       }
       var ordinance_clean_data = {
          'name': data.name,
@@ -190,11 +190,11 @@ class Doc {
          'pl2': data.pl2,
          'desc_6': data.desc_6,
          'place' : data.place,
-         'date': this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getFullYear(),
-         'time': this.date.getHours() + ':' + minutes,
-         'day': this.date.getDate(),
-         'month' : this.monthNames[this.date.getMonth()],
-         'year' : this.date.getFullYear()
+         'date': date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
+         'time': date.getHours() + ':' + minutes,
+         'day': date.getDate(),
+         'month' : this.monthNames[date.getMonth()],
+         'year' : date.getFullYear()
       }
 
       var i;
@@ -211,27 +211,28 @@ class Doc {
    }
 
    writeBotellonOrdinance(data){
-      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
-         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var date = new Date();
+      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
       var minutes; 
-      if(this.date.getMinutes() < 10 ){
-         minutes = '0' + this.date.getMinutes();
+      if(date.getMinutes() < 10 ){
+         minutes = '0' + date.getMinutes();
       }
       else{
-         minutes = this.date.getMinutes();
+         minutes = date.getMinutes();
       }
       var ordinance_botellon_data = {
          'locality': data.locality,
          'city': data.city,
-         'hour': this.date.getHours(),
-         'day': this.date.getDate(),
-         'date': this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear(),
-         'month_name' : this.monthNames[this.date.getMonth()],
-         'year' : this.date.getFullYear(),
+         'hour': date.getHours(),
+         'day': date.getDate(),
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'month_name' : this.monthNames[date.getMonth()],
+         'year' : date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
          'incident_number': data.incident_number,
-         'time': this.date.getHours() + ':' + minutes,
+         'time': date.getHours() + ':' + minutes,
          'place': data.place,
          'cause': data.cause,
          'name': data.name,
@@ -249,20 +250,21 @@ class Doc {
    }
 
    writeNoiseResidencyOrdinance(data){
-      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
-         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var date = new Date();
+      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
       var ordinance_botellon_data = {
          'locality': data.locality,
          'city': data.city,
-         'hour': this.date.getHours(),
-         'day': this.date.getDate(),
-         'date': this.date.getDate() + '/' + (this.date.getMonth() + 1) + '/' + this.date.getFullYear(),
-         'month_name': this.monthNames[this.date.getMonth()],
-         'year': this.date.getFullYear(),
+         'hour': date.getHours(),
+         'day': date.getDate(),
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'month_name': this.monthNames[date.getMonth()],
+         'year': date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
          'incident_number': data.incident_number,
-         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'time': date.getHours() + ':' + date.getMinutes(),
          'place_type': data.place_type,
          'place': data.place,
          'owner_dni': data.owner_dni,
@@ -277,6 +279,46 @@ class Doc {
       }
   
       carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt', ordinance_botellon_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
+   }
+
+   writeNoiseEstablishmentOrdinance(data){
+      var date = new Date();
+      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Establecimientos/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+      var ordinance_botellon_data = {
+         'locality': data.locality,
+         'city': data.city,
+         'hour': date.getHours(),
+         'day': date.getDate(),
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'month_name': this.monthNames[date.getMonth()],
+         'year': date.getFullYear(),
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'incident_number': data.incident_number,
+         'time': date.getHours() + ':' + date.getMinutes(),
+         'place_type': data.place_type,
+         'place': data.place,
+         'owner_dni': data.owner_dni,
+         'owner_name': data.owner_dni,
+         'cause': data.cause,
+         'cause_place': data.cause_place,
+         'establishment_place': data.establishment_place,
+         'establishment_name': data.establishment_name,
+         'establishment_activity': data.establishment_activity,
+         'name': data.name,
+         'responsable_name': data.responsable_name,
+         'responsable_dni': data.responsable_dni,
+         'responsable_residency': data.responsable_residency,
+         'article': data.article
+      }
+  
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/acta_denuncia_ruidos_establecimientos.odt', ordinance_botellon_data, function (err, result) {
          if (err) {
             return console.log(err);
          }

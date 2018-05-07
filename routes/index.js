@@ -149,7 +149,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_botellon_ordinance', function (req, res) {
-		doc.writeBotellonOrdinance(req.body);
+		doc.writeBotellonOrdinance(req.body);Residency
 		res.redirect('home');
 	});
 
@@ -159,6 +159,15 @@ module.exports = function(passport){
 
 	router.post('/new_noise_residency_ordinance', function (req, res) {
 		doc.writeNoiseResidencyOrdinance(req.body);
+		res.redirect('home');
+	});
+
+	router.get('/fill_noise_establishment_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_noise_establishment_ordinance', { user: req.user });
+	});
+
+	router.post('/new_noise_establishment_ordinance', function (req, res) {
+		doc.writeNoiseEstablishmentOrdinance(req.body);
 		res.redirect('home');
 	});
 
