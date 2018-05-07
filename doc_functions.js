@@ -9,6 +9,7 @@ class Doc {
       this.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
          "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
       ];
+      this.date = new Date();
       this.route_to_save_incidents = '/home/cervi/ChiefTemplates/Incidentes/';
       this.route_to_save_ordinance = '/home/cervi/ChiefTemplates/Ordenanzas/';
       this.morning = true;
@@ -24,10 +25,9 @@ class Doc {
    
    writeBeginTurn(data){
 
-      var date = new Date();
       var new_turn_data = {
-         'year': date.getFullYear(),
-         'month': this.monthNames[date.getMonth()],
+         'year': this.date.getFullYear(),
+         'month': this.monthNames[this.date.getMonth()],
          'pl1': data.pl1,
          'pl2': data.pl2,
          'pl3': data.pl3,
@@ -37,9 +37,9 @@ class Doc {
          'night': ' ',
          'timetable': '07:00 a 15:00',
          'turn_chief': data.turn_chief,
-         'year': date.getFullYear(),
-         'month': this.monthNames[date.getMonth()],
-         'date': date.getDate() + ' / ' + (date.getMonth()+1) + ' / ' + date.getFullYear(),
+         'year': this.date.getFullYear(),
+         'month': this.monthNames[this.date.getMonth()],
+         'date': this.date.getDate() + ' / ' + (this.date.getMonth()+1) + ' / ' + this.date.getFullYear(),
          'all_incidents' : [
             {
                'number_id' : '{d.all_incidents[i].number_id}',
@@ -124,11 +124,10 @@ class Doc {
    }
 
    writeEndTurn(end_turn_data){
-      var date = new Date();
-      var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+      var today = this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getFullYear();
       var begin_turn, end_turn;
-      var writeName = this.route_to_save_incidents + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
-                     + date.getFullYear();
+      var writeName = this.route_to_save_incidents + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' 
+                     + this.date.getFullYear();
 
       if(this.morning){
          begin_turn = '07:00';
@@ -173,9 +172,8 @@ class Doc {
    // -----------------------------------------------------------------------
    
    writeCleanOrdinance(data){
-      var date = new Date();
-      var writeName = this.route_to_save_ordinance+'Limpieza/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+      var writeName = this.route_to_save_ordinance+'Limpieza/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
+         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
       var ordinance_clean_data = {
          'name': data.name,
          'dni': data.dni,
@@ -185,11 +183,11 @@ class Doc {
          'pl2': data.pl2,
          'desc_6': data.desc_6,
          'place' : data.place,
-         'date': date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
-         'time': date.getHours() + ':' + date.getMinutes(),
-         'day': date.getDate(),
-         'month' : this.monthNames[date.getMonth()],
-         'year' : date.getFullYear()
+         'date': this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getFullYear(),
+         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'day': this.date.getDate(),
+         'month' : this.monthNames[this.date.getMonth()],
+         'year' : this.date.getFullYear()
       }
 
       var i;
@@ -198,6 +196,36 @@ class Doc {
       }
       
       carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_clean_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
+   }
+
+   writeBotellonOrdinance(data){
+      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + this.date.getDate() + '-' + (this.date.getMonth() + 1) + '-'
+         + this.date.getFullYear() + '_' + this.date.getHours() + ':' + this.date.getMinutes() + '.odt';
+      var ordinance_botellon_data = {
+         'locality': data.locality,
+         'city': data.city,
+         'hour': this.date.getHours(),
+         'day': this.date.getDate(),
+         'month_name' : this.monthNames[this.date.getMonth()],
+         'year' : this.date.getFullYear(),
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'incident_number': data.incident_number,
+         'time': this.date.getHours() + ':' + this.date.getMinutes(),
+         'place': data.place,
+         'cause': data.cause,
+         'name': data.name,
+         'dni': data.dni,
+         'residency': data.residency,
+         'elements': data.elements
+      }
+  
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Botellon/acta_denuncia_botellon.odt', ordinance_botellon_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
