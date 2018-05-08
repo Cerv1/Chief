@@ -3,14 +3,10 @@
 const fs = require('fs');
 const carbone = require('carbone');
 var Incident = require('./models/incident');
+const CONSTANTS = require('./constants');
 
 class Doc {
    constructor() {
-      this.monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-      ];
-      this.route_to_save_incidents = '/home/cervi/ChiefTemplates/Incidentes/';
-      this.route_to_save_ordinance = '/home/cervi/ChiefTemplates/Ordenanzas/';
       this.morning = true;
       this.evening = false;
       this.night = false;
@@ -27,6 +23,16 @@ class Doc {
       }
       return minutes;
    }
+
+   carboneWriter(template_path, path_to_save, data){
+      carbone.render(template_path, data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         // write the result
+         fs.writeFileSync(path_to_save, result);
+      });
+   }
    
 
 	// -----------------------------------------------------------------------
@@ -37,18 +43,18 @@ class Doc {
       var date = new Date();
       var new_turn_data = {
          'year': date.getFullYear(),
-         'month': this.monthNames[date.getMonth()],
+         'month': CONSTANTS.monthNames[date.getMonth()],
          'pl1': data.pl1,
          'pl2': data.pl2,
          'pl3': data.pl3,
          'pl4': data.pl4,
-         'morning': 'XX',
+         'morning': ' ',
          'evening': ' ',
          'night': ' ',
-         'timetable': '07:00 a 15:00',
+         'timetable': ' ',
          'turn_chief': data.turn_chief,
          'year': date.getFullYear(),
-         'month': this.monthNames[date.getMonth()],
+         'month': CONSTANTS.monthNames[date.getMonth()],
          'date': date.getDate() + ' / ' + (date.getMonth()+1) + ' / ' + date.getFullYear(),
          'all_incidents' : [
             {
@@ -136,20 +142,14 @@ class Doc {
          this.night = false;
       }
 
-      carbone.render('/home/cervi/ChiefTemplates/Incidentes/incident_template.odt', new_turn_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         // write the result
-         fs.writeFileSync('/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt', result);
-      });
+      this.carboneWriter(CONSTANTS.path_to_incident_template, CONSTANTS.path_to_new_turn_template, new_turn_data);
    }
 
    writeEndTurn(end_turn_data){
       var date = new Date();
       var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
       var begin_turn, end_turn;
-      var writeName = this.route_to_save_incidents + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
+      var writeName = CONSTANTS.path_to_incidents_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-' 
                      + date.getFullYear();
 
       if(this.morning){
@@ -178,10 +178,11 @@ class Doc {
                index++;
             }
          });
+         
          var end_turn_parameters = end_turn_data;
          end_turn_parameters['all_incidents'] = all_incidents;
 
-         carbone.render('/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt', end_turn_parameters, function (err, result) {
+         carbone.render(CONSTANTS.path_to_new_turn_template, end_turn_parameters, function (err, result) {
             if (err) {
                return console.log(err);
             }
@@ -197,7 +198,7 @@ class Doc {
    writeCleanOrdinance(data){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
-      var writeName = this.route_to_save_ordinance+'Limpieza/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_clean_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'name': data.name,
@@ -211,7 +212,7 @@ class Doc {
          'date': date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
          'time': date.getHours() + ':' + minutes,
          'day': date.getDate(),
-         'month' : this.monthNames[date.getMonth()],
+         'month' : CONSTANTS.monthNames[date.getMonth()],
          'year' : date.getFullYear()
       }
 
@@ -219,20 +220,15 @@ class Doc {
       for(i in data.infractions_checkbox){
          ordinance_data[data.infractions_checkbox[i]] = 'X';
       }
-      
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Limpieza/acta_limpieza_template.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
+
+      this.carboneWriter(CONSTANTS.path_to_clean_template, writeName, ordinance_data);
    }
 
    writeBotellonOrdinance(data){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
 
-      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_botellon_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       
 
@@ -242,7 +238,7 @@ class Doc {
          'hour': date.getHours(),
          'day': date.getDate(),
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name' : this.monthNames[date.getMonth()],
+         'month_name' : CONSTANTS.monthNames[date.getMonth()],
          'year' : date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
@@ -256,27 +252,24 @@ class Doc {
          'elements': data.elements
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Botellon/acta_denuncia_botellon.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
+      this.carboneWriter(CONSTANTS.path_to_botellon_template, writeName, ordinance_data);
+
    }
 
    writeNoiseResidencyOrdinance(data){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
 
-      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_home_noise_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+
       var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
          'day': date.getDate(),
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': this.monthNames[date.getMonth()],
+         'month_name': CONSTANTS.monthNames[date.getMonth()],
          'year': date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
@@ -295,19 +288,14 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
+      this.carboneWriter(CONSTANTS.path_to_home_noise_template, writeName, ordinance_data);
    }
 
    writeNoiseEstablishmentOrdinance(data){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
 
-      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Establecimientos/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_establishment_noise_folder+ date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'locality': data.locality,
@@ -315,7 +303,7 @@ class Doc {
          'hour': date.getHours(),
          'day': date.getDate(),
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': this.monthNames[date.getMonth()],
+         'month_name': CONSTANTS.monthNames[date.getMonth()],
          'year': date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
@@ -337,27 +325,24 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/acta_denuncia_ruidos_establecimientos.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
+      this.carboneWriter(CONSTANTS.path_to_establishment_noise_template, writeName, ordinance_data);
+
    }
 
    writeNoiseMeasurementOrdinance(data){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
 
-      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_noise_measurement_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+
       var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
          'day': date.getDate(),
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': this.monthNames[date.getMonth()],
+         'month_name': CONSTANTS.monthNames[date.getMonth()],
          'year': date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
@@ -382,12 +367,7 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
+      this.carboneWriter(CONSTANTS.path_to_noise_measurement_template, writeName, ordinance_data);
    }
 
    writeBuildingInspectionOrdinance(data){
@@ -402,7 +382,7 @@ class Doc {
          'hour': date.getHours(),
          'day': date.getDate(),
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': this.monthNames[date.getMonth()],
+         'month_name': CONSTANTS.monthNames[date.getMonth()],
          'year': date.getFullYear(),
          'pl1': data.pl1,
          'pl2': data.pl2,
@@ -427,12 +407,6 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_data, function (err, result) {
-         if (err) {
-            return console.log(err);
-         }
-         fs.writeFileSync(writeName, result);
-      });
    }
    
 }

@@ -149,7 +149,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_botellon_ordinance', function (req, res) {
-		doc.writeBotellonOrdinance(req.body);Residency
+		doc.writeBotellonOrdinance(req.body);
 		res.redirect('home');
 	});
 
