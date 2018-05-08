@@ -15,6 +15,18 @@ class Doc {
       this.evening = false;
       this.night = false;
    }
+
+   getMinutesWithFormat(){
+      var date = new Date();
+      var minutes;
+      if (date.getMinutes() < 10) {
+         minutes = '0' + date.getMinutes();
+      }
+      else {
+         minutes = date.getMinutes();
+      }
+      return minutes;
+   }
    
 
 	// -----------------------------------------------------------------------
@@ -95,8 +107,6 @@ class Doc {
          'exterior' : '{d.exterior}',
          'interior' : '{d.interior}'
       };
-
-      console.log(data);
 
       if (data.turns_radio == "evening") {
          new_turn_data.morning = ' ';
@@ -186,15 +196,9 @@ class Doc {
    
    writeCleanOrdinance(data){
       var date = new Date();
+      var minutes = this.getMinutesWithFormat();
       var writeName = this.route_to_save_ordinance+'Limpieza/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
-      var minutes; 
-      if(date.getMinutes() < 10 ){
-         minutes = '0' + date.getMinutes();
-      }
-      else{
-         minutes = date.getMinutes();
-      }
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'name': data.name,
          'dni': data.dni,
@@ -226,16 +230,11 @@ class Doc {
 
    writeBotellonOrdinance(data){
       var date = new Date();
-      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
-      var minutes; 
+      var minutes = this.getMinutesWithFormat();
 
-      if(date.getMinutes() < 10 ){
-         minutes = '0' + date.getMinutes();
-      }
-      else{
-         minutes = date.getMinutes();
-      }
+      var writeName = this.route_to_save_ordinance+'Ruidos/Botellon/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+      
 
       var ordinance_data = {
          'locality': data.locality,
@@ -266,19 +265,11 @@ class Doc {
    }
 
    writeNoiseResidencyOrdinance(data){
-
-      
       var date = new Date();
-      var minutes;
+      var minutes = this.getMinutesWithFormat();
 
-      if (date.getMinutes() < 10) {
-         minutes = '0' + date.getMinutes();
-      }
-      else {
-         minutes = date.getMinutes();
-      }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Domicilios/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
@@ -290,7 +281,7 @@ class Doc {
          'pl1': data.pl1,
          'pl2': data.pl2,
          'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + date.getMinutes(),
+         'time': date.getHours() + ':' + minutes,
          'place_type': data.place_type,
          'place': data.place,
          'owner_dni': data.owner_dni,
@@ -314,16 +305,10 @@ class Doc {
 
    writeNoiseEstablishmentOrdinance(data){
       var date = new Date();
-      var minutes;
+      var minutes = this.getMinutesWithFormat();
 
-      if (date.getMinutes() < 10) {
-         minutes = '0' + date.getMinutes();
-      }
-      else {
-         minutes = date.getMinutes();
-      }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Establecimientos/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
@@ -335,7 +320,7 @@ class Doc {
          'pl1': data.pl1,
          'pl2': data.pl2,
          'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + date.getMinutes(),
+         'time': date.getHours() + ':' + minutes,
          'place_type': data.place_type,
          'place': data.place,
          'owner_dni': data.owner_dni,
@@ -362,16 +347,55 @@ class Doc {
 
    writeNoiseMeasurementOrdinance(data){
       var date = new Date();
-      var minutes;
+      var minutes = this.getMinutesWithFormat();
 
-      if (date.getMinutes() < 10) {
-         minutes = '0' + date.getMinutes();
-      }
-      else {
-         minutes = date.getMinutes();
-      }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+      var ordinance_data = {
+         'locality': data.locality,
+         'city': data.city,
+         'hour': date.getHours(),
+         'day': date.getDate(),
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'month_name': this.monthNames[date.getMonth()],
+         'year': date.getFullYear(),
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+         'incident_number': data.incident_number,
+         'time': date.getHours() + ':' + minutes,
+         'place_type': data.place_type,
+         'place': data.place,
+         'dni': data.dni,
+         'name': data.name,
+         'cause': data.cause,
+         'establishment_place': data.establishment_place,
+         'establishment_name': data.establishment_name,
+         'establishment_activity': data.establishment_activity,
+         'sonometer_brand': data.sonometer_brand,
+         'sonometer_model': data.sonometer_model,
+         'sonometer_serial_number': data.sonometer_serial_number,
+         'medition_spot': data.sonometer_serial_number,
+         'db_measured': data.db_measured,
+         'db_exceeds': data.db_exceeds,
+         'db_maximum': data.db_maximum,
+         'minutes': data.minutes,
+         'article': data.article
+      }
+  
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         fs.writeFileSync(writeName, result);
+      });
+   }
+
+   writeBuildingInspectionOrdinance(data){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+
+      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
       var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
