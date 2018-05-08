@@ -101,21 +101,29 @@ class Doc {
       if (data.turns_radio == "evening") {
          new_turn_data.morning = ' ';
          new_turn_data.evening = 'XX';
+         new_turn_data.night = ' ';
          new_turn_data.timetable = '15:00 a 22:00';
          this.morning = false;
          this.evening = true;
+         this.night = false;
       }
       else if (data.turns_radio == "night") {
          new_turn_data.morning = ' ';
+         new_turn_data.evening = ' ';
          new_turn_data.night = 'XX';
          new_turn_data.timetable = '22:00 a 07:00';
          this.morning = false;
+         this.evening = false;
          this.night = true;
       }
       else if (data.turns_radio == "morning") {
          new_turn_data.morning = 'XX';
+         new_turn_data.evening = ' ';
+         new_turn_data.night = ' ';
          new_turn_data.timetable = '07:00 a 15:00';
          this.morning = true;
+         this.evening = false;
+         this.night = false;
       }
 
       carbone.render('/home/cervi/ChiefTemplates/Incidentes/incident_template.odt', new_turn_data, function (err, result) {
