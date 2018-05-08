@@ -372,7 +372,7 @@ class Doc {
       }
       var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + date.getMinutes() + '.odt';
-      var ordinance_botellon_data = {
+      var ordinance_data = {
          'locality': data.locality,
          'city': data.city,
          'hour': date.getHours(),
@@ -403,7 +403,7 @@ class Doc {
          'article': data.article
       }
   
-      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_botellon_data, function (err, result) {
+      carbone.render('/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt', ordinance_data, function (err, result) {
          if (err) {
             return console.log(err);
          }
