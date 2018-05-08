@@ -96,6 +96,8 @@ class Doc {
          'interior' : '{d.interior}'
       };
 
+      console.log(data);
+
       if (data.turns_radio == "evening") {
          new_turn_data.morning = ' ';
          new_turn_data.evening = 'XX';
@@ -109,7 +111,11 @@ class Doc {
          new_turn_data.timetable = '22:00 a 07:00';
          this.morning = false;
          this.night = true;
-         
+      }
+      else if (data.turns_radio == "morning") {
+         new_turn_data.morning = 'XX';
+         new_turn_data.timetable = '07:00 a 15:00';
+         this.morning = true;
       }
 
       carbone.render('/home/cervi/ChiefTemplates/Incidentes/incident_template.odt', new_turn_data, function (err, result) {
