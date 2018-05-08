@@ -29,16 +29,6 @@ block content
 							label(for='place') Lugar
 							input.form-control(type='text' id='place' placeholder='Lugar' name='place', required)
 					
-					div.form-group.col-md-12
-						h3 Policías 
-
-						div.form-group.col-md-6
-							label(for='pl1') Policía 1
-							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
-						
-						div.form-group.col-md-6
-							label(for='pl2') Policía 2
-							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
 					
 					div.form-group.col-md-12
 						h3 Infracciones
@@ -69,6 +59,17 @@ block content
 							input(type="checkbox", id="other_infraction", name="infractions_checkbox", value="6", onclick="hideShowOther();")
 							| Otros 
 							input.form-control(type='text' id='desc_6' placeholder='Otra infracción' name='desc_6')
+					
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
 				
 					button.btn.btn-primary.btn-block(type='submit') Añadir
 	script.
