@@ -180,6 +180,19 @@ module.exports = function(passport){
 		res.redirect('home');
 	});
 
+	router.get('/home_work_waste_ordinance', isAuthenticated, function (req, res) {
+		res.render('home_work_waste_ordinance', { user: req.user });
+	});
+
+	router.get('/fill_building_inspection_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_building_inspection_ordinance', { user: req.user });
+	});
+
+	router.post('/new_building_inspection_ordinance', function (req, res) {
+		doc.writeNoiseMeasurementOrdinance(req.body);
+		res.redirect('home');
+	});
+
 	return router;
 }
 

@@ -8,6 +8,8 @@ const CONSTANTS = {
    'path_to_home_noise_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/',
    'path_to_establishment_noise_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/',
    'path_to_noise_measurement_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/',
+   'path_to_building_inspection_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Obras/',
+   'path_to_waste_inspection_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Residuos/',
 
    'path_to_incident_template': '/home/cervi/ChiefTemplates/Incidentes/incident_template.odt',
    'path_to_new_turn_template': '/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt',
@@ -16,6 +18,9 @@ const CONSTANTS = {
    'path_to_home_noise_template': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Domicilios/acta_denuncia_ruidos_domicilios.odt',
    'path_to_establishment_noise_template': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Establecimientos/acta_denuncia_ruidos_establecimientos.odt',
    'path_to_noise_measurement_template': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt',
+   'path_to_noise_measurement_template': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt',
+   'path_to_building_inspection_template': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Obras/acta_denuncia_obras.odt',
+   'path_to_waste_inspection_template': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Residuos/acta_residuos.odt',
 }
 
 module.exports = CONSTANTS;

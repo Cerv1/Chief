@@ -1,0 +1,156 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				h1.display-4.m-b-2 Acta de inspección de obras
+				form(method='POST' action='/new_botellon_ordinance')
+				
+					div.form-group.col-md-12
+						h3 Lugar
+						div.form-group.col-md-12
+							label(for='place') Lugar de la obra
+							input.form-control(type='text' id='place' placeholder='Lugar de la obra' name='place', required)
+						
+
+					div.form-group.col-md-12
+						h3 Persona responsable o encargado
+						div.form-group.col-md-8
+							label(for='manager_name') Nombre
+							input.form-control(type='text' id='manager_name' placeholder='Nombre' name='manager_name', required)
+						
+						div.form-group.col-md-4
+							label(for='manager_dni') DNI
+							input.form-control(type='text' id='manager_dni' placeholder='DNI' name='manager_dni', required)
+						
+						div.form-group.col-md-12
+							label(for='manager_type') En calidad de 
+							input.form-control(type='text' id='manager_type' placeholder='Cargo' name='manager_type', required)
+
+					div.form-group.col-md-12
+						h3 Titular o inquilino del local / piso
+						div.form-group.col-md-8
+							label(for='owner_name') Nombre
+							input.form-control(type='text' id='owner_name' placeholder='Nombre' name='owner_name', required)
+						
+						div.form-group.col-md-4
+							label(for='owner_dni') DNI
+							input.form-control(type='text' id='owner_dni' placeholder='DNI' name='owner_dni', required)
+
+						div.form-group.col-md-12
+							label(for='residency') Residencia
+							input.form-control(type='text' id='residency' placeholder='Residencia' name='residency', required)
+
+					div.form-group.col-md-12
+						h3 Encargado de las obras
+						div.form-group.col-md-8
+							label(for='work_name') Nombre y apellidos
+							input.form-control(type='text' id='work_name' placeholder='Nombre' name='work_name', required)
+						
+						div.form-group.col-md-4
+							label(for='work_dni') DNI
+							input.form-control(type='text' id='work_dni' placeholder='DNI' name='work_dni', required)
+
+						div.form-group.col-md-12
+							label(for='work_company') Nombre de la empresa
+							input.form-control(type='text' id='work_company' placeholder='Residencia' name='work_company', required)
+
+						div.form-group.col-md-8
+							label(for='work_residency') Residencia
+							input.form-control(type='text' id='work_residency' placeholder='Lugar de residencia' name='work_residency', required)
+						
+						div.form-group.col-md-4
+							label(for='work_phone') Teléfono
+							input.form-control(type='text' id='work_phone' placeholder='Teléfono' name='work_phone', required)
+
+					div.form-group.col-md-12
+						h3 Licencias
+						div.form-group.col-md-8
+							label(for='work_name') Número de licencia
+							input.form-control(type='text' id='work_name' placeholder='Nombre' name='work_name', required)
+						
+						div.form-group.col-md-12
+							label.checkbox-label Obras / Instalación: 
+							.radio
+								label
+								input(type="radio", name="work_instalation", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="work_instalation", value="No")
+								| No
+							
+							label.checkbox-label Presenta licencia: 
+							.radio
+								label
+								input(type="radio", name="has_license", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="has_license", value="No")
+								| No
+
+							label.checkbox-label De obras menores:
+							.radio
+								label
+								input(type="radio", name="minor_work", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="minor_work", value="No")
+								| No
+
+							label.checkbox-label Ocupación de vía pública:
+							.radio
+								label
+								input(type="radio", name="public_ocupation", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="public_ocupation", value="No")
+								| No
+							label.checkbox-label Contenedores de obra:
+							.radio
+								label
+								input(type="radio", name="work_containers", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="work_containers", value="No")
+								| No
+
+						div.form-group.col-md-12
+							label(for='others') Otros
+							input.form-control(type='text' id='others' placeholder='Otros datos a señalar' name='others')
+						
+						div.form-group.col-md-12
+							label(for='work_type') Obras que autoriza la licencia de obras menores:
+							input.form-control(type='text' id='work_type' placeholder='Tipo de obra autorizada' name='work_type', required)
+						
+						div.form-group.col-md-12
+							label(for='work_deteailed') Obras realizadas:
+							input.form-control(type='text' id='work_deteailed' placeholder='tipo de obra realizada' name='work_deteailed', required)
+						
+						div.form-group.col-md-7
+							label(for='local_for') Local destinado a uso:
+							input.form-control(type='text' id='local_for' placeholder='Tipo de local' name='local_for', required)
+						
+						div.form-group.col-md-5
+							label(for='acta') Acta /Denuncia
+							input.form-control(type='text' id='acta' placeholder='Acta o denuncia' name='acta', required)
+
+					
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
+
+				
+					button.btn.btn-primary.btn-block(type='submit') Añadir
