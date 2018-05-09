@@ -52,8 +52,7 @@ class Doc {
    appendTimeStampToFile(){
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
-      return date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+      return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
    }
 
    createJSON(data){
