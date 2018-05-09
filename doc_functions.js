@@ -359,7 +359,7 @@ class Doc {
          'sonometer_brand': data.sonometer_brand,
          'sonometer_model': data.sonometer_model,
          'sonometer_serial_number': data.sonometer_serial_number,
-         'medition_spot': data.sonometer_serial_number,
+         'medition_spot': data.metition_spot,
          'db_measured': data.db_measured,
          'db_exceeds': data.db_exceeds,
          'db_maximum': data.db_maximum,
