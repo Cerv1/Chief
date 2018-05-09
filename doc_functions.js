@@ -33,6 +33,38 @@ class Doc {
          fs.writeFileSync(path_to_save, result);
       });
    }
+
+   
+   appendTimeStampsToJSON(data){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+      data['day'] = date.getDate();
+      data['month'] = date.getMonth();
+      data['mont_name'] = CONSTANTS.monthNames[date.getMonth()];
+      data['year'] = date.getFullYear();
+      data['hours'] = date.getHours();
+      data['minutes'] = date.getMinutes();
+      data['date'] = date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear();
+      data['time'] = date.getHours() + ':' + minutes;
+      return data;
+   }
+
+   appendTimeStampToFile(){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+      return date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+   }
+
+   createJSON(data){
+      var json_data = {};
+      var i;
+      for (i in data) {
+         json_data[i] = data[i];
+      }
+      this.appendTimeStampsToJSON(json_data);
+      return json_data;
+   }
    
 
 	// -----------------------------------------------------------------------
@@ -196,25 +228,11 @@ class Doc {
    // -----------------------------------------------------------------------
    
    writeCleanOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
-      var writeName = CONSTANTS.path_to_clean_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-      var ordinance_data = {
-         'name': data.name,
-         'dni': data.dni,
-         'residency': data.residency,
-         'other': data.other,
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-         'desc_6': data.desc_6,
-         'place' : data.place,
-         'date': date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear(),
-         'time': date.getHours() + ':' + minutes,
-         'day': date.getDate(),
-         'month' : CONSTANTS.monthNames[date.getMonth()],
-         'year' : date.getFullYear()
-      }
+      
+      var writeName = CONSTANTS.path_to_clean_folder + this.appendTimeStampToFile();
+      
+         var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
 
       var i;
       for(i in data.infractions_checkbox){
@@ -225,226 +243,63 @@ class Doc {
    }
 
    writeBotellonOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
-
-      var writeName = CONSTANTS.path_to_botellon_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+      var writeName = CONSTANTS.path_to_botellon_folder + this.appendTimeStampToFile();
       
-
-      var ordinance_data = {
-         'locality': data.locality,
-         'city': data.city,
-         'hour': date.getHours(),
-         'day': date.getDate(),
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name' : CONSTANTS.monthNames[date.getMonth()],
-         'year' : date.getFullYear(),
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-         'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + minutes,
-         'place': data.place,
-         'cause': data.cause,
-         'name': data.name,
-         'dni': data.dni,
-         'residency': data.residency,
-         'elements': data.elements
-      }
+      var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
   
       this.carboneWriter(CONSTANTS.path_to_botellon_template, writeName, ordinance_data);
 
    }
 
    writeNoiseResidencyOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
+      var writeName = CONSTANTS.path_to_home_noise_folder + this.appendTimeStampToFile();
 
-      var writeName = CONSTANTS.path_to_home_noise_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-
-      var ordinance_data = {
-         'locality': data.locality,
-         'city': data.city,
-         'hour': date.getHours(),
-         'day': date.getDate(),
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': CONSTANTS.monthNames[date.getMonth()],
-         'year': date.getFullYear(),
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-         'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + minutes,
-         'place_type': data.place_type,
-         'place': data.place,
-         'owner_dni': data.owner_dni,
-         'owner_name': data.owner_dni,
-         'cause': data.cause,
-         'cause_place': data.cause_place,
-         'name': data.name,
-         'responsable_name': data.responsable_name,
-         'responsable_dni': data.responsable_dni,
-         'responsable_residency': data.responsable_residency,
-         'article': data.article
-      }
+      var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
   
       this.carboneWriter(CONSTANTS.path_to_home_noise_template, writeName, ordinance_data);
    }
 
    writeNoiseEstablishmentOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
-
-      var writeName = CONSTANTS.path_to_establishment_noise_folder+ date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-      var ordinance_data = {
-         'locality': data.locality,
-         'city': data.city,
-         'hour': date.getHours(),
-         'day': date.getDate(),
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': CONSTANTS.monthNames[date.getMonth()],
-         'year': date.getFullYear(),
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-         'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + minutes,
-         'place_type': data.place_type,
-         'place': data.place,
-         'owner_dni': data.owner_dni,
-         'owner_name': data.owner_dni,
-         'cause': data.cause,
-         'cause_place': data.cause_place,
-         'establishment_place': data.establishment_place,
-         'establishment_name': data.establishment_name,
-         'establishment_activity': data.establishment_activity,
-         'name': data.name,
-         'responsable_name': data.responsable_name,
-         'responsable_dni': data.responsable_dni,
-         'responsable_residency': data.responsable_residency,
-         'article': data.article
-      }
-  
+      var writeName = CONSTANTS.path_to_establishment_noise_folder + this.appendTimeStampToFile();
+         
+      var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
       this.carboneWriter(CONSTANTS.path_to_establishment_noise_template, writeName, ordinance_data);
 
    }
 
    writeNoiseMeasurementOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
+      var writeName = CONSTANTS.path_to_noise_measurement_folder + this.appendTimeStampToFile();
 
-      var writeName = CONSTANTS.path_to_noise_measurement_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-
-      var ordinance_data = {
-         'locality': data.locality,
-         'city': data.city,
-         'hour': date.getHours(),
-         'day': date.getDate(),
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'month_name': CONSTANTS.monthNames[date.getMonth()],
-         'year': date.getFullYear(),
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-         'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + minutes,
-         'place_type': data.place_type,
-         'place': data.place,
-         'dni': data.dni,
-         'name': data.name,
-         'cause': data.cause,
-         'establishment_place': data.establishment_place,
-         'establishment_name': data.establishment_name,
-         'establishment_activity': data.establishment_activity,
-         'sonometer_brand': data.sonometer_brand,
-         'sonometer_model': data.sonometer_model,
-         'sonometer_serial_number': data.sonometer_serial_number,
-         'medition_spot': data.metition_spot,
-         'db_measured': data.db_measured,
-         'db_exceeds': data.db_exceeds,
-         'db_maximum': data.db_maximum,
-         'minutes': data.minutes,
-         'article': data.article
-      }
+      var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
   
       this.carboneWriter(CONSTANTS.path_to_noise_measurement_template, writeName, ordinance_data);
    }
 
    writeBuildingInspectionOrdinance(data){
-      console.log(data);
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
-
-      var writeName = CONSTANTS.path_to_building_inspection_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-
-      var ordinance_data = {
-         'place': data.place,
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'time': date.getHours() + ':' + minutes,
-         'manager_name': data.manager_name,
-         'manager_dni': data.manager_dni,
-         'manager_type': data.manager_type,
-         'owner_name': data.owner_name,
-         'owner_dni': data.owner_dni,
-         'owner_residency': data.owner_residency,
-         'work_name': data.work_name,
-         'work_company': data.work_company,
-         'work_dni': data.work_dni,
-         'work_residency': data.work_residency,
-         'work_phone': data.work_phone,
-         'license_number': data.license_number,
-         'minor_work': data.minor_work,
-         'public_ocupation': data.public_ocupation,
-         'work_containers': data.work_containers,
-         'others': data.others,
-         'work_type': data.work_type,
-         'work_detailed': data.work_detailed,
-         'local_for': data.local_for,
-         'acta': data.acta,
-         'day': date.getDate(),
-         'month': (date.getMonth() + 1),
-         'month_name': CONSTANTS.monthNames[date.getMonth()],
-         'year': date.getFullYear(),
-         'pl1': data.pl1,
-         'pl2': data.pl2
-      }
+      var writeName = CONSTANTS.path_to_building_inspection_folder + this.appendTimeStampToFile();
+      
+      var ordinance_data = {};
+      ordinance_data = this.createJSON(data);
 
       this.carboneWriter(CONSTANTS.path_to_building_inspection_template, writeName, ordinance_data);
    }
 
    writeWasteOrdinance(data){
-      var date = new Date();
-      var minutes = this.getMinutesWithFormat();
+      var writeName = CONSTANTS.path_to_waste_inspection_folder + this.appendTimeStampToFile();
 
-      var writeName = CONSTANTS.path_to_waste_inspection_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
-         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
-      var ordinance_data = {
-         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
-         'time': date.getHours() + ':' + minutes,
-         'place': data.place,
-         'name': data.name,
-         'dni': data.dni,
-         'residency': data.residency,
-         'phone': data.phone,
-         'other_liquid_desc': data.other_liquid_desc,
-         'other_solid_desc': data.other_solid_desc,
-         'cause': data.cause,
-         'observations': data.observations,
-         'allegations': data.allegations,
-         'pl1': data.pl1,
-         'pl2': data.pl2,
-      }
+      ordinance_data = this.createJSON(data);
+
       var i;
       for (i in data.solids_checkbox) {
-         console.log(data.solids_checkbox[i]);
          ordinance_data[data.solids_checkbox[i]] = 'X';
       }
       for (i in data.liquids_checkbox) {
-         console.log(data.liquids_checkbox[i]);
          ordinance_data[data.liquids_checkbox[i]] = 'X';
       }
-      
 
       this.carboneWriter(CONSTANTS.path_to_waste_inspection_template, writeName, ordinance_data);
    }
