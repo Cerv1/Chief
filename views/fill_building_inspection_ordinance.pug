@@ -5,7 +5,7 @@ block content
 		.row
 			.col-md-6.col-md-offset-3
 				h1.display-4.m-b-2 Acta de inspección de obras
-				form(method='POST' action='/new_botellon_ordinance')
+				form(method='POST' action='/new_building_inspection_ordinance')
 				
 					div.form-group.col-md-12
 						h3 Lugar
@@ -39,8 +39,8 @@ block content
 							input.form-control(type='text' id='owner_dni' placeholder='DNI' name='owner_dni', required)
 
 						div.form-group.col-md-12
-							label(for='residency') Residencia
-							input.form-control(type='text' id='residency' placeholder='Residencia' name='residency', required)
+							label(for='owner_residency') Residencia
+							input.form-control(type='text' id='owner_residency' placeholder='Residencia' name='owner_residency', required)
 
 					div.form-group.col-md-12
 						h3 Encargado de las obras
@@ -49,8 +49,8 @@ block content
 							input.form-control(type='text' id='work_name' placeholder='Nombre' name='work_name', required)
 						
 						div.form-group.col-md-4
-							label(for='work_dni') DNI
-							input.form-control(type='text' id='work_dni' placeholder='DNI' name='work_dni', required)
+							label(for='work_dni') DNI / CIF
+							input.form-control(type='text' id='work_dni' placeholder='DNI / CIF' name='work_dni', required)
 
 						div.form-group.col-md-12
 							label(for='work_company') Nombre de la empresa
@@ -67,30 +67,10 @@ block content
 					div.form-group.col-md-12
 						h3 Licencias
 						div.form-group.col-md-8
-							label(for='work_name') Número de licencia
-							input.form-control(type='text' id='work_name' placeholder='Nombre' name='work_name', required)
+							label(for='license_number') Número de licencia
+							input.form-control(type='text' id='license_number' placeholder='Nombre' name='license_number', required)
 						
 						div.form-group.col-md-12
-							label.checkbox-label Obras / Instalación: 
-							.radio
-								label
-								input(type="radio", name="work_instalation", value="Si", checked)
-								| Si
-							.radio
-								label
-								input(type="radio", name="work_instalation", value="No")
-								| No
-							
-							label.checkbox-label Presenta licencia: 
-							.radio
-								label
-								input(type="radio", name="has_license", value="Si", checked)
-								| Si
-							.radio
-								label
-								input(type="radio", name="has_license", value="No")
-								| No
-
 							label.checkbox-label De obras menores:
 							.radio
 								label
@@ -129,8 +109,8 @@ block content
 							input.form-control(type='text' id='work_type' placeholder='Tipo de obra autorizada' name='work_type', required)
 						
 						div.form-group.col-md-12
-							label(for='work_deteailed') Obras realizadas:
-							input.form-control(type='text' id='work_deteailed' placeholder='tipo de obra realizada' name='work_deteailed', required)
+							label(for='work_detailed') Obras realizadas:
+							input.form-control(type='text' id='work_detailed' placeholder='Tipo de obra realizada' name='work_detailed', required)
 						
 						div.form-group.col-md-7
 							label(for='local_for') Local destinado a uso:

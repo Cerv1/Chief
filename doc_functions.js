@@ -371,42 +371,46 @@ class Doc {
    }
 
    writeBuildingInspectionOrdinance(data){
+      console.log(data);
       var date = new Date();
       var minutes = this.getMinutesWithFormat();
 
-      var writeName = this.route_to_save_ordinance +'Ruidos/Ruidos_Medicion/' + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+      var writeName = CONSTANTS.path_to_building_inspection_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
          + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+
       var ordinance_data = {
-         'locality': data.locality,
-         'city': data.city,
-         'hour': date.getHours(),
-         'day': date.getDate(),
+         'place': data.place,
          'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'time': date.getHours() + ':' + minutes,
+         'manager_name': data.manager_name,
+         'manager_dni': data.manager_dni,
+         'manager_type': data.manager_type,
+         'owner_name': data.owner_name,
+         'owner_dni': data.owner_dni,
+         'owner_residency': data.owner_residency,
+         'work_name': data.work_name,
+         'work_company': data.work_company,
+         'work_dni': data.work_dni,
+         'work_residency': data.work_residency,
+         'work_phone': data.work_phone,
+         'license_number': data.license_number,
+         'minor_work': data.minor_work,
+         'public_ocupation': data.public_ocupation,
+         'work_containers': data.work_containers,
+         'others': data.others,
+         'work_type': data.work_type,
+         'work_detailed': data.work_detailed,
+         'local_for': data.local_for,
+         'acta': data.acta,
+         'day': date.getDate(),
+         'month': (date.getMonth() + 1),
          'month_name': CONSTANTS.monthNames[date.getMonth()],
          'year': date.getFullYear(),
          'pl1': data.pl1,
-         'pl2': data.pl2,
-         'incident_number': data.incident_number,
-         'time': date.getHours() + ':' + minutes,
-         'place_type': data.place_type,
-         'place': data.place,
-         'dni': data.dni,
-         'name': data.name,
-         'cause': data.cause,
-         'establishment_place': data.establishment_place,
-         'establishment_name': data.establishment_name,
-         'establishment_activity': data.establishment_activity,
-         'sonometer_brand': data.sonometer_brand,
-         'sonometer_model': data.sonometer_model,
-         'sonometer_serial_number': data.sonometer_serial_number,
-         'medition_spot': data.sonometer_serial_number,
-         'db_measured': data.db_measured,
-         'db_exceeds': data.db_exceeds,
-         'db_maximum': data.db_maximum,
-         'minutes': data.minutes,
-         'article': data.article
+         'pl2': data.pl2
       }
-  
+
+      this.carboneWriter(CONSTANTS.path_to_building_inspection_template, writeName, ordinance_data);
    }
    
 }

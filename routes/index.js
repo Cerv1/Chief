@@ -189,7 +189,7 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_building_inspection_ordinance', function (req, res) {
-		doc.writeNoiseMeasurementOrdinance(req.body);
+		doc.writeBuildingInspectionOrdinance(req.body);
 		res.redirect('home');
 	});
 
