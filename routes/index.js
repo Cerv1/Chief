@@ -193,6 +193,15 @@ module.exports = function(passport){
 		res.redirect('home');
 	});
 
+	router.get('/fill_waste_ordinance', isAuthenticated, function (req, res) {
+		res.render('fill_waste_ordinance', { user: req.user });
+	});
+
+	router.post('/new_waste_ordinance', function (req, res) {
+		doc.writeWasteOrdinance(req.body);
+		res.redirect('home');
+	});
+
 	return router;
 }
 

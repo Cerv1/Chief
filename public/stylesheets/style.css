@@ -155,7 +155,7 @@ ul.user-details{
     overflow: auto;
 }
 
-#desc_6{
+#desc_6, #other_liquid_desc, #other_solid_desc{
     display: none;
 }
 

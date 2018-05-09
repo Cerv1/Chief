@@ -412,6 +412,42 @@ class Doc {
 
       this.carboneWriter(CONSTANTS.path_to_building_inspection_template, writeName, ordinance_data);
    }
+
+   writeWasteOrdinance(data){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+
+      var writeName = CONSTANTS.path_to_waste_inspection_folder + date.getDate() + '-' + (date.getMonth() + 1) + '-'
+         + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+      var ordinance_data = {
+         'date': date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear(),
+         'time': date.getHours() + ':' + minutes,
+         'place': data.place,
+         'name': data.name,
+         'dni': data.dni,
+         'residency': data.residency,
+         'phone': data.phone,
+         'other_liquid_desc': data.other_liquid_desc,
+         'other_solid_desc': data.other_solid_desc,
+         'cause': data.cause,
+         'observations': data.observations,
+         'allegations': data.allegations,
+         'pl1': data.pl1,
+         'pl2': data.pl2,
+      }
+      var i;
+      for (i in data.solids_checkbox) {
+         console.log(data.solids_checkbox[i]);
+         ordinance_data[data.solids_checkbox[i]] = 'X';
+      }
+      for (i in data.liquids_checkbox) {
+         console.log(data.liquids_checkbox[i]);
+         ordinance_data[data.liquids_checkbox[i]] = 'X';
+      }
+      
+
+      this.carboneWriter(CONSTANTS.path_to_waste_inspection_template, writeName, ordinance_data);
+   }
    
 }
 

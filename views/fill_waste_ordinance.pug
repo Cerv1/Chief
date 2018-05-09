@@ -1,0 +1,135 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-7.col-md-offset-2
+				h1.display-4.m-b-2 Acta de hallazgo de residuos
+				form(method='POST' action='/new_waste_ordinance')
+				
+					div.form-group.col-md-12
+						h3 Lugar
+						div.form-group.col-md-12
+							label(for='place') Lugar del hallazgo
+							input.form-control(type='text' id='place' placeholder='Dirección del hallazgo' name='place', required)
+						
+
+					div.form-group.col-md-12
+						h3 Datos del denunciado
+						div.form-group.col-md-8
+							label(for='name') Nombre
+							input.form-control(type='text' id='name' placeholder='Nombre' name='name', required)
+						
+						div.form-group.col-md-4
+							label(for='dni') DNI
+							input.form-control(type='text' id='dni' placeholder='DNI' name='dni', required)
+						
+						div.form-group.col-md-8
+							label(for='residency') Residencia
+							input.form-control(type='text' id='residency' placeholder='Residencia' name='residency', required)
+
+						div.form-group.col-md-4
+							label(for='phone') Teléfono
+							input.form-control(type='text' id='phone' placeholder='Teléfono' name='phone', required)
+
+					div.form-group.col-md-4
+						h3 Líquidos
+
+						div.form-group.col-md-12
+						.checkbox
+							label
+							input(type="checkbox", name="liquids_checkbox", value="oil")
+							| Aceite
+						.checkbox
+							label
+							input(type="checkbox", name="liquids_checkbox", value="gasoline")
+							| Gasolina
+						.checkbox
+							label
+							input(type="checkbox", name="liquids_checkbox", value="diesel")
+							| Gasóleo
+						.checkbox
+							label
+							input(type="checkbox", name="liquids_checkbox", value="solvents")
+							| Disolventes
+						.checkbox
+							label
+							input(type="checkbox", id="other_infraction_liquid", name="liquids_checkbox", value="", onclick="hideShowOther();")
+							| Otros 
+							input.form-control(type='text' id='other_liquid_desc' placeholder='Otra infracción' name='other_liquid_desc')
+						
+					div.form-group.col-md-8
+						h3 Sólidos
+						div.form-group.col-md-12
+						.checkbox
+							label
+							input(type="checkbox", name="solids_checkbox", value="construction_waste")
+							| Residuos procedentes de obras
+						.checkbox
+							label
+							input(type="checkbox", name="solids_checkbox", value="garbage_waste")
+							| Residuos procedentes de basuras
+						.checkbox
+							label
+							input(type="checkbox", name="solids_checkbox", value="vehicle_1_month")
+							| Vehículo estacionado más de un mes en el mismo lugar
+						.checkbox
+							label
+							input(type="checkbox", name="solids_checkbox", value="broken_vehicle")
+							| Con desperfectos que impiden desplazarse
+						.checkbox
+							label
+							input(type="checkbox", name="solids_checkbox", value="no_registration")
+							| Sin placas de matrícula
+						.checkbox
+							label
+							input(type="checkbox", id="other_infraction_solid", name="solids_checkbox", value="", onclick="hideShowOther();")
+							| Otros 
+							input.form-control(type='text' id='other_solid_desc' placeholder='Otra infracción' name='other_solid_desc')
+
+					div.form-group.col-md-12
+						h3 Hechos y observaciones
+						div.form-group.col-md-12
+							label(for='cause') Hecho
+							textarea.form-control(type='text' rows="3" id='cause' placeholder='Hechos observados ' name='cause', required)
+						div.form-group.col-md-12
+							label(for='observations') Observaciones
+							textarea.form-control(type='text' rows="3" id='observations' placeholder='Hecho' name='observations')
+
+					div.form-group.col-md-12
+						h3 Alegaciones
+						div.form-group.col-md-12
+							label(for='allegations') Alegaciones
+							textarea.form-control(type='text' rows="3" id='allegations' placeholder='Alegaciones' name='allegations', required)
+							
+					div.form-group.col-md-12
+						h3 Policías 
+
+						div.form-group.col-md-6
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='Policía 1' name='pl1', required)
+						
+						div.form-group.col-md-6
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='Policía 2' name='pl2')
+
+				
+					button.btn.btn-primary.btn-block(type='submit') Añadir
+
+	script.
+		function hideShowOther(){
+
+			if(document.getElementById('other_infraction_liquid').checked){
+				document.getElementById('other_liquid_desc').style.display = 'block';
+			}
+			else{
+				document.getElementById('other_liquid_desc').style.display = 'none';
+			}
+
+			if(document.getElementById('other_infraction_solid').checked){
+				document.getElementById('other_solid_desc').style.display = 'block';
+			}
+			else{
+				document.getElementById('other_solid_desc').style.display = 'none';
+			}
+		}
