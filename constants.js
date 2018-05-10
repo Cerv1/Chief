@@ -10,6 +10,8 @@ const CONSTANTS = {
    'path_to_noise_measurement_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/',
    'path_to_building_inspection_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Obras/',
    'path_to_waste_inspection_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Residuos/',
+   'path_to_accident_2_vehicles_folder': '/home/cervi/ChiefTemplates/Accidentes/2_Vehiculos/',
+   'path_to_accident_3_vehicles_folder': '/home/cervi/ChiefTemplates/Accidentes/3_Vehiculos/',
 
    'path_to_incident_template': '/home/cervi/ChiefTemplates/Incidentes/incident_template.odt',
    'path_to_new_turn_template': '/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt',
@@ -21,6 +23,8 @@ const CONSTANTS = {
    'path_to_noise_measurement_template': '/home/cervi/ChiefTemplates/Ordenanzas/Ruidos/Ruidos_Medicion/acta_medicion_ruidos.odt',
    'path_to_building_inspection_template': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Obras/acta_denuncia_obras.odt',
    'path_to_waste_inspection_template': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Residuos/acta_residuos.odt',
+   'path_to_accident_2_vehicles_template': '/home/cervi/ChiefTemplates/Accidentes/2_Vehiculos/accidente_2_veh.odt',
+   'path_to_accident_3_vehicles_template': '/home/cervi/ChiefTemplates/Accidentes/3_Vehiculos/accidente_3_veh.odt',
 }
 
 module.exports = CONSTANTS;
