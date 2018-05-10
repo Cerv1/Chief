@@ -6,6 +6,7 @@ var Incident = require('./models/incident');
 const CONSTANTS = require('./constants');
 
 class Doc {
+<<<<<<< HEAD
 	constructor() {
 		this.morning = true;
 		this.evening = false;
@@ -70,6 +71,68 @@ class Doc {
 
 		// -----------------------------------------------------------------------
 		// -------------------------- INCIDENTS METHODS --------------------------
+=======
+   constructor() {
+      this.morning = true;
+      this.evening = false;
+      this.night = false;
+   }
+
+   getMinutesWithFormat(){
+      var date = new Date();
+      var minutes;
+      if (date.getMinutes() < 10) {
+         minutes = '0' + date.getMinutes();
+      }
+      else {
+         minutes = date.getMinutes();
+      }
+      return minutes;
+   }
+
+   carboneWriter(template_path, path_to_save, data){
+      carbone.render(template_path, data, function (err, result) {
+         if (err) {
+            return console.log(err);
+         }
+         // write the result
+         fs.writeFileSync(path_to_save, result);
+      });
+   }
+
+   
+   appendTimeStampsToJSON(data){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+      data['day'] = date.getDate();
+      data['month'] = date.getMonth();
+      data['mont_name'] = CONSTANTS.monthNames[date.getMonth()];
+      data['year'] = date.getFullYear();
+      data['hours'] = date.getHours();
+      data['minutes'] = date.getMinutes();
+      data['date'] = date.getDate() + ' / ' + (date.getMonth() + 1) + ' / ' + date.getFullYear();
+      data['time'] = date.getHours() + ':' + minutes;
+      return data;
+   }
+
+   appendTimeStampToFile(){
+      var date = new Date();
+      var minutes = this.getMinutesWithFormat();
+      return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear() + '_' + date.getHours() + ':' + minutes + '.odt';
+   }
+
+   createJSON(data){
+      var json_data = {};
+      var i;
+      for (i in data) {
+         json_data[i] = data[i];
+      }
+      this.appendTimeStampsToJSON(json_data);
+      return json_data;
+   }
+   
+
+>>>>>>> 0ac6b4e8e58e79dedfbee5c305779c2affc1d63b
 	// -----------------------------------------------------------------------
 	
 	writeBeginTurn(data){
