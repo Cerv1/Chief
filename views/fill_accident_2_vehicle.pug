@@ -1,0 +1,319 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-7.col-md-offset-2
+				h1.display-4.m-b-2 Accidente con 2 vehículos
+				form(method='POST' action='/new_accident_2_vehicle')
+				
+					div.form-group.col-md-12
+						h3 Datos generales
+						div.form-group.col-md-3
+							label(for='time_accident') Hora
+							input.form-control(type='time' id='time_accident' name='time_accident')
+
+						div.form-group.col-md-3
+							label(for='incident_number') Nº Telefonema
+							input.form-control(type='text' id='incident_number' placeholder='Número' name='incident_number')
+
+						div.form-group.col-md-3
+							label(for='pl1') Policía 1
+							input.form-control(type='text' id='pl1' placeholder='N.I.P' name='pl1')
+
+						div.form-group.col-md-3
+							label(for='pl2') Policía 2
+							input.form-control(type='text' id='pl2' placeholder='N.I.P' name='pl2')
+
+						div.form-group.col-md-12
+							label(for='place') Lugar del accidente
+							input.form-control(type='text' id='place' placeholder='Lugar donde ha ocurrido el accidente' name='place')
+
+					div.form-group.col-md-12
+						h3 Características de la vía
+						div.form-group.col-md-4
+							label(for='paviment') Pavimento
+							input.form-control(type='text' id='paviment' placeholder="Pavimento" name='paviment')
+
+						div.form-group.col-md-4
+							label(for='state') Estado
+							input.form-control(type='text' id='state' placeholder='Estado' name='state')
+
+						div.form-group.col-md-4
+							label(for='lumi_visi') Visibilidad
+							input.form-control(type='text' id='lumi_visi' placeholder='Visibilidad' name='lumi_visi')
+
+					div.form-group.col-md-12
+						h3 Señalización
+						div.form-group.col-md-6
+							.checkbox
+								label
+								input(type="checkbox", name="signaling_checkbox", value="horizontal")
+								| Horizontal
+							.checkbox
+								label
+								input(type="checkbox", name="signaling_checkbox", value="vertical")
+								| Vertical
+						div.form-group.col-md-6
+							.checkbox
+								label
+								input(type="checkbox", name="signaling_checkbox", value="traffic_light")
+								| Semafórica
+							.checkbox
+								label
+								input(type="checkbox", name="signaling_checkbox", value="agent")
+								| Agente
+
+
+
+					div.form-group.col-md-12
+						h3 Vehículo A
+						div.form-group.col-md-8
+							label(for='A_brand') Marca y modelo
+							input.form-control(type='text' id='A_brand' placeholder='Marca y modelo del vehículo' name='A_brand')
+						
+						div.form-group.col-md-4
+							label(for='A_registration') Matrícula
+							input.form-control(type='text' id='A_registration' placeholder='Matrícula' name='A_registration')
+
+						div.form-group.col-md-8
+							label(for='A_name') Nombre conductor
+							input.form-control(type='text' id='A_name' placeholder='Nombre del conductor' name='A_name')
+						
+						div.form-group.col-md-4
+							label(for='A_dni') DNI conductor
+							input.form-control(type='text' id='A_dni' placeholder='DNI del conductor' name='A_dni')
+
+						div.form-group.col-md-4
+							label(for='A_birth_locality') Nacido en
+							input.form-control(type='text' id='A_birth_locality' placeholder='Localidad' name='A_birth_locality')
+						
+						div.form-group.col-md-3
+							label(for='A_birth_city') &nbsp
+							input.form-control(type='text' id='A_birth_city' placeholder='Ciudad' name='A_birth_city')
+						
+						div.form-group.col-md-5
+							label(for='A_birth') Fecha
+							input.form-control(type='date' id='A_birth' name='A_birth')
+
+						div.form-group.col-md-6
+							label(for='A_father') Nombre del padre
+							input.form-control(type='text' id='A_father' placeholder='Nombre del padre' name='A_father')
+
+						div.form-group.col-md-6
+							label(for='A_mother') Nombre de la madre
+							input.form-control(type='text' id='A_mother' placeholder='Nombre de la madre' name='A_mother')
+
+						div.form-group.col-md-5
+							label(for='A_residency') Domicilio
+							input.form-control(type='text' id='A_residency' placeholder="Domicilio actual" name='A_residency')
+
+						div.form-group.col-md-4
+							label(for='A_locality') Localidad
+							input.form-control(type='text' id='A_locality' placeholder='Localidad' name='A_locality')
+						
+						div.form-group.col-md-3
+							label(for='A_province') Provincia
+							input.form-control(type='text' id='A_province' placeholder='Provincia' name='A_province')
+						
+						div.form-group.col-md-6
+							label(for='A_driver_license_expedition') Expedido
+							input.form-control(type='date' id='A_driver_license_expedition' placeholder='Expedido' name='A_driver_license_expedition')
+
+						div.form-group.col-md-6
+							label(for='A_driver_license_is_valid_to') Valido hasta
+							input.form-control(type='date' id='A_driver_license_is_valid_to' placeholder='Valido hasta' name='A_driver_license_is_valid_to')
+						
+						div.form-group.col-md-6
+							label(for='A_insurance_company') Compañía de seguros
+							input.form-control(type='text' id='A_insurance_company' placeholder='Compañía de seguros' name='A_insurance_company')
+
+						div.form-group.col-md-6
+							label(for='A_insurance_number') Número de póliza
+							input.form-control(type='text' id='A_insurance_number' placeholder='Número de póliza' name='A_insurance_number')
+
+						div.form-group.col-md-7
+							label(for='A_policyholder') Tomador del seguro
+							input.form-control(type='text' id='A_policyholder' placeholder='Tomar del seguro' name='A_policyholder')
+						
+						div.form-group.col-md-5
+							label(for='A_insurance_is_valid_to') Valida hasta
+							input.form-control(type='date' id='A_insurance_is_valid_to' placeholder='Expedido' name='A_insurance_is_valid_to')
+					
+						div.form-group.col-md-7
+							label(for='A_vehicle_expedition_place') Permiso de circulación expedido en
+							input.form-control(type='text' id='A_vehicle_expedition_place' placeholder='Permiso de circulación expedido en' name='A_vehicle_expedition_place')
+						
+						div.form-group.col-md-5
+							label(for='A_vehicle_expedition_date') Fecha expedición
+							input.form-control(type='date' id='A_vehicle_expedition_date' placeholder='Fecha expedición' name='A_vehicle_expedition_date')
+						
+						div.form-group.col-md-7
+							label(for='A_owner') Propietario del vehículo
+							input.form-control(type='text' id='A_owner' placeholder='Propietario del vehículo' name='A_owner')
+
+						div.form-group.col-md-5
+							label(for='A_registration_date') Matriculado el
+							input.form-control(type='date' id='A_registration_date' name='A_registration_date')
+						
+						div.form-group.col-md-12
+							label(for='A_ITV') I.T.V
+							input.form-control(type='text' id='A_ITV' placeholder='Número de inspección técnica del vehículo' name='A_ITV')
+					
+					div.form-group.col-md-12
+						h3 Vehículo B
+						div.form-group.col-md-8
+							label(for='B_brand') Marca y modelo
+							input.form-control(type='text' id='B_brand' placeholder='Marca y modelo del vehículo' name='B_brand')
+						
+						div.form-group.col-md-4
+							label(for='B_registration') Matrícula
+							input.form-control(type='text' id='B_registration' placeholder='Matrícula' name='B_registration')
+
+						div.form-group.col-md-8
+							label(for='B_name') Nombre conductor
+							input.form-control(type='text' id='B_name' placeholder='Nombre del conductor' name='B_name')
+						
+						div.form-group.col-md-4
+							label(for='B_dni') DNI conductor
+							input.form-control(type='text' id='B_dni' placeholder='DNI del conductor' name='B_dni')
+
+						div.form-group.col-md-4
+							label(for='B_birth_locality') Nacido en
+							input.form-control(type='text' id='B_birth_locality' placeholder='Localidad' name='B_birth_locality')
+						
+						div.form-group.col-md-3
+							label(for='B_birth_city') &nbsp
+							input.form-control(type='text' id='B_birth_city' placeholder='Ciudad' name='B_birth_city')
+						
+						div.form-group.col-md-5
+							label(for='B_birth') Fecha
+							input.form-control(type='date' id='B_birth' name='B_birth')
+
+						div.form-group.col-md-6
+							label(for='B_father') Nombre del padre
+							input.form-control(type='text' id='B_father' placeholder='Nombre del padre' name='B_father')
+
+						div.form-group.col-md-6
+							label(for='B_mother') Nombre de la madre
+							input.form-control(type='text' id='B_mother' placeholder='Nombre de la madre' name='B_mother')
+
+						div.form-group.col-md-5
+							label(for='B_residency') Domicilio
+							input.form-control(type='text' id='B_residency' placeholder="Domicilio actual" name='B_residency')
+
+						div.form-group.col-md-4
+							label(for='B_locality') Localidad
+							input.form-control(type='text' id='B_locality' placeholder='Localidad' name='B_locality')
+						
+						div.form-group.col-md-3
+							label(for='B_province') Provincia
+							input.form-control(type='text' id='B_province' placeholder='Provincia' name='B_province')
+						
+						div.form-group.col-md-6
+							label(for='B_driver_license_expedition') Expedido
+							input.form-control(type='date' id='B_driver_license_expedition' placeholder='Expedido' name='B_driver_license_expedition')
+
+						div.form-group.col-md-6
+							label(for='B_driver_license_is_valid_to') Valido hasta
+							input.form-control(type='date' id='B_driver_license_is_valid_to' placeholder='Valido hasta' name='B_driver_license_is_valid_to')
+						
+						div.form-group.col-md-6
+							label(for='B_insurance_company') Compañía de seguros
+							input.form-control(type='text' id='B_insurance_company' placeholder='Compañía de seguros' name='B_insurance_company')
+
+						div.form-group.col-md-6
+							label(for='B_insurance_number') Número de póliza
+							input.form-control(type='text' id='B_insurance_number' placeholder='Número de póliza' name='B_insurance_number')
+
+						div.form-group.col-md-7
+							label(for='B_policyholder') Tomador del seguro
+							input.form-control(type='text' id='B_policyholder' placeholder='Tomar del seguro' name='B_policyholder')
+						
+						div.form-group.col-md-5
+							label(for='B_insurance_is_valid_to') Valida hasta
+							input.form-control(type='date' id='B_insurance_is_valid_to' placeholder='Expedido' name='B_insurance_is_valid_to')
+					
+						div.form-group.col-md-7
+							label(for='B_vehicle_expedition_place') Permiso de circulación expedido en
+							input.form-control(type='text' id='B_vehicle_expedition_place' placeholder='Permiso de circulación expedido en' name='B_vehicle_expedition_place')
+						
+						div.form-group.col-md-5
+							label(for='B_vehicle_expedition_date') Fecha expedición
+							input.form-control(type='date' id='B_vehicle_expedition_date' placeholder='Fecha expedición' name='B_vehicle_expedition_date')
+						
+						div.form-group.col-md-7
+							label(for='B_owner') Propietario del vehículo
+							input.form-control(type='text' id='B_owner' placeholder='Propietario del vehículo' name='B_owner')
+
+						div.form-group.col-md-5
+							label(for='B_registration_date') Matriculado el
+							input.form-control(type='date' id='B_registration_date' name='B_registration_date')
+						
+						div.form-group.col-md-12
+							label(for='B_ITV') I.T.V
+							input.form-control(type='text' id='B_ITV' placeholder='Número de inspección técnica del vehículo' name='B_ITV')
+
+
+					div.form-group.col-md-12
+						h3 Identificación daños en vivienda
+						div.form-group.col-md-12
+							textarea.form-control(type='text' rows='3' id='home_damage' placeholder='Identificación de daños en vivienda' name='home_damage')
+
+					div.form-group.col-md-12
+						h3 Heridos
+						div.form-group.col-md-12
+							div.form-group.col-md-6
+								label(for='injured_names') Nombre 
+								input.form-control(type='text' placeholder='Vehículo del herido' name='injured_names')
+
+							div.form-group.col-md-6
+								label(for='injured_residency') Dirección
+								input.form-control(type='text' placeholder='Lugar de residencia' name='injured_residency')
+
+							div.form-group.col-md-4
+								label(for='injured_vehicle') Vehículo 
+								input.form-control(type='text' placeholder='Nombre del herido' name='injured_vehicle')
+							
+							div.form-group.col-md-4
+								label(for='injured_assisted') Asistido 
+								input.form-control(type='text' placeholder='Asistido ' name='injured_assisted')
+							
+							div.form-group.col-md-4
+								label(for='injured_registered') Registro 
+								input.form-control(type='text' placeholder='Registro' name='injured_registered')
+					
+						div.form-group.col-md-12#button_add_injured
+
+						button.btn.btn-primary.btn-block(type='button' onclick='add_injured();') Añadir herido
+
+					div.form-group.col-md-12
+						h3 Daños en vehículos
+						div.form-group.col-md-12
+							label(for='A_damages') Vehículo A
+							textarea.form-control(type='text' rows='3' id='A_damages' placeholder='Identificación de daños en vehículo A' name='A_damages')
+						div.form-group.col-md-12
+							label(for='B_damages') Vehículo B
+							textarea.form-control(type='text' rows='3' id='B_damages' placeholder='Identificación de daños en vehículo B' name='B_damages')
+
+					div.form-group.col-md-12
+						h3 Manifestación de implicados
+						div.form-group.col-md-12
+							label(for='A_manifestation') Manifestación del conductor del vehículo A
+							textarea.form-control(type='text' rows='3' id='A_manifestation' placeholder='Manifestación del conductor del vehículo A' name='A_manifestation')
+						
+						div.form-group.col-md-12
+							label(for='B_manifestation') Manifestación del conductor del vehículo B
+							textarea.form-control(type='text' rows='3' id='B_manifestation' placeholder='Manifestación del conductor del vehículo B' name='B_manifestation')
+						
+						div.form-group.col-md-12
+							label(for='witness_manifestation') Manifestación del testigo
+							textarea.form-control(type='text' rows='3' id='witness_manifestation' placeholder='Manifestación del conductor del vehículo B' name='witness_manifestation')
+	
+
+					button.btn.btn-primary.btn-block(type='submit') Añadir
+	script.
+		function add_injured(){
+			$("#button_add_injured").append("<div class=\"form-group col-md-12\"><div class=\"form-group col-md-6\"><label for=\"injured_names\">Nombre </label><input class=\"form-control\" type=\"text\" placeholder=\"Vehículo del herido\" name=\"injured_names\"></div><div class=\"form-group col-md-6\"><label for=\"injured_residency\">Dirección</label><input class=\"form-control\" type=\"text\" placeholder=\"Lugar de residencia\" name=\"injured_residency\"></div><div class=\"form-group col-md-4\"><label for=\"injured_vehicle\">Vehículo </label><input class=\"form-control\" type=\"text\" placeholder=\"Nombre del herido\" name=\"injured_vehicle\"></div><div class=\"form-group col-md-4\"><label for=\"injured_assisted\">Asistido </label><input class=\"form-control\" type=\"text\" placeholder=\"Asistido \" name=\"injured_assisted\"></div><div class=\"form-group col-md-4\"><label for=\"injured_registered\">Registro </label><input class=\"form-control\" type=\"text\" placeholder=\"Registro\" name=\"injured_registered\"></div></div>");
+			//- $("#button_add_injured").append("<b>Appended text</b>");
+		}
