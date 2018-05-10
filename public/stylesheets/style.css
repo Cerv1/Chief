@@ -162,3 +162,8 @@ ul.user-details{
 textarea {
     resize: none;
 }
+
+#button_add_injured{
+    margin: 0px;
+    padding: 0px;
+}
