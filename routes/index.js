@@ -202,6 +202,31 @@ module.exports = function(passport){
 		res.redirect('home');
 	});
 
+	// -----------------------------------------------------------------------
+	// -------------------------- ACCIDENTS ROUTES ---------------------------
+	// -----------------------------------------------------------------------
+
+	router.get('/home_accidents', isAuthenticated, function (req, res) {
+		res.render('home_accidents', { user: req.user });
+	});
+
+	router.get('/fill_accident_2_vehicle', isAuthenticated, function (req, res) {
+		res.render('fill_accident_2_vehicle', { user: req.user });
+	});
+
+	router.get('/fill_accident_3_vehicle', isAuthenticated, function (req, res) {
+		res.render('fill_accident_3_vehicle', { user: req.user });
+	});
+	
+	router.post('/new_accident_2_vehicle', isAuthenticated, function (req, res) {
+		doc.writeAccident2Vehicle(req.body);
+		res.redirect('home');
+	});
+
+	router.post('/new_accident_3_vehicle', isAuthenticated, function (req, res) {
+		doc.writeAccident3Vehicle(req.body);
+		res.redirect('home');
+	});
 	return router;
 }
 
