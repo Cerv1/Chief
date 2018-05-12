@@ -317,8 +317,6 @@ class Doc {
 			accident_data[data.signaling_checkbox[i]] = ' X';
 		}
 
-		console.log(typeof data.injured_names);
-
 		if(typeof data.injured_names == "string"){
 			data_to_fill[0] = {
 				'vehicle': data.injured_vehicle,
@@ -341,16 +339,6 @@ class Doc {
 		}
 
 		accident_data['injured_data'] = data_to_fill;
-
-		// for (i in data.injured_vehicle) {
-		// 	intermediate[i] = {
-		// 		'vehicle': data.injured_vehicle[i]
-		// 	}
-		// }
-
-		// accident_data['injured_vehicle'] = intermediate;
-
-		console.log(accident_data);
 		this.carboneWriter(CONSTANTS.path_to_accident_2_vehicles_template, writeName, accident_data);
 	}
 	
