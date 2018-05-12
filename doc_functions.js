@@ -317,13 +317,26 @@ class Doc {
 			accident_data[data.signaling_checkbox[i]] = ' X';
 		}
 
-		for(i in data.injured_names){
-			data_to_fill[i] = {
-				'vehicle' : data.injured_vehicle[i],
-				'name' : data.injured_names[i],
-				'residency' : data.injured_residency[i],
-				'assisted' : data.injured_assisted[i],
-				'registered' : data.injured_registered[i]
+		console.log(typeof data.injured_names);
+
+		if(typeof data.injured_names == "string"){
+			data_to_fill[0] = {
+				'vehicle': data.injured_vehicle,
+				'name': data.injured_names,
+				'residency': data.injured_residency,
+				'assisted': data.injured_assisted,
+				'registered': data.injured_registered
+			}
+		}
+		else{
+			for(i in data.injured_names){
+				data_to_fill[i] = {
+					'vehicle' : data.injured_vehicle[i],
+					'name' : data.injured_names[i],
+					'residency' : data.injured_residency[i],
+					'assisted' : data.injured_assisted[i],
+					'registered' : data.injured_registered[i]
+				}
 			}
 		}
 
