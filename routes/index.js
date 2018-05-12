@@ -227,6 +227,15 @@ module.exports = function(passport){
 		doc.writeAccident3Vehicle(req.body);
 		res.redirect('home');
 	});
+
+	// -----------------------------------------------------------------------
+	// -------------------------- SKETCH ROUTES ---------------------------
+	// -----------------------------------------------------------------------
+
+	router.get('/home_sketch', isAuthenticated, function (req, res) {
+		res.render('home_sketch', { user: req.user });
+	});
+	
 	return router;
 }
 
