@@ -1,135 +1,193 @@
 extends layout
 
 block content
-  .main.container
-    .row
-      .col-md-12.form_container
-        h1.display-4.m-b-2 Fin del turno
-        form(method='POST' action='/end_turn')
+	.main.container
+		.row
+			.col-md-12.form_container
+				h1.display-4.m-b-2 Fin del turno
+				form(method='POST' action='/end_turn')
 
-            h3 Actuaciones
+						h3 Actuaciones
 
-            div.form-group.col-md-3
-              label(for='various_ord') Ordenanzas varias
-                input.form-control(type='text' id='various_ord' placeholder='0' name='various_ord')
-              
-              label(for='road_incidents') Incidencias viales
-                input.form-control(type='text' id='road_incidents' placeholder='0' name='road_incidents')
-            
-              label(for='various_ord') Informes
-                input.form-control(type='text' id='reports' placeholder='0' name='reports')
-              
-              label(for='road_incidents') Otras
-                input.form-control(type='text' id='others' placeholder='0' name='others')
+						div.form-group.col-md-3
+							label(for='various_ord') Ordenanzas varias
+								input.form-control(type='text' id='various_ord' placeholder='0' name='various_ord')
+							
+							label(for='road_incidents') Incidencias viales
+								input.form-control(type='text' id='road_incidents' placeholder='0' name='road_incidents')
+						
+							label(for='various_ord') Informes
+								input.form-control(type='text' id='reports' placeholder='0' name='reports')
+							
+							label(for='road_incidents') Otras
+								input.form-control(type='text' id='others' placeholder='0' name='others')
 
-            div.form-group.col-md-3
-              label(for='various_ord') Denuncias 4/15
-                input.form-control(type='text' id='denounce_4-15' placeholder='0' name='denounce_4-15')
+						div.form-group.col-md-3
+							label(for='various_ord') Denuncias 4/15
+								input.form-control(type='text' id='denounce_4-15' placeholder='0' name='denounce_4-15')
 
-              label(for='road_incidents') Actas aprehensión
-                input.form-control(type='text' id='appre_rec' placeholder='0' name='appre_rec')
-            
-              label(for='various_ord') Identificaciones
-                input.form-control(type='text' id='identifications' placeholder='0' name='identifications')
-              
-              label(for='road_incidents') Atestados
-                input.form-control(type='text' id='crowded' placeholder='0' name='crowded')
+							label(for='road_incidents') Actas aprehensión
+								input.form-control(type='text' id='appre_rec' placeholder='0' name='appre_rec')
+						
+							label(for='various_ord') Identificaciones
+								input.form-control(type='text' id='identifications' placeholder='0' name='identifications')
+							
+							label(for='road_incidents') Atestados
+								input.form-control(type='text' id='crowded' placeholder='0' name='crowded')
 
-            div.form-group.col-md-3
-              label(for='various_ord') Detenidos
-                input.form-control(type='text' id='arrested' placeholder='0' name='arrested')
-              
-              label(for='road_incidents') Alcoholemias
-                input.form-control(type='text' id='alcoho' placeholder='0' name='alcoho')
-            
-              label(for='various_ord') Comparecencias
-                input.form-control(type='text' id='appearances' placeholder='0' name='appearances')
-              
-              label(for='road_incidents') Gruas
-                input.form-control(type='text' id='cranes' placeholder='0' name='cranes')
+						div.form-group.col-md-3
+							label(for='various_ord') Detenidos
+								input.form-control(type='text' id='arrested' placeholder='0' name='arrested')
+							
+							label(for='road_incidents') Alcoholemias
+								input.form-control(type='text' id='alcoho' placeholder='0' name='alcoho')
+						
+							label(for='various_ord') Comparecencias
+								input.form-control(type='text' id='appearances' placeholder='0' name='appearances')
+							
+							label(for='road_incidents') Gruas
+								input.form-control(type='text' id='cranes' placeholder='0' name='cranes')
 
-            div.form-group.col-md-3
-              label(for='various_ord') Accidente - Parte amistoso
-                input.form-control(type='text' id='friendly_acc' placeholder='0' name='friendly_acc')
-              
-              label(for='road_incidents') Accidente - Con heridos
-                input.form-control(type='text' id='injured_acc' placeholder='0' name='injured_acc')
-            
-              label(for='various_ord') Accidente - Sin heridos
-                input.form-control(type='text' id='no_injured_acc' placeholder='0' name='no_injured_acc')
-              
-              label(for='road_incidents') Otros accidentes
-                input.form-control(type='text' id='others_acc' placeholder='0' name='others_acc')
-            
-            h3 Denuncias
+						div.form-group.col-md-3
+							label(for='various_ord') Accidente - Parte amistoso
+								input.form-control(type='text' id='friendly_acc' placeholder='0' name='friendly_acc')
+							
+							label(for='road_incidents') Accidente - Con heridos
+								input.form-control(type='text' id='injured_acc' placeholder='0' name='injured_acc')
+						
+							label(for='various_ord') Accidente - Sin heridos
+								input.form-control(type='text' id='no_injured_acc' placeholder='0' name='no_injured_acc')
+							
+							label(for='road_incidents') Otros accidentes
+								input.form-control(type='text' id='others_acc' placeholder='0' name='others_acc')
+						
+						h3 Denuncias
 
-            div.column.col-md-2
-              h4 Policía 1
-              div.form-group 
-                label(for='pl1_ord_tr') Ord. Tráfico
-                  input.form-control(type='text' id='pl1_ord_tr' placeholder='0' name='pl1_ord_tr')
-                
-              div.form-group 
-                label(for='pl1_jp_tr') J.P. Tráfico
-                  input.form-control(type='text' id='pl1_jp_tr' placeholder='0' name='pl1_jp_tr')
-            
-            div.column.col-md-2
-              h4 Policía 2
-              div.form-group 
-                label(for='pl2_ord_tr') Ord. Tráfico
-                  input.form-control(type='text' id='pl2_ord_tr' placeholder='0' name='pl2_ord_tr')
-                
-              div.form-group 
-                label(for='pl2_jp_tr') J.P. Tráfico
-                  input.form-control(type='text' id='pl2_jp_tr' placeholder='0' name='pl2_jp_tr')
-            
-            div.column.col-md-2
-              h4 Policía 3
-              div.form-group 
-                label(for='pl3_ord_tr') Ord. Tráfico
-                  input.form-control(type='text' id='pl3_ord_tr' placeholder='0' name='pl3_ord_tr')
-                
-              div.form-group 
-                label(for='pl3_jp_tr') J.P. Tráfico
-                  input.form-control(type='text' id='pl3_jp_tr' placeholder='0' name='pl3_jp_tr')
+						div.column.col-md-2
+							h4 Policía 1
+							div.form-group 
+								label(for='pl1_ord_tr') Ord. Tráfico
+									input.form-control(type='text' id='pl1_ord_tr' placeholder='0' name='pl1_ord_tr')
+								
+							div.form-group 
+								label(for='pl1_jp_tr') J.P. Tráfico
+									input.form-control(type='text' id='pl1_jp_tr' placeholder='0' name='pl1_jp_tr')
+						
+						div.column.col-md-2
+							h4 Policía 2
+							div.form-group 
+								label(for='pl2_ord_tr') Ord. Tráfico
+									input.form-control(type='text' id='pl2_ord_tr' placeholder='0' name='pl2_ord_tr')
+								
+							div.form-group 
+								label(for='pl2_jp_tr') J.P. Tráfico
+									input.form-control(type='text' id='pl2_jp_tr' placeholder='0' name='pl2_jp_tr')
+						
+						div.column.col-md-2
+							h4 Policía 3
+							div.form-group 
+								label(for='pl3_ord_tr') Ord. Tráfico
+									input.form-control(type='text' id='pl3_ord_tr' placeholder='0' name='pl3_ord_tr')
+								
+							div.form-group 
+								label(for='pl3_jp_tr') J.P. Tráfico
+									input.form-control(type='text' id='pl3_jp_tr' placeholder='0' name='pl3_jp_tr')
 
-            div.column.col-md-2
-              h4 Policía 4
-              div.form-group 
-                label(for='pl4_ord_tr') Ord. Tráfico
-                  input.form-control(type='text' id='pl4_ord_tr' placeholder='0' name='pl4_ord_tr')
-                
-              div.form-group 
-                label(for='pl4_jp_tr') J.P. Tráfico
-                  input.form-control(type='text' id='pl4_jp_tr' placeholder='0' name='pl4_jp_tr')
-            div.column.col-md-2
-              h4 Policía 5
-              div.form-group 
-                label(for='pl5_ord_tr') Ord. Tráfico
-                  input.form-control(type='text' id='pl5_ord_tr' placeholder='0' name='pl5_ord_tr')
-                
-              div.form-group 
-                label(for='pl5_jp_tr') J.P. Tráfico
-                  input.form-control(type='text' id='pl5_jp_tr' placeholder='0' name='pl5_jp_tr')
+						div.column.col-md-2
+							h4 Policía 4
+							div.form-group 
+								label(for='pl4_ord_tr') Ord. Tráfico
+									input.form-control(type='text' id='pl4_ord_tr' placeholder='0' name='pl4_ord_tr')
+								
+							div.form-group 
+								label(for='pl4_jp_tr') J.P. Tráfico
+									input.form-control(type='text' id='pl4_jp_tr' placeholder='0' name='pl4_jp_tr')
+						div.column.col-md-2
+							h4 Policía 5
+							div.form-group 
+								label(for='pl5_ord_tr') Ord. Tráfico
+									input.form-control(type='text' id='pl5_ord_tr' placeholder='0' name='pl5_ord_tr')
+								
+							div.form-group 
+								label(for='pl5_jp_tr') J.P. Tráfico
+									input.form-control(type='text' id='pl5_jp_tr' placeholder='0' name='pl5_jp_tr')
 
-            div.col-md-3
-              h3 Telefonemas
-              div.form-group 
-                label(for='catered') Atendidos
-                  input.form-control(type='text' id='catered' placeholder='0' name='catered')
-                
-              div.form-group 
-                label(for='done') Realizados
-                  input.form-control(type='text' id='done' placeholder='0' name='done')
+				
+						div.column.col-md-3
+							h3 Telefonemas
+							div.form-group 
+								label(for='catered') Atendidos
+									input.form-control(type='text' id='catered' placeholder='0' name='catered')
+								
+							div.form-group 
+								label(for='done') Realizados
+									input.form-control(type='text' id='done' placeholder='0' name='done')
 
-            div.col-md-3
-              h3 Vehículos
-              div.form-group 
-                label(for='km_begin') Km inicio
-                  input.form-control(type='text' id='km_begin' placeholder='0' name='km_begin')
-                
-              div.form-group 
-                label(for='km_end') Km fin
-                  input.form-control(type='text' id='km_end' placeholder='0' name='km_end')
-            button.btn.btn-primary.btn-block(type='submit') Añadir
+						div.col-md-2
+							h3 KM Vehículos
+							div.form-group 
+								label(for='km_begin') Km inicio
+									input.form-control(type='text' id='km_begin' placeholder='0' name='km_begin')
+								
+							div.form-group 
+								label(for='km_end') Km fin
+									input.form-control(type='text' id='km_end' placeholder='0' name='km_end')
+
+						div.col-md-2
+							h3 Vehículos
+							div.form-group 
+								label(for='vehicles') Coches
+									input.form-control(type='text' id='vehicles' placeholder='0' name='vehicles')
+								
+							div.form-group 
+								label(for='motorcycles') Motos
+									input.form-control(type='text' id='motorcycles' placeholder='0' name='motorcycles')
+
+						div.col-md-5
+							h3 Orden de servicio
+							textarea.form-control(type='text' rows='6' id='service_order' placeholder='Descripción si procede de la orden de servicio' name='service_order')
+
+						div.form-group.col-md-6
+							h3 Repostaje
+							label.checkbox-label De coche:
+							.radio
+								label
+								input(type="radio", name="car_refueling", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="car_refueling", value="No")
+								| No
+							br
+							label.checkbox-label De moto:
+							.radio
+								label
+								input(type="radio", name="moto_refueling", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="moto_refueling", value="No")
+								| No
+						div.form-group.col-md-6
+							h3 Limpieza 
+							label.checkbox-label Exterior:
+							.radio
+								label
+								input(type="radio", name="exterior", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="exterior", value="No")
+								| No
+							br
+							label.checkbox-label Interior:
+							.radio
+								label
+								input(type="radio", name="interior", value="Si", checked)
+								| Si
+							.radio
+								label
+								input(type="radio", name="interior", value="No")
+								| No
+						button.btn.btn-primary.btn-block(type='submit') Añadir
 

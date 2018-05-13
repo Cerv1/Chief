@@ -142,8 +142,11 @@ class Doc {
 			'done' : '{d.done}',
 			'km_begin' : '{d.km_begin}',
 			'km_end' : '{d.km_end}',
+			'car_refueling' : '{d.car_refueling}',
+			'moto_refueling' : '{d.moto_refueling}',
 			'exterior' : '{d.exterior}',
-			'interior' : '{d.interior}'
+			'interior' : '{d.interior}',
+			'service_order' : '{d.service_order}'
 		};
 
 		if (data.turns_radio == "evening") {
