@@ -63,7 +63,6 @@ class Doc {
 			json_data[i] = data[i];
 		}
 		this.appendTimeStampsToJSON(json_data);
-		console.log(json_data);
 		return json_data;
 	}
 	
@@ -340,6 +339,41 @@ class Doc {
 
 		accident_data['injured_data'] = data_to_fill;
 		this.carboneWriter(CONSTANTS.path_to_accident_2_vehicles_template, writeName, accident_data);
+	}
+
+	writeAccident3Vehicle(data){
+		var writeName = CONSTANTS.path_to_accident_3_vehicles_folder + this.appendTimeStampToFile();
+		var accident_data = this.createJSON(data);
+		var i;
+		var data_to_fill = [];
+
+		for (i in data.signaling_checkbox) {
+			accident_data[data.signaling_checkbox[i]] = ' X';
+		}
+
+		if(typeof data.injured_names == "string"){
+			data_to_fill[0] = {
+				'vehicle': data.injured_vehicle,
+				'name': data.injured_names,
+				'residency': data.injured_residency,
+				'assisted': data.injured_assisted,
+				'registered': data.injured_registered
+			}
+		}
+		else{
+			for(i in data.injured_names){
+				data_to_fill[i] = {
+					'vehicle' : data.injured_vehicle[i],
+					'name' : data.injured_names[i],
+					'residency' : data.injured_residency[i],
+					'assisted' : data.injured_assisted[i],
+					'registered' : data.injured_registered[i]
+				}
+			}
+		}
+
+		accident_data['injured_data'] = data_to_fill;
+		this.carboneWriter(CONSTANTS.path_to_accident_3_vehicles_template, writeName, accident_data);
 	}
 	
 }
