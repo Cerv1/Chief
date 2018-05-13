@@ -7,41 +7,17 @@ block content
 				h1.display-4.m-b-2 Nuevo croquis
 
 				input#camera(type="file", accept="image/*", capture="camera")
-				canvas#frame
 				script.
-					var camera = document.getElementById('camera');
-					var frame = document.getElementById('frame');
-					context = frame.getContext('2d');
-
-					camera.addEventListener('change', function(e) {
-						var file = e.target.files[0]; 
-						var myFrame = document.getElementById("frame");
-						var context = myFrame.getContext("2d");
-						var img = new Image();
-						img.onload = function(){
-								//- context.drawImage(img, 0, 0, 600, 600)
-							var imgWidth = img.naturalWidth;
-							var screenWidth  = frame.width;
-							var scaleX = 1;
-							if (imgWidth > screenWidth)
-									scaleX = screenWidth/imgWidth;
-							var imgHeight = img.naturalHeight;
-							var screenHeight = frame.height;
-							var scaleY = 1;
-							if (imgHeight > screenHeight)
-									scaleY = screenHeight/imgHeight;
-							var scale = scaleY;
-							if(scaleX < scaleY)
-									scale = scaleX;
-							if(scale < 1){
-									imgHeight = imgHeight*scale;
-									imgWidth = imgWidth*scale;          
-							}
-
-							frame.height = imgHeight;
-							frame.width = imgWidth;
-							context.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0,0, imgWidth, imgHeight);
-						};
-						img.src=URL.createObjectURL(file);
-					});
-
+					document.getElementById('camera').onchange = function (e) {
+						loadImage(
+							e.target.files[0],
+							function (img) {
+									document.body.appendChild(img);
+							},
+							{
+								maxWidth: 800,
+								canvas: true,
+								cover: true
+							} // Options
+						);
+					};

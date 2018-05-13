@@ -168,7 +168,9 @@ textarea {
     padding: 0px;
 }
 
-#frame{
-    height: 100%;
-    width: 100%;
+canvas{
+    width: 65vw;
+    height: 65vh;
+    position: absolute;
+    margin: 5% 5%;
 }
