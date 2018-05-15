@@ -172,3 +172,7 @@ canvas{
     position: absolute;
     margin: 5% 5%;
 }
+
+#frame{
+    touch-action: none;
+}
