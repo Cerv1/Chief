@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var dbConfig = require('./db');
 var mongoose = require('mongoose');
 
@@ -24,7 +25,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 // Configuring Passport
 var passport = require('passport');
 var expressSession = require('express-session');
@@ -42,7 +42,10 @@ app.use(passport.session());
  // Using the flash middleware provided by connect-flash to store messages in session
  // and displaying in templates
 var flash = require('connect-flash');
+const fileUpload = require('express-fileupload');
+
 app.use(flash());
+app.use(fileUpload());
 
 // Initialize Passport
 var initPassport = require('./passport/init');

@@ -222,6 +222,7 @@ module.exports = function(passport){
 		doc.writeAccident2Vehicle(req.body);
 		res.redirect('home');
 	});
+	
 
 	router.post('/new_accident_3_vehicle', isAuthenticated, function (req, res) {
 		doc.writeAccident3Vehicle(req.body);
@@ -234,6 +235,25 @@ module.exports = function(passport){
 
 	router.get('/home_sketch', isAuthenticated, function (req, res) {
 		res.render('home_sketch', { user: req.user });
+	});
+
+	router.get('/fill_send_sketch', isAuthenticated, function (req, res) {
+		res.render('fill_send_sketch', { user: req.user });
+	});
+
+	router.post('/new_sketch', isAuthenticated, function (req, res) {
+		if (!req.files)
+			return res.status(400).send('No files were uploaded.');
+
+		// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+		let sampleFile = req.files.sketch;
+
+		// Use the mv() method to place the file somewhere on your server
+		sampleFile.mv('/home/cervi/Images/sketch.png', function (err) {
+			if (err)
+				return res.status(500).send(err);
+		});
+		res.redirect('home');
 	});
 	
 	return router;

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	.main.container
+		.row
+			.col-md-9.col-md-offset-1
+				h1.display-4.m-b-2 Enviar croquis
+
+				form(method='POST' action='/new_sketch' encType="multipart/form-data")
+					input#camera(type="file", name="sketch")
+					button.btn.btn-primary.btn-block#save-image(type='submit', style={margin:'60px 0 0 10px'}) Enviar imagen
+				
+
+
