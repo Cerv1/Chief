@@ -36,6 +36,10 @@ block content
 						loadImage(
 							e.target.files[0],
 							function (img) {
+									if($('#frame') != null){
+										var canvas = $('#frame');
+										$('#frame').remove();
+									}
 									document.body.appendChild(img);
 									$('#noimage').attr('src',img.toDataURL());
 									var canvas = document.body.getElementsByTagName('canvas')[0];
@@ -45,6 +49,8 @@ block content
 									$('#clear-button').css('visibility','visible');
 									$('#save-image').css('visibility','visible');
 									canvas.setAttribute('id','frame');
+									//- $('#camera').css('visibility','hidden');
+
 									// Set up mouse events for drawing
 									var drawing = false;
 									var mousePos = { x:0, y:0 };
