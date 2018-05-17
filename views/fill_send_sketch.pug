@@ -8,7 +8,10 @@ block content
 
 				form(method='POST' action='/new_sketch' encType="multipart/form-data")
 					input#camera(type="file", name="sketch")
-					button.btn.btn-primary.btn-block#save-image(type='submit', style={margin:'60px 0 0 10px'}) Enviar imagen
-				
+					button.btn.btn-primary.btn-block#save-image(type='submit', style={visibility: 'hidden', margin:'60px 0 0 10px'}) Enviar imagen
+		script.
+			document.getElementById('camera').onchange = function (e) {
+				$('#save-image').css('visibility','visible');
+			}
 
 

@@ -22,15 +22,23 @@ block content
 						var dataUrl = canvas.toDataURL();
 						var link = document.createElement("a");
 						link.setAttribute("href", dataUrl);
-						link.setAttribute("download", 'test.png');
+						if($('#save-image-name')[0].value.length){
+							link.setAttribute("download", $('#save-image-name')[0].value+'.png');
+						}
+						else{
+							link.setAttribute("download", "no-name.png");
+						}
 						link.click();
 					}
 					
 				input#camera(type="file", accept="image/*", capture="camera")
 				img#noimage(style={visibility: 'hidden', position: 'absolute'})
-				button.btn.btn-primary#clear-button(type='button', onclick='javascript:clearCanvas();', style={visibility: 'hidden', margin:'10px 0 0 0'}) Borrar todo
-				button.btn.btn-primary#save-image(type='button', onclick='javascript:saveImage();', style={visibility: 'hidden', margin:'10px 0 0 10px'}) Guardar imagen
-				
+				div.form-group.col-md-3
+					button.btn.btn-primary#clear-button(type='button', onclick='javascript:clearCanvas();', style={visibility: 'hidden', margin:'10px 0 0 0'}) Borrar todo
+				div.form-group.col-md-3
+					button.btn.btn-primary#save-image(type='button', onclick='javascript:saveImage();', style={visibility: 'hidden', margin:'10px 0 0 10px'}) Guardar imagen
+				div.form-group.col-md-6
+					input.form-control#save-image-name(type='text', placeholder='Nombre del croquis' name='sketch_name', style={visibility: 'hidden', margin:'10px 0 0 0'})
 				script.
 					document.getElementById('camera').onchange = function (e) {
 						loadImage(
@@ -48,6 +56,7 @@ block content
 									ctx.lineWith = 2;
 									$('#clear-button').css('visibility','visible');
 									$('#save-image').css('visibility','visible');
+									$('#save-image-name').css('visibility','visible');
 									canvas.setAttribute('id','frame');
 									//- $('#camera').css('visibility','hidden');
 
