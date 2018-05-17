@@ -10,6 +10,9 @@ class Doc {
 		this.morning = true;
 		this.evening = false;
 		this.night = false;
+		this.reinforcement = false;
+		this.reinforcement_begin = '';
+		this.reinforcement_end = '';
 	}
 
 	getMinutesWithFormat(){
@@ -72,6 +75,7 @@ class Doc {
 		// -----------------------------------------------------------------------
 	
 	writeBeginTurn(data){
+		console.log(data)
 		var date = new Date();
 		var new_turn_data = {
 			'year': date.getFullYear(),
@@ -157,6 +161,7 @@ class Doc {
 			this.morning = false;
 			this.evening = true;
 			this.night = false;
+			this.reinforcement = false;
 		}
 		else if (data.turns_radio == "night") {
 			new_turn_data.morning = ' ';
@@ -166,6 +171,7 @@ class Doc {
 			this.morning = false;
 			this.evening = false;
 			this.night = true;
+			this.reinforcement = false;
 		}
 		else if (data.turns_radio == "morning") {
 			new_turn_data.morning = 'XX';
@@ -175,6 +181,17 @@ class Doc {
 			this.morning = true;
 			this.evening = false;
 			this.night = false;
+			this.reinforcement = false;
+		}
+		else if (data.turns_radio == "reinforcement") {
+			this.reinforcement_begin = data.begin_turn;
+			this.reinforcement_end = data.end_turn;
+			new_turn_data.reinforcement = 'XX';
+			new_turn_data.timetable = this.reinforcement_begin + ' a ' + this.reinforcement_end;
+			this.morning = false;
+			this.evening = false;
+			this.night = false;
+			this.reinforcement = true;
 		}
 
 		this.carboneWriter(CONSTANTS.path_to_incident_template, CONSTANTS.path_to_new_turn_template, new_turn_data);
@@ -201,6 +218,11 @@ class Doc {
 			begin_turn = '22:00';
 			end_turn = '07:00';
 			writeName += '_Noche.odt';
+		}
+		else if(this.reinforcement){
+			begin_turn = this.reinforcement_begin;
+			end_turn = this.reinforcement_end;
+			writeName += '_Refuezo.odt';
 		}
 
 		Incident.find({'date' : today}, function (err, incidents) {

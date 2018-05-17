@@ -1,40 +1,70 @@
 extends layout
 
 block content
-  .main.container
-   .row
-      .col-md-6.col-md-offset-3
-         h1.display-4.m-b-2 Nuevo parte de servicio
+	.main.container
+		.row
+			.col-md-6.col-md-offset-3
+				h1.display-4.m-b-2 Nuevo parte de servicio
 
-         form(method='POST' action='/new_turn')
-            div.form-group
-               label.checkbox-label Turno: 
-               .radio
-                  label
-                  input(type="radio", name="turns_radio", value="morning", checked)
-                  | Mañana
-               .radio
-                  label
-                  input(type="radio", name="turns_radio", value="evening")
-                  | Tarde
-               .radio
-                  label
-                  input(type="radio", name="turns_radio", value="night")
-                  | Noche
+				form(method='POST' action='/new_turn')
+						div.form-group
+							label.checkbox-label Turno:
+							.radio
+								label
+								input(type="radio", name="turns_radio", value="morning", onclick="handle_turn(this);", checked)
+								| Mañana
+							.radio
+								label
+								input(type="radio", name="turns_radio", value="evening", onclick="handle_turn(this);")
+								| Tarde
+							 
+							.radio
+								label
+								input(type="radio", name="turns_radio", value="night", onclick="handle_turn(this);")
+								| Noche
+							.radio
+								label
+								input(type="radio", name="turns_radio", value="reinforcement", onclick="handle_turn(this);")
+								| Refuerzo
 
-            h3 Policías en turno
-            div.form-group
-              label.police_ids(for='pl1') Policía 1
-                input.form-control(type='text' id='pl1' placeholder='ID' name='pl1')
-              label.police_ids(for='pl2') Policía 2
-                input.form-control(type='text' id='pl2' placeholder='ID' name='pl2')
-            div.form-group
-              label.police_ids(for='pl3') Policía 3
-                input.form-control(type='text' id='pl3' placeholder='ID' name='pl3')
-              label.police_ids(for='pl4') Policía 4
-                input.form-control(type='text' id='pl4' placeholder='ID' name='pl4')
-              
-            div.form-group
-              label(for='turn_chief') Jefe de guardia
-              input.form-control(type='text' id='turn_chief' placeholder='Jefe de guardia' name='turn_chief')
-            button.btn.btn-primary(type='submit') Añadir
+						h3#reinforcement_title(style={visibility: 'hidden', position:'absolute'}) Horario de refuerzo
+						div.form-group.col-md-6
+							input.form-control#reinforcement_begin(type='time', placeholder='Comienzo' name='begin_turn', style={visibility: 'hidden', position:'absolute'})
+						div.form-group.col-md-6
+							input.form-control#reinforcement_end(type='time', placeholder='Final' name='end_turn', style={visibility: 'hidden', position:'absolute'})
+
+						h3 Policías en turno
+						div.form-group
+							label.police_ids(for='pl1') Policía 1
+								input.form-control(type='text' id='pl1' placeholder='ID' name='pl1')
+							label.police_ids(for='pl2') Policía 2
+								input.form-control(type='text' id='pl2' placeholder='ID' name='pl2')
+						div.form-group
+							label.police_ids(for='pl3') Policía 3
+								input.form-control(type='text' id='pl3' placeholder='ID' name='pl3')
+							label.police_ids(for='pl4') Policía 4
+								input.form-control(type='text' id='pl4' placeholder='ID' name='pl4')
+
+						div.form-group
+							label(for='turn_chief') Jefe de guardia
+							input.form-control(type='text' id='turn_chief' placeholder='Jefe de guardia' name='turn_chief')
+						button.btn.btn-primary(type='submit') Añadir
+		script.
+			function handle_turn(radio){
+				if(radio.value == 'reinforcement'){
+					$('#reinforcement_title').css('visibility','visible');
+					$('#reinforcement_begin').css('visibility','visible');
+					$('#reinforcement_end').css('visibility','visible');
+					$('#reinforcement_title').css('position','initial');
+					$('#reinforcement_begin').css('position','initial');
+					$('#reinforcement_end').css('position','initial');
+				}
+				else{
+					$('#reinforcement_title').css('visibility','hidden');
+					$('#reinforcement_begin').css('visibility','hidden');
+					$('#reinforcement_end').css('visibility','hidden');
+					$('#reinforcement_title').css('position','absolute');
+					$('#reinforcement_begin').css('position','absolute');
+					$('#reinforcement_end').css('position','absolute');
+				}
+			}
