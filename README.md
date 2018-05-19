@@ -11,3 +11,6 @@ Una vez instalada, tan solo deberemos situarnos en el directorio `doc` y ejecuta
 `
 $ pdflatex proyecto.tex
 `
+
+
+**IMPORTANTE**: Este proyecto no funcionará si no se dispone de las plantillas ni de la jerarquía de carpetas completa pero no se publicarán aquí debido a su carácter sensible. Para más información preguntar en cervick13@gmail.com.
