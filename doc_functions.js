@@ -13,6 +13,7 @@ class Doc {
 		this.reinforcement = false;
 		this.reinforcement_begin = '';
 		this.reinforcement_end = '';
+		this.ret_value = false;
 	}
 
 	getMinutesWithFormat(){
@@ -27,13 +28,29 @@ class Doc {
 		return minutes;
 	}
 
-	carboneWriter(template_path, path_to_save, data){
+	send_ok(){
+		console.log("TRURR");
+		this.ret_value = true;
+		console.log(this)
+	}
+
+	send_err(){
+		this.ret_value = false;
+	}
+
+	carboneWriter(template_path, path_to_save, data, _callback){
+		var _this = this;
 		carbone.render(template_path, data, function (err, result) {
 			if (err) {
-				return console.log(err);
+				_this.send_err()
+				_callback()
 			}
-			// write the result
-			fs.writeFileSync(path_to_save, result);
+			else{
+				// write the result
+				fs.writeFileSync(path_to_save, result);
+				_this.send_ok()
+				_callback()
+			}	
 		});
 	}
 
@@ -74,8 +91,7 @@ class Doc {
 		// -------------------------- INCIDENTS METHODS --------------------------
 		// -----------------------------------------------------------------------
 	
-	writeBeginTurn(data){
-		console.log(data)
+	writeBeginTurn(data, _ret){
 		var date = new Date();
 		var new_turn_data = {
 			'year': date.getFullYear(),
@@ -193,11 +209,13 @@ class Doc {
 			this.night = false;
 			this.reinforcement = true;
 		}
-
-		this.carboneWriter(CONSTANTS.path_to_incident_template, CONSTANTS.path_to_new_turn_template, new_turn_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_incident_template, CONSTANTS.path_to_new_turn_template, new_turn_data, function(){
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeEndTurn(end_turn_data){
+	writeEndTurn(end_turn_data, _ret){
 		var date = new Date();
 		var today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 		var begin_turn, end_turn;
@@ -224,12 +242,12 @@ class Doc {
 			end_turn = this.reinforcement_end;
 			writeName += '_Refuezo.odt';
 		}
+		var _this = this;
 
 		Incident.find({'date' : today}, function (err, incidents) {
 			var all_incidents = [];
 			var index = 0;
 			incidents.forEach(function (incident) {
-				console.log(incident.time >= begin_turn);
 				if(incident.time >= begin_turn && incident.time <= end_turn){
 					all_incidents[index] = incident;
 					index++;
@@ -239,12 +257,10 @@ class Doc {
 			var end_turn_parameters = end_turn_data;
 			end_turn_parameters['all_incidents'] = all_incidents;
 
-			carbone.render(CONSTANTS.path_to_new_turn_template, end_turn_parameters, function (err, result) {
-				if (err) {
-					return console.log(err);
-				}
-				fs.writeFileSync(writeName, result);
-			});
+			_this.carboneWriter(CONSTANTS.path_to_new_turn_template, writeName, end_turn_parameters, function(){
+				_ret(_this.ret_value);
+			}) 
+
 		});
 	}
 
@@ -252,68 +268,85 @@ class Doc {
 		// -------------------------- ORDINANCES METHODS -------------------------
 	// -----------------------------------------------------------------------
 	
-	writeCleanOrdinance(data){
+	writeCleanOrdinance(data, _ret){
 		
 		var writeName = CONSTANTS.path_to_clean_folder + this.appendTimeStampToFile();
-		
-			var ordinance_data = {};
+
+		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
 
 		var i;
 		for(i in data.infractions_checkbox){
 			ordinance_data[data.infractions_checkbox[i]] = 'X';
 		}
-
-		this.carboneWriter(CONSTANTS.path_to_clean_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_clean_template, writeName, ordinance_data, function(){
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeBotellonOrdinance(data){
+	writeBotellonOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_botellon_folder + this.appendTimeStampToFile();
 		
 		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
   
-		this.carboneWriter(CONSTANTS.path_to_botellon_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_botellon_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 
 	}
 
-	writeNoiseResidencyOrdinance(data){
+	writeNoiseResidencyOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_home_noise_folder + this.appendTimeStampToFile();
 
 		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
   
-		this.carboneWriter(CONSTANTS.path_to_home_noise_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_home_noise_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeNoiseEstablishmentOrdinance(data){
+	writeNoiseEstablishmentOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_establishment_noise_folder + this.appendTimeStampToFile();
 			
 		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
-		this.carboneWriter(CONSTANTS.path_to_establishment_noise_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_establishment_noise_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 
 	}
 
-	writeNoiseMeasurementOrdinance(data){
+	writeNoiseMeasurementOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_noise_measurement_folder + this.appendTimeStampToFile();
 
 		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
   
-		this.carboneWriter(CONSTANTS.path_to_noise_measurement_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_noise_measurement_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeBuildingInspectionOrdinance(data){
+	writeBuildingInspectionOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_building_inspection_folder + this.appendTimeStampToFile();
 		
 		var ordinance_data = {};
 		ordinance_data = this.createJSON(data);
 
-		this.carboneWriter(CONSTANTS.path_to_building_inspection_template, writeName, ordinance_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_building_inspection_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeWasteOrdinance(data){
+	writeWasteOrdinance(data, _ret){
 		var writeName = CONSTANTS.path_to_waste_inspection_folder + this.appendTimeStampToFile();
 
 		var ordinance_data = {};
@@ -327,11 +360,14 @@ class Doc {
 		for (i in data.solids_checkbox) {
 			ordinance_data[data.solids_checkbox[i]] = 'X';
 		}
-
-		this.carboneWriter(CONSTANTS.path_to_waste_inspection_template, writeName, ordinance_data);
+		
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_waste_inspection_template, writeName, ordinance_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 	
-	writeAccident2Vehicle(data){
+	writeAccident2Vehicle(data, _ret){
 		var writeName = CONSTANTS.path_to_accident_2_vehicles_folder + this.appendTimeStampToFile();
 		var accident_data = this.createJSON(data);
 		var i;
@@ -363,10 +399,13 @@ class Doc {
 		}
 
 		accident_data['injured_data'] = data_to_fill;
-		this.carboneWriter(CONSTANTS.path_to_accident_2_vehicles_template, writeName, accident_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_accident_2_vehicles_template, writeName, accident_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 
-	writeAccident3Vehicle(data){
+	writeAccident3Vehicle(data, _ret){
 		var writeName = CONSTANTS.path_to_accident_3_vehicles_folder + this.appendTimeStampToFile();
 		var accident_data = this.createJSON(data);
 		var i;
@@ -398,7 +437,10 @@ class Doc {
 		}
 
 		accident_data['injured_data'] = data_to_fill;
-		this.carboneWriter(CONSTANTS.path_to_accident_3_vehicles_template, writeName, accident_data);
+		var _this = this;
+		this.carboneWriter(CONSTANTS.path_to_accident_3_vehicles_template, writeName, accident_data, function () {
+			_ret(_this.ret_value);
+		});
 	}
 	
 }

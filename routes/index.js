@@ -45,7 +45,8 @@ module.exports = function(passport){
 
 	/* GET Home Page */
 	router.get('/home', isAuthenticated, function(req, res){
-		res.render('home', { user: req.user });
+		// console.log(req.flash('message'));
+		res.render('home', { user: req.user, messages: req.flash('message') });
 	});
 
 	/* Handle Logout */
@@ -97,18 +98,28 @@ module.exports = function(passport){
 
 		newIncident.save(function (err) {
 			if (err) {
-				console.log('Error in Saving Incident: ' + err);
-				throw err;
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
 			}
-			console.log('Incident Saved Successfully');
+			req.flash('message', '¡Incidente guardado correctamente!');
+			res.redirect('home');
+			
 		});
-		res.redirect('home');
 	});
 
 
 	router.post('/new_turn', isAuthenticated, function(req, res){
-		doc.writeBeginTurn(req.body);
-		res.redirect('home');
+		doc.writeBeginTurn(req.body, function(ret){
+			if(ret){
+				req.flash('message', '¡Nuevo parte de servicio generado!');
+				res.redirect('home');
+			}
+			else{
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
+
 	});
 
 
@@ -118,8 +129,16 @@ module.exports = function(passport){
 				req.body[key] = '0';
 			}
 		}
-		doc.writeEndTurn(req.body);
-		res.redirect('home');
+		doc.writeEndTurn(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo documento de fin de servicio generado!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	// -----------------------------------------------------------------------
@@ -140,8 +159,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_clean_ordinance', function (req, res) {
-		doc.writeCleanOrdinance(req.body);
-		res.redirect('home');
+		doc.writeCleanOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nueva ordenanza de limpieza generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	router.get('/fill_botellon_ordinance', isAuthenticated, function (req, res) {
@@ -149,8 +176,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_botellon_ordinance', function (req, res) {
-		doc.writeBotellonOrdinance(req.body);
-		res.redirect('home');
+		doc.writeBotellonOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nueva ordenanza de botellón generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	router.get('/fill_noise_residency_ordinance', isAuthenticated, function (req, res) {
@@ -158,8 +193,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_noise_residency_ordinance', function (req, res) {
-		doc.writeNoiseResidencyOrdinance(req.body);
-		res.redirect('home');
+		doc.writeNoiseResidencyOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nueva ordenanza de ruido en residencia generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	router.get('/fill_noise_establishment_ordinance', isAuthenticated, function (req, res) {
@@ -167,8 +210,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_noise_establishment_ordinance', function (req, res) {
-		doc.writeNoiseEstablishmentOrdinance(req.body);
-		res.redirect('home');
+		doc.writeNoiseEstablishmentOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nueva ordenanza de ruido en establecimiento generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	}); 
 	
 	router.get('/fill_noise_measurement_ordinance', isAuthenticated, function (req, res) {
@@ -176,8 +227,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_noise_measurement_ordinance', function (req, res) {
-		doc.writeNoiseMeasurementOrdinance(req.body);
-		res.redirect('home');
+		doc.writeNoiseMeasurementOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo acta de medición de ruido generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	router.get('/home_work_waste_ordinance', isAuthenticated, function (req, res) {
@@ -189,8 +248,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_building_inspection_ordinance', function (req, res) {
-		doc.writeBuildingInspectionOrdinance(req.body);
-		res.redirect('home');
+		doc.writeBuildingInspectionOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo acta de inspección de obras generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	router.get('/fill_waste_ordinance', isAuthenticated, function (req, res) {
@@ -198,8 +265,16 @@ module.exports = function(passport){
 	});
 
 	router.post('/new_waste_ordinance', function (req, res) {
-		doc.writeWasteOrdinance(req.body);
-		res.redirect('home');
+		doc.writeWasteOrdinance(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo acta de hallazgo de residuos generada!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	// -----------------------------------------------------------------------
@@ -219,14 +294,30 @@ module.exports = function(passport){
 	});
 	
 	router.post('/new_accident_2_vehicle', isAuthenticated, function (req, res) {
-		doc.writeAccident2Vehicle(req.body);
-		res.redirect('home');
+		doc.writeAccident2Vehicle(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo parte de accidente de 2 vehículos generado!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 	
 
 	router.post('/new_accident_3_vehicle', isAuthenticated, function (req, res) {
-		doc.writeAccident3Vehicle(req.body);
-		res.redirect('home');
+		doc.writeAccident3Vehicle(req.body, function (ret) {
+			if (ret) {
+				req.flash('message', '¡Nuevo parte de accidente de 3 vehículos generado!');
+				res.redirect('home');
+			}
+			else {
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+		})
 	});
 
 	// -----------------------------------------------------------------------
@@ -249,10 +340,15 @@ module.exports = function(passport){
 
 		// Use the mv() method to place the file somewhere on your server
 		sketch.mv('/home/cervi/Images/'+req.files.sketch.name, function (err) {
-			if (err)
-				return res.status(500).send(err);
+			if (err){
+				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
+				res.redirect('home');
+			}
+			else{
+				req.flash('message', '¡Nuevo croquis almacenado!');
+				res.redirect('home');
+			}
 		});
-		res.redirect('home');
 	});
 	
 	return router;
