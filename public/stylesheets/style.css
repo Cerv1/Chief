@@ -176,3 +176,17 @@ canvas{
 #frame{
     touch-action: none;
 }
+
+#message-div{
+    background-color: #a9e7ff;
+    display: none;
+    border-radius: 8px;
+    padding: 5px;
+    width: 100%;
+}
+
+#message-content{
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+}

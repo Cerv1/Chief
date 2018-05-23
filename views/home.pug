@@ -1,6 +1,10 @@
 extends layout
 
 block content
+
+		div.col-md-12#message-div
+			h3#message-content #{messages}
+
 		div.row
 			div.col-md-5.functionality-container(onclick="window.location.href = '/home_incident'")
 				p Partes de servicio
@@ -14,10 +18,16 @@ block content
 		div.row
 			div.col-md-5.functionality-container(onclick="window.location.href = '/fill_send_sketch'")
 				p Enviar croquis
-			div.col-md-5.col-md-offset-2.functionality-container
-				//- p sixth functionality
+			div.col-md-5.col-md-offset-2.functionality-container(onclick="window.location.href = '/signout'")
+				p Cerrar sesión
 
-		
-		
-		a(href='/signout', class='text-center new-account') Sign Out
-		
+		script.
+			window.onload = function(){
+				if($('#message-content')["0"].innerHTML == ""){
+					$('#message-div').css("display", "none");
+				}
+				else{
+					$('#message-div').css("display", "block");
+				}
+			}
+				
