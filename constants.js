@@ -12,6 +12,7 @@ const CONSTANTS = {
    'path_to_waste_inspection_folder': '/home/cervi/ChiefTemplates/Ordenanzas/Obras-Residuos/Residuos/',
    'path_to_accident_2_vehicles_folder': '/home/cervi/ChiefTemplates/Accidentes/2_Vehiculos/',
    'path_to_accident_3_vehicles_folder': '/home/cervi/ChiefTemplates/Accidentes/3_Vehiculos/',
+   'path_to_images_folder': '/home/cervi/Images/',
 
    'path_to_incident_template': '/home/cervi/ChiefTemplates/Incidentes/incident_template.odt',
    'path_to_new_turn_template': '/home/cervi/ChiefTemplates/Incidentes/new_turn_filled.odt',

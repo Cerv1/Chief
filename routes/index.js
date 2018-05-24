@@ -1,7 +1,7 @@
 var express = require('express');
 var Incident = require('../models/incident');
 var Doc = require('../doc_functions.js');
-
+const CONSTANTS = require('../constants.js')
 
 var doc = new Doc();
 var router = express.Router();
@@ -339,7 +339,7 @@ module.exports = function(passport){
 			var sketch = req.files.sketch;
 
 		// Use the mv() method to place the file somewhere on your server
-		sketch.mv('/home/cervi/Images/'+req.files.sketch.name, function (err) {
+		sketch.mv(CONSTANTS.path_to_images_folder+req.files.sketch.name, function (err) {
 			if (err){
 				req.flash('message', 'Ha ocurrido un error, por favor vuelva a intentarlo.');
 				res.redirect('home');
