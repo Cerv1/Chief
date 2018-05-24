@@ -29,9 +29,7 @@ class Doc {
 	}
 
 	send_ok(){
-		console.log("TRURR");
 		this.ret_value = true;
-		console.log(this)
 	}
 
 	send_err(){
