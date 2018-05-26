@@ -1,0 +1,40 @@
+---
+  - hosts: all
+
+    tasks:
+      - name: Actualizar lista de paquetes del sistema
+        become: yes
+        apt:
+          update_cache: yes
+
+      - name: Instalar nodejs-legacy para poder utilizar node
+        become: yes
+        apt:
+          name: nodejs-legacy
+          state: present
+
+      - name: Instalar git 
+        become: yes
+        apt:
+          name: git
+          state: present
+          
+      - name: Instalar mongodb para poder usar el sistema de login e incidencias
+        become: yes
+        apt:
+          name: mongodb
+          state: present
+
+      - name: Instalar npm
+        become: yes
+        apt:
+          name: npm
+          state: present
+
+      - name: Clonar el repositorio
+        git: repo=https://github.com/Cerv1/Chief/ dest=~/Chief/ clone=yes force=yes
+
+      - name: Instalar las dependencias de la aplicación
+        become: yes
+        npm:
+          path: ~/Chief/
