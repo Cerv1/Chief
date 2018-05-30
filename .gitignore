@@ -302,3 +302,7 @@ typings/
 
 #vscode file
 .vscode/*
+
+#vagrant stuff
+
+.vagrant/*
