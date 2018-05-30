@@ -1,5 +1,7 @@
 ---
   - hosts: all
+    vars: 
+      NODEJS_VERSION: "8"
 
     tasks:
       - name: Actualizar lista de paquetes del sistema
@@ -7,11 +9,22 @@
         apt:
           update_cache: yes
 
-      - name: Instalar nodejs-legacy para poder utilizar node
+      - name: Instalar la clave GPG para nodejs 
+        become: yes
+        apt_key:
+          url: "http://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+          state: present
+
+      - name: Instalar dependencias para node
+        become: yes
+        shell: curl -sL https://deb.nodesource.com/setup_8.x | bash -
+
+      - name: Instalar nodejs LTS 
         become: yes
         apt:
-          name: node
+          name: nodejs
           state: present
+          update_cache: yes
 
       - name: Instalar git 
         become: yes
@@ -19,22 +32,28 @@
           name: git
           state: present
           
-      - name: Instalar mongodb para poder usar el sistema de login e incidencias
+      - name: Añadir clave para MongoDB
         become: yes
-        apt:
-          name: mongodb
+        apt_key:
+          keyserver: hkp://keyserver.ubuntu.com:80
+          id: 7F0CEB10
           state: present
 
-      - name: Instalar npm
+      - name: Instalar el repositorio de MongoDB 
         become: yes
-        apt:
-          name: npm
-          state: present
+        shell: echo "deb http://repo.mongodb.org/apt/ubuntu {{ansible_distribution_release }}/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+        update_cache: yes
+
+      - name: install
+        become: yes
+        apt: 
+          name: mongodb-org
+          force: yes
+          update_cache: yes
 
       - name: Clonar el repositorio
         git: repo=https://github.com/Cerv1/Chief/ dest=~/Chief/ clone=yes force=yes
 
       - name: Instalar las dependencias de la aplicación
-        become: yes
         npm:
           path: ~/Chief/
