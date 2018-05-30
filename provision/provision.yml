@@ -10,7 +10,7 @@
       - name: Instalar nodejs-legacy para poder utilizar node
         become: yes
         apt:
-          name: nodejs-legacy
+          name: node
           state: present
 
       - name: Instalar git 
