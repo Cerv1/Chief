@@ -32,6 +32,7 @@
 \usepackage{longtable}
 \usepackage[pdfborder={000}]{hyperref} %referencia
 
+
 % ********************************************************************
 % Re-usable information
 % ********************************************************************
@@ -52,7 +53,6 @@
 pdfauthor = {\myName (cervick13@gmail.com)},
 pdftitle = {\myTitle},
 pdfsubject = {},
-% pdfkeywords = {Privacidad, anonimato, criptografía,  aplicación web, protocolo Signal, TOR, Node, Websockets},
 pdfcreator = {LaTeX con el paquete ....},
 pdfproducer = {pdflatex}
 }
@@ -103,18 +103,19 @@ pdfproducer = {pdflatex}
 
 
 \usepackage{pdfpages}
+\usepackage{fourier}
 \begin{document}
 \input{portada/portada}
 \input{prefacios/prefacio}
-%\frontmatter
-% \tableofcontents
-% \listoffigures
+\frontmatter
+\tableofcontents
+\listoffigures
 %\listoftables
 %\mainmatter
 %\setlength{\parskip}{5pt}
 
+\input{secciones/introduccion}
 \input{secciones/eleccion_dms}
-% \input{secciones/introduccion}
 % \input{secciones/estado_del_arte}
 % \input{secciones/servicio_mensajeria}
 % \input{secciones/planificacion}
@@ -123,7 +124,7 @@ pdfproducer = {pdflatex}
 
 %
 \nocite{*}
-% \bibliography{bibliografia}\addcontentsline{toc}{chapter}{Bibliografía}
+\bibliography{bibliografia}\addcontentsline{toc}{chapter}{Bibliografía}
 \bibliographystyle{unsrt}
 
 
