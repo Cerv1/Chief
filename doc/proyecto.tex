@@ -1,4 +1,5 @@
-\documentclass[tikz,a4paper,11pt]{book}
+% \documentclass[tikz,a4paper,11pt]{book}
+\documentclass[openany, 11pt, a4paper]{book}
 %\documentclass[a4paper,twoside,11pt,titlepage]{book}
 \usepackage{listings}
 \usepackage[utf8]{inputenc}
@@ -9,6 +10,8 @@
 \usepackage[export]{adjustbox}
 \usepackage{caption}
 \usepackage{float}
+\pagenumbering{arabic}
+
 \usetikzlibrary{arrows.meta,shapes,positioning,trees}
 
 % \usepackage[style=list, number=none]{glossary} %
@@ -66,6 +69,7 @@ pdfproducer = {pdflatex}
 \usepackage{hyperref}
 \usepackage{colortbl,longtable}
 \usepackage[stable]{footmisc}
+
 %\usepackage{index}
 
 %\makeindex
@@ -115,7 +119,9 @@ pdfproducer = {pdflatex}
 %\setlength{\parskip}{5pt}
 
 \input{secciones/introduccion}
+\input{secciones/objetivos}
 \input{secciones/tecnologias}
+\input{secciones/paquetes}
 \input{secciones/eleccion_dms}
 % \input{secciones/servicio_mensajeria}
 % \input{secciones/planificacion}
