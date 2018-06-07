@@ -18,6 +18,7 @@
 \usepackage{cite} %para incluir citas del archivo <nombre>.bib
 \usepackage{enumerate}
 \usepackage{hyperref}
+\usepackage{graphicx}
 \hypersetup{
 	colorlinks=true,	% false: boxed links; true: colored links
 	linkcolor=black,	% color of internal links
@@ -54,16 +55,16 @@
 	\newpage
 
 	% Introducción 
-	\input{secciones/introduccion}
+	\input{secciones/01_introduccion}
 
 	% Descripción del problema y hasta donde se llega
-	\input{secciones/objetivos}
+	\input{secciones/02_descripcion}
 
 
 	% Estado del arte
 	% 	1. Crítica al estado del arte
 	% 	2. Propuesta
-	\input{secciones/estado_del_arte}
+	\input{secciones/03_estado_del_arte}
 
 	% Análisis del problema
 	% 1. Análisis de requisitos
@@ -72,7 +73,7 @@
 	% 4. Análisis de seguridad
 
 	% Diseño de la solución
-	\input{secciones/tecnologias}
+	\input{secciones/04_tecnologias}
 
 	% Desarrollo bajo sprints: 
 	% 	1. Permitir registros y login de usuarios
