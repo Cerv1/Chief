@@ -281,10 +281,19 @@ Debido a su simpleza a la hora de ser utilizado y a lo sencilla que es su sintá
 
 \section{Solución propuesta}
 
-En base al análisis anterior, la solución al problema planteado se ha conseguido mediante el uso
-de las siguientes tecnologías.
+En base al análisis anterior, se ha decidido utilizar como dato base para la aplicación JSON\cite{json}.
 
-% hablar de JSON entre MongoDB y Node.js y por eso MongoDB > SQL
+El motivo principal es que debido a las características del desarrollo a realizar y los requerimientos del sistema,
+una base de datos \textbf{NoSQL} era la opción idónea para este software. Esto es debido a que como hemos comprobado,
+es una base de datos muy flexible, y que permite la incorporación de nuevos campos sin provocar grandes problemas en 
+la base de datos ni desestructurarla por completo.\\
+
+Además, dado que el objetivo del desarrollo es conseguir un prototipo funcional, con el tiempo se le podrán añadir
+nuevas funcionalidades, nuevos tipos de usuarios, nuevos campos a las incidencias... Por tanto, para garantizar 
+la consistencia del sistema se ha optado por este tipo de base de datos.\\
+
+Finalmente, después de un estudio completo de las tecnologías más usadas actualmente, la solución al problema inicial se ha conseguido 
+mediante el uso de las siguientes tecnologías.
 
 \subsection{Node.js}
 
@@ -320,7 +329,7 @@ Esto quiere decir que cada entrada puede tener un esquema de datos diferente al 
 lo que podemos tener entradas que difieran en el número de atributos entre sí.\\
 
 Debido a esta característica los datos no son guardados en registros, como en las bases SQL, 
-sino que se guardan en documentos. Estos documentos son del tipo BSON, que es una representación
+sino que se guardan en documentos. Estos archivos son del tipo BSON, que es una representación
 binaria de los archivos JSON.\\
 
 Esta tecnología ha sido escrita en C++, por lo que está en contacto con el \textit{bare metal}. Esto
@@ -332,14 +341,23 @@ un nuevo nivel de escalabilidad y disponibilidad. Esto quiere decir que a medida
 crezca tanto en volumen de datos como en rendimiento MongoDB se escala automáticamente sin tiempos
 de caída y sin cambios en nuestra aplicación.\\
 
-Por último, cabe mencionar que la licencia de esta tecnología es GNU AGPL 3.0, por lo que se trata de un software de licencia
+Mediante la utilización del paquete de \textit{npm} llamado \textit{Mongoose}\cite{mongoose}, la integración de MongoDB
+con Node.js se realiza de una manera muy sencilla y rápida, por lo que la utilización de este módulo
+cuando trabajamos con ambas tecnologías es ideal. En la siguiente imagen se define el flujo de datos
+estándar cuando trabajamos con este esquema:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.28]{imagenes/node-mongo.PNG}
+	\caption{Flujo de datos con Node.js, Mongoose y MongoDB. \label{fig:figura5}}
+\end{figure}
+
+
+Por último, cabe mencionar que la licencia de esta tecnología es GNU AGPL 3.0\cite{agpl}, por lo que se trata de un software con licencia
 libre.
 
-% insertar mongodb schema
 
 % gráficas de uso frente al resto de bbdd
-
-
 
 \subsection{Vagrant}
 
@@ -357,12 +375,20 @@ a las que está acostumbrado, pues realmente se sigue trabajando en el mismo ent
 De esta manera se consigue un desarrollo más eficiente y con mínimas pérdidas de tiempo, garantizando 
 de manera directa una eficiencia en la gestión de los recursos humanos empleados.\\
 
+En la siguiente imagen se puede ver como funciona el flujo de trabajo utilizando esta herramienta:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.65]{imagenes/vagrant-workflow.png}
+	\caption{Flujo de trabajo de Vagrant. \label{fig:figura6}}
+\end{figure}
+
 % insertar vagrant advantages
 
 
 \subsection{Ansible}
 
-Ansible es un software que se ha diseñado explícitamente para automatizar acciones y
+Ansible\cite{ansible} es un software que se ha diseñado explícitamente para automatizar acciones y
 conseguir una mayor productividad. De esta manera, se libera al equipo de tareas costosas
 y que siempre siguen el mismo proceso.\\
 
@@ -373,7 +399,17 @@ y comprensible para la lectura del ser humano, que posteriormente es analizada y
 en una serie de tareas hacia los nodos, consiguiendo quedar completamente configurados de una
 manera muy rápida y sencilla.\\
 
-% insertar ansible workflow
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{imagenes/ansible.png}
+	\caption{Arquitectura de Ansible. \label{fig:figura7}}
+\end{figure}
+
+Como podemos comprobar en la figura anterior, Ansible se encarga de realizar todas las acciones
+necesarias para que nuestro software esté listo para desplegarse \textbf{de manera automática}.
+De este modo, se conseguirá una mejora significable en el tiempo de despliegue de una aplicación
+además de en la gestión del tiempo de los desarrolladores.\\
 
 Es la herramienta de automatización de código libre más potente actualmente y esto es reflejado
 en las estadísticas de GitHub del proyecto. Además, la comunidad está implicada muy directamente
