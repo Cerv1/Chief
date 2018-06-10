@@ -9,8 +9,8 @@
   },
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test-ci": "mocha test/test_server.js --exit",
-    "test": "mocha --exit"
+    "test": "mocha test/test_server.js --exit",
+    "full_test": "mocha --exit"
   },
   "repository": {
     "type": "git",
