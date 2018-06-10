@@ -1,4 +1,5 @@
 # Trabajo de Fin de Grado: *"Chief"*
+[![Build Status](https://travis-ci.org/Cerv1/Chief.svg?branch=master)](https://travis-ci.org/Cerv1/Chief)
 
 ### Autor: Sergio Cervilla Ortega
 ### Tutor: Juan Julián Merelo Guervós
