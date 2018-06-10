@@ -1,0 +1,60 @@
+\chapter{Implementación}
+
+La implementación del software se ha dividido en hitos. Estos, han sido definidos en Github
+y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
+mejoras que ha ido incorporando el software a lo largo de su desarrollo.\\
+
+Los hitos han sido los siguientes en orden cronológico:
+
+\begin{enumerate}
+	\item \textbf{Permitir registros y acceso de usuarios.}
+	\item \textbf{Desarrollo del sistema de incidencias.}
+	\item \textbf{Desarrollo del sistema de croquis.}
+	\item \textbf{Instalación de la aplicación de manera automática.}
+\end{enumerate}
+
+Toda la información relacionada con la implementación y el desarrollo se pueden encontrar en:
+
+\begin{itemize}
+	\item \href{https://github.com/Cerv1/Chief/milestones}{Lista de hitos.}
+	\item \href{https://github.com/Cerv1/Chief/commits}{Lista de commits.}
+\end{itemize}
+
+\newpage
+
+\section{Registro y acceso de usuarios.}
+El objetivo de este hito es permitir que un usuario agente cree una cuenta en la aplicación 
+y posteriormente pueda acceder a la misma si la contraseña y el usuario es válido. \\
+
+Para poder utilizar el servidor de una manera más cómoda y con un mayor número de funcionalidades se ha utilizado
+\textbf{Express.js}\cite{express} para crear el servicio web que se ofrece. De esta manera, conseguimos utilizar el 
+servidor de una manera más eficiente.\\
+
+Express.js ofrece un software liviano que dota de funcionalidades como negociación de contenido, una mejora en el 
+rendimiento del servidor, la posibilidad de seleccionar un motor de plantillas para servir el contenido... En este caso,
+se ha configurado para que utilice como motor de plantillas el ya mencionado \textbf{Pug}. De esta manera, cuando el usuario
+realice una petición sobre alguna ruta se renderizará dicha plantilla para que el usuario reciba el archivo HTML, el cual
+será interpretado por el navegador que esté utilizando.\\ 
+
+Un usuario que quiera acceder a la aplicación o a cualquiera de las funcionalidades que ofrece deberá estar autenticado.
+Para administrar de una manera más segura los datos de sesión de un usuario se ha utilizado la librería \textbf{Passport.js}\cite{passport}.
+Esta librería se encarga de autenticar las peticiones hacia el servidor a través de una serie de \textit{plugins} conocidos
+como \textit{strategies}. Gracias al comportamiento de esta librería podemos gestionar de una manera sencilla el acceso a los usuarios.
+En este caso, se ha establecido un inicio de sesión mediante \textbf{usuario} y \textbf{contraseña} definidos por el agente en el 
+momento de registrarse.\\
+
+Cuando un agente realiza un registro, sus datos se almacenan \textbf{encriptados} en la base de datos para que de ninguna manera
+se puedan alterar o recuperar de forma fraudulenta. El cifrado de dichos datos se realizan con un algoritmo basado en el cifrado
+Blowfish\cite{blowfish} al que se le añaden unos bits aleatorios para proteger nuestro cifrado ante un ataque de Tabla Arcoíris\cite{rainbow}.
+
+
+\section{Desarrollo del sistema de incidencias.}
+
+
+\section{Desarrollo del sistema de croquis.}
+
+
+\section{Instalación de la aplicación de manera automática.}
+
+
+
