@@ -8,7 +8,7 @@ Los hitos han sido los siguientes en orden cronológico:
 
 \begin{enumerate}
 	\item \textbf{Permitir registros y acceso de usuarios.}
-	\item \textbf{Desarrollo del sistema de incidencias.}
+	\item \textbf{Desarrollo del sistema de documentación.}
 	\item \textbf{Desarrollo del sistema de croquis.}
 	\item \textbf{Desarrollo del sistema de tests unitarios.}
 	\item \textbf{Integración continua.}
@@ -50,25 +50,87 @@ se puedan alterar o recuperar de forma fraudulenta. El cifrado de dichos datos s
 Blowfish\cite{blowfish} al que se le añaden unos bits aleatorios para proteger nuestro cifrado ante un ataque de Tabla Arcoíris\cite{rainbow}.
 
 
-\section{Desarrollo del sistema de incidencias.}
+\section{Desarrollo del sistema de documentación.}
 
-El objetivo del segundo hito era conseguir un sistema de incidencias completamente funcional. Para considerarse terminado el hito, se debe garantizar que los agentes puedan realizar las siguientes funciones.
+El primer objetivo de este hito es conseguir un sistema de incidencias completamente funcional y la posibiidad de generar todos los documentos
+soportados por la plataforma de manera interactiva y desde cualquier localización. De esta manera se consigue que los agentes aumenten su 
+productividad ya que pueden rellenar los documentos de manera inmediata y no tendrán que realizarlo al final del turno.\\
 
+Para la realización de este hito se ha utilizado un módulo completamente propio llamado \textbf{doc\textunderscore functions}. Este módulo ha sido diseñado para ser usado
+como biblioteca externa ya que contiene un gran número de funciones para generar los distintos tipos de documentos que podrá manejar la aplicación. De esta manera
+se consigue una mejor reutilización del código, además de lograr un menor acoplamiento.\\
+
+Esta biblioteca se encarga de crear el dato de tipo JSON que será posteriormente inyectado en las plantillas. Para ello, tiene en cuenta los datos recibidos
+del servidor y otros que gestiona de manera independiente al usuario como pueden ser la fecha, la hora en la que se crea el turno, el formato de salida del 
+documento... Además tiene otra función importante y es la de dar feedback al usuario. En la función en la que crea el documento se he creado un \textit{callback}
+para poder comunicarse de nuevo con el servidor. De este modo, se podrá saber si la creación del documento ha sido correcta o, por el contrario, si ha fallado.
+Podremos utilizar dicho \textit{callback} para devolver un \textit{feedback} al usuario y que sea consciente del resultado de la operación. Por tanto, todas las 
+acciones de escritura y creación de documentos han sido desplazadas a dicho módulo, logrando así un mejor diseño y un código mejor estructurado.
+\\
+
+Una vez presentado el módulo creado para este hito, se procederá a detallar las funciones que se han creado para el usuario.
 
 \subsection{Comienzo del turno de servicio.}
 Cuando el agente desee comenzar un nuevo turno de servicio deberá introducir los datos relacionados con el mismo. Estos datos son los siguientes:
 
 \begin{itemize}
-	\item 
+	\item \textbf{Turno.} Podrá ser mañana, tarde o noche.
+	\item \textbf{Identificadores de los policías.} Puede ser desde 1 hasta 4 los policías que estén en un turno simultáneamente.
+	\item \textbf{Jefe de guardia.} El nombre del agente que actúa como supervisor del turno.
 \end{itemize}
 
+Una vez se rellenan estos campos, se creará un nuevo fichero de turno y se rellenarán las cabeceras con los datos anteriormente solicitados.
 
 \subsection{Crear incidencias.}
+
+En este caso, el agente podrá crear un nuevo registro perteneciente a una incidencia que será guardado en la base de datos. Para crear una nueva
+incidencia se deberán rellenar los siguientes campos:
+
+\begin{itemize}
+	\item \textbf{Número de incidencia.} Número para identificarla. El agente decide que código le asigna.
+	\item \textbf{Dependencia.} Dependencia desde la que se ha realizado la incidencia. Por ejemplo , alguien que llama por teléfono o una llamada de la central.
+	\item \textbf{CEN.} Identificador del PREGUNTAR.
+	\item \textbf{PP.LL.} Número del agente que registra la incidencia.
+	\item \textbf{Hecho.} Descripción del motivo de la incidencia.
+	\item \textbf{Actuación.} Acutación desempeñada por los agentes.
+\end{itemize}
+
 \subsection{Terminar el turno de servicio.}
 
+Una vez terminado el servicio, se puede proceder a cerrar el parte de servicio. Cuando el agente realiza esta acción, \textbf{Chief} accede 
+a la base de datos interna y genera un documento final. Este documento tendrá un nombre con el siguiente formato: \textit{DD\textunderscore MM\textunderscore YYYY\textunderscore Turno}.\\	
+
+De esta manera, identificaremos a los partes de incidencias con un día, mes, año y nombre del turno. Es así debido a que no podrá haber más de un fichero de fin 
+de turno para el mismo turno. Con este sistema se crean dichos documentos pero sin poder modificar las incidencias. Los registros que aparecen en el documento
+final son todos los que han ocurrido dentro del intervalo del turno.
+
+\subsection{Desarrollo del sistema de ordenanzas y accidentes.}
+
+Una vez realizado el hito anterior, ya tenemos una aplicación con su sistema de identificación para los agentes y además pueden realizar todas las acciones
+relacionadas con los partes de servicio habituales. Por tanto, faltaría incluir el sistema de accidentes y ordenanzas para completar el desarrollo de la
+creación de documentos administrativos.\\
+
+Todos los documentos serán generados en una carpeta específica donde serán agrupados todos los tipos de informes generados. En este caso, el nomrbe de los ficheros se
+genera con el siguiente formato: \textit{DD\textunderscore MM\textunderscore YY\textunderscore HH:MM}.\\
+
+Los documentos que el agente puede registrar son los siguientes:
+
+\begin{itemize}
+	\item \textbf{Ordenanza de limpieza. } Se generará un acta de denuncia ante la ordenanza de limpieza.
+	\item \textbf{Ordenanza de ruidos en la vía pública. } Se generará un acta de denuncia por ruidos u otras actividades molestas en en la vía pública bajo el artículo número
+	43.2, del Decreto 326/03 y la Ley 7/06 de 24 de Octubre. REFS NEEDED.
+	\item \textbf{Ordenanza de ruidos en domicilio. } Se generará un acta de denuncia con el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
+	\item \textbf{Ordenanza de ruidos en local. }  Se generará un acta de denuncia con el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
+	\item \textbf{Acta de medición de ruidos. } Se generará un acta de medición de ruidos bajo el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
+	\item \textbf{Acta de inspección de obras. }  Se generará un acta de inspección de obras y quedará numerada bajo el número de acta elegido por el agente.
+	\item \textbf{Acta de hallazgo de residuos. } Se generará un acta de denuncia en la que queda constancia de que se dará parte a la Concejalía de Medioambiente y Urbanismo
+	\item \textbf{Accidente de 2 vehículos. } Se creará un diligencia en la que quedarán registrados los datos de todos los involucrados en el accidente, tanto testigos como 
+	conductores de los vehículos.
+	\item \textbf{Accidente de 3 vehículos. } Se creará un diligencia en la que quedarán registrados los datos de todos los involucrados en el accidente, tanto testigos como 
+	conductores de los vehículos.
+\end{itemize}
 
 \section{Desarrollo del sistema de croquis.}
-
 
 \section{Tests unitarios.}
 
