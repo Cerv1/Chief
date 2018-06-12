@@ -132,9 +132,73 @@ Los documentos que el agente puede registrar son los siguientes:
 
 \section{Desarrollo del sistema de croquis.}
 
+En esta etapa del desarrollo el agente ya dispone de un sistema de acceso y de documentación completa. Para este hito se piensa en la dificultad que tiene un agente para 
+demostrar que los hechos han ocurrido tal y como se han registrado pasado un tiempo del incidente.\\
+
+Por ejemplo, hay un accidente porque el \textit{vehículo A} no ha respetado un ceda el paso e impacta contra el \textit{vehículo B} generando ciertos desperfectos en ambos
+vehículos. Los involucrados junto con los agentes realizan un parte en el que quedan constatados los daños.  Un tiempo después, hay una reclamación por parte de uno de los
+involucrados debido a que su vehículo tiene más desperfectos de los que se apuntaron a causa del accidente y el seguro no se hace responsable de cubrir dichos desperfectos
+debido a que en el parte no se menciona nada acerca de dichos daños. En este caso, es su palabra contra la del agente.\\
+
+Para evitar estas situaciones se ha diseñado este sistema. El agente podrá tomar una fotografía de los hechos y dibujar sobre ella todo lo que quiera. Además, se 
+pueden hacer anotaciones sobre la propia imagen para reflejar datos de importancia como la dirección en la que venían los vehículos, resaltar puntos de la imagen...\\
+
+Una vez el agente ha realizado todas las fotografías pertinentes y con todo lujo de detalles para que no pueda ocurrir la situación previamente descrita,
+puede proceder a enviarlas al servidor donde quedarán almacenadas para posteriores consultas. De este modo, aunque pase mucho tiempo, siempre se podrán recurrir a 
+las fotografías de aquel momento con todas las anotaciones que se tomaron para situarse en un contexto lo más cercano posible al de la incidencia. \\
+
+Para desarrollar esta funcionalidad se ha utilizado \textit{canvas}\cite{canvas}. Este tipo de elemento es muy potente debido a que está expresamente diseñado para 
+dibujar gráficos en un entorno web utilizando JavaScript. Cabe destacar, que \textit{canvas} es \textbf{únicamente} un elemento que está preparado para contener gráficos.
+Es decir, dichos gráficos los tenemos que insertar mediante el uso de JavaScript y no forman parte del elemento de forma nativa.\\
+
+Para crear el croquis, el agente puede tomar una foto o subir una desde el almacenamiento interno. Una vez cargada la imagen, se mostrará en pantalla y se podrá 
+dibujar sobre ella. Para lograr esta funcionalidad, se detecta cuando se ha subido una imagen a la aplicación y la inserta directamente en el canvas, sobre el que 
+podremos dibujar y, además, borrar el contenido del croquis si es erróneo, o se quiere volver a comenzar.
+
 \section{Tests unitarios.}
 
+En este hito ya se dan por realizadas las funcionalidades que podrán usar los agentes. En este punto, nos centramos en probar la calidad del software y del diseño.
+Para ello, se ha empleado un sistema de \textbf{test unitarios}.\\
+
+Los test unitarios están realizados con el propósito de probar las funcionalidades de la aplicación y así poder evitar los posibles errores en nuestro código \textbf{antes}
+del despliegue de la aplicación. Estos test se implementan de manera individual y el objetivo de cada uno de ellos es probar una funcionalidad. Para ello, se realizan varias
+pruebas sobre la misma característica con distintas entradas y de las que conocemos los resultados que debieran ser correctos o erróneos. Un hecho relevante en la inclusión
+de estos tests en nuestro sistema es que, además de garantizar el correcto funcionamiento de la aplicación antes de realizar el despliegue, es que pueden ser automatizados. 
+De esta manera y con la ayuda de un sistema de integración continua que veremos en el siguiente punto, conseguimos que cada vez que se realice una modificación en nuestro software
+se compruebe la integridad del sistema rehaciendo los tests.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{imagenes/unit-test.png}
+	\caption{Esquema del funcionamiento de los tests unitarios. \label{fig:figura13}}
+\end{figure}
+
+En este caso, se ha utilizado la librería \textit{supertest}\cite{supertest}, la cual nos proporciona un alto nivel de abstracción para probar nuestro servidor web.
+Los test unitarios que se han realizado prueban las siguientes funcionalidades:
+
+\begin{itemize}
+	\item \textbf{Servidor.} Se realizan consultas a todas las rutas posibles de la aplicación para comprobar que todas existen y que además, solo se puede acceder 
+	si se está previamente identificado. De este modo, garantizamos no solamente que todas las rutas posibles de la aplicación están operativas, sino que podemos garantizar
+	que ningún usuario no identificado va a poder acceder a esta aplicación, consiguiendo probar parte de la seguridad de la aplicación antes del despliegue.
+	\item \textbf{Base de datos.} Se realiza la creación de un usuario de prueba y se añade a la base de datos. Posteriormente, se comprueba si dicho usuario a quedado registrado
+	en la base de datos y se procede a borrar para no ensuciar los registros. De igual manera se realiza con las incidencias, creando una de prueba y probando posteriormente que
+	existe. Una vez realizado este test, se puede estar seguro de que la base de datos está configurada correctamente y completamente funcional.
+\end{itemize}  
+
 \section{Integración continua.}
+
+Como objetivo de este hito, se propone añadir a nuestro desarrollo un sistema de integración continua.\\
+
+La integración continua se creó con la intención de realizar el proceso de integración del software (ejecución de los tests) de la manera más habitual posible. De este modo, 
+podemos detectar los fallos de manera inmediata.\\
+
+El autor de este término es \textit{Martin Fowler}, y como bien dice en su artículo donde analiza el término, es más didáctico explicarlo con un ejemplo.\\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.6]{imagenes/continuous-integration.png}
+	\caption{Esquema del funcionamiento de un sistema de integración continua. \label{fig:figura14}}
+\end{figure}
 
 \section{Instalación de la aplicación de manera automática.}
 
