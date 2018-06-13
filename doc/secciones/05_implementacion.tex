@@ -190,9 +190,14 @@ Los test unitarios que se han realizado prueban las siguientes funcionalidades:
 Como objetivo de este hito, se propone añadir a nuestro desarrollo un sistema de integración continua.\\
 
 La integración continua se creó con la intención de realizar el proceso de integración del software (ejecución de los tests) de la manera más habitual posible. De este modo, 
-podemos detectar los fallos de manera inmediata.\\
+podemos detectar los fallos de manera inmediata y antes de que pase a la etapa de producción.\\
 
-El autor de este término es \textit{Martin Fowler}, y como bien dice en su artículo donde analiza el término, es más didáctico explicarlo con un ejemplo.\\
+Para lograrlo se ha utilizado \textit{Travis CI}\cite{travis-ci}. Con esta herramienta es muy rápido y sencillo añadir la integración continua a nuestro repositorio. Para ello,
+tan solo tenemos registrarnos en su página web con nuestra cuenta de GitHub, dar de alta el repositorio. Para que funcione correctamente, se debe crear un fichero de configuración
+llamado \verb|.travis.yml|. Este archivo es el encargado de indicarle a \textit{Travis} el contexto en el que se ejecutarán los test, por tanto contiene
+información relacionada con el lenguaje de programación utilizado, las versiones utilizadas, si se necesita permisos de superusuario...\\
+
+En la siguiente imagen se representan los siguientes estados por los que pasa el código fuente desde que se añade hasta que ha pasado todos los test y la fase de integración.
 
 \begin{figure}[H]
 	\centering
@@ -201,5 +206,35 @@ El autor de este término es \textit{Martin Fowler}, y como bien dice en su art�
 \end{figure}
 
 \section{Instalación de la aplicación de manera automática.}
+Para finalizar el desarrollo, se ha configurado el entorno de tal manera que la aplicación se configure automáticamente y esté lista para desplegarse de manera rápida y clara.\\
 
+Para conseguir dichos objetivos, se han utilizado dos herramientas presentadas en el previo análisis: \textit{Vagrant} y \textit{Ansible}. 
+
+\subsection{Creación del entorno.}
+
+La aplicación se ejecutará bajo una máquina virtual que corre con \textit{Ubuntu 16.04}. La elección de este sistema operativo ha sido por los siguientes motivos:
+\begin{itemize}
+	\item \textbf{Compatibilidad.} Aunque la aplicación será compatible con todos los navegadores del mercado, el servidor deberá estar basado en Linux. Además, 
+	Ubuntu en la versión 16.04 es LTS(\textit{Long Term Support}), por lo tanto, es una buena opción para mantener una máquina virtual a largo plazo. Otro motivo para
+	elegir este sistema operativo en concreto y no su versión \textit{Server} es debido a que \textit{Vagrant} no tiene una imagen oficial de dicho sistema. Por tanto,
+	para evitar vulnerabilidades a largo plazo se ha optado por esta versión en concreto.
+	
+	\item \textbf{Uso.} Ubuntu es la distribución basada en Linux más usada del mundo\cite{ubuntu-usage} y por tanto tiene una amplia comunidad de desarrolladores. Esto
+	hace que sea un sistema operativo muy estable en sus versiones \textit{LTS}, lo cual es ideal para nuestro servidor.
+\end{itemize}
+
+Una vez elegido el sistema operativo, \textit{Vagrant} realiza las siguientes operaciones:
+
+\begin{itemize}
+	\item \textbf{Instala el S.O.} Si no hay registro en la máquina local del S.O, lo descargará e instalará antes de comenzar.
+	\item \textbf{Actualiza el S.O.} Comprueba la versión del sistema operativo en busca de nuevas actualizaciones antes de lanzar la máquina virtual.
+	\item \textbf{Ajusta las claves ssh.} Utiliza un esquema de llave pública/privada y de este modo podremos acceder a la máquina virtual de manera segura y sin contraseña.
+	\item \textbf{Redirecciona los puertos.} Configura los puertos que queramos redireccionar de nuestra máquina local a la virtual, consiguiendo desviar el tráfico 
+	para ser atendido por nuestro servidor.
+	\item \textbf{Provisiona.} Ejecuta \textit{Ansible} para provisionar a la máquina con los recursos necesarios.
+\end{itemize}
+
+Una vez se llega a este punto, \textit{Vagrant} ejecuta el \textit{Playbook} de \textit{Ansible}. Dicho fichero contiene las instrucciones necesarias para 
+preparar la máquina con todas las dependencias que tenga nuestro proyecto. Esto se traduce directamente en que con este tipo de ficheros se puede automatizar acciones
+como actualizar la lista de paquetes del sistema, descargar dependencias globales de la aplicación, instalar \textbf{Chief}, ejecutar los test, lanzar la aplicación...\\
 
