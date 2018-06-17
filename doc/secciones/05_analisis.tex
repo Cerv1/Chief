@@ -1,17 +1,17 @@
 \chapter{Análisis del problema}
  
  Como todo software, esta aplicación se ha diseñado y desarrollado para cubrir unas necesidades muy bien definidas. En base a dicha premisa, podemos crear una descripción completa de los 
- actores, así como una lista de requisitos detallada con la que se cubran los objetivos 
+ actores, así como una lista de requisitos detallada con la que se cubran los objetivos previamente
  propuestos.
 
 \section{Descripción de los actores}
 Vamos a disponer de dos actores: el \textbf{usuario} y el \textbf{administrador}.\\
 
-El \textbf{usuario} será el agente de policía que desée realizar cualquiera de las acciones
+El \textbf{usuario} será el agente de policía que desee realizar cualquiera de las acciones
 disponibles en la aplicación. Este actor no tiene por qué tener ninguna experiencia previa
 con aplicaciones web, pero en este escenario se les ha formado con unas nociones básicas 
 a modo de tutorial de cómo realizar todas las acciones posibles en la aplicación y las consecuencias
-que tiene en el servidor.\\
+que tiene en el servidor. De esta manera, el usuario no tiene ningún problema interaccionando con la aplicación.\\
 
 El \textbf{administrador} será la persona encargada de asegurar el correcto funcionamiento 
 del software así como el encargado de la gestión de los datos de usuario y de la aplicación. Este
@@ -144,14 +144,14 @@ La base de datos de la aplicación almacenará los mínimos datos necesarios, De
 
 Como en el desarrollo de cualquier software, no existe una solución única. Por tanto, se deben analizar las
 distintas tecnologías que hay en el mercado para garantizar que la solución propuesta es la más adecuada para
-los problemas que se plantean.\\
+los problemas que se plantean.
 
 \subsection{Back-end}
 
 \subsubsection{Elección del servidor} 
 A la hora de crear una aplicación web, tenemos un amplio abanicos de posibilidades sobre las que crear nuestro servidor. Aunque, en este caso
 en concreto, se le ha añadido una restricción y es que el servidor debe ser \textit{open source}. Para obtener
-una idea global podemos observar el siguiente gráfico comparativo del uso de distintas tecnologías en los servidores web actuales:
+una idea global se puede observar el siguiente gráfico comparativo del uso de distintas tecnologías en los servidores web actuales:
 
 \begin{figure}[H]
 	\centering
@@ -159,12 +159,12 @@ una idea global podemos observar el siguiente gráfico comparativo del uso de di
 	\caption{Comparativa de servidores web.\cite{web-server-usage} \label{fig:figura2}}
 \end{figure}
 
-Es inmediato captar la superioridad de Apache\cite{apache} en esta gráfica. Esto es debido, principalmente, a que su lanzamiento 
+Es inmediato captar la superioridad de Apache\cite{apache} en esta gráfica. Esto se debe, principalmente, a que su lanzamiento 
 oficial fue en el año 1996. En esta época no tuvo ningún rival y por tanto se posicionó el primero en el mercado, 
 persistiendo aún hoy en día en un gran número de equipos.\\
 
 Sin embargo, en esta lista de servidores todos siguen el esquema tradicional en el que cada petición es atendida 
-por una hebra. En la situación actual del desarrollo web, se está optando por una nueva metodología. La programación
+por una hebra del sistema. En la situación actual del desarrollo web, se está optando por una nueva metodología. La programación
 asíncrona orientada a eventos. En este tipo de arquitecturas se consigue un mejor rendimiento con un menor coste 
 de recursos debido a la escalabilidad que poseen. \\
 
@@ -177,8 +177,8 @@ En la siguiente imagen podemos ver la diferencia entre un sistema convencional y
 \end{figure}
 
 El único servidor web que presenta este tipo de arquitectura es Node.js y es por ello por lo que está
-ganando popularidad a medida que pasa el tiempo. Su porcentaje de uso aún es bajo debido a que es una tecnología 
-bastante nueva y que está ganando popularidad en los últimos años, como podemos comprobar en el siguiente gráfico
+ganando una gran popularidad a medida que pasa el tiempo. Su porcentaje de uso aún es bajo debido a que es una tecnología 
+bastante nueva y que está ganando atención en los últimos años, como podemos comprobar en el siguiente gráfico
 de tendencia:
 
 \begin{figure}[H]
@@ -191,8 +191,8 @@ Además, Node.js dispone de \textit{npm}\cite{npm}, que es la herramienta de ges
 gestor de paquetes fue creado con la intención de ayudar a los desarrolladores de JavaScript  de todo el mundo a compartir y utilizar
 módulos de código creados por la comunidad. Lo más destacable de
 de este proyecto es la acogida que ha tenido, adquiriendo decenas de miles de usuarios que, además, se involucran
-activamente en el desarrollo. De esta manera consiguen una mejora constante del software. Por tanto, se ha logrande
-un gran número de paquetes y hace que el desarrollo con Node sea más liviano. Podemos utilizar paquetes que 
+activamente en el desarrollo. De esta manera consiguen una mejora constante del software. Por tanto, se ha logrado conseguir
+un gran número de paquetes y hace que el desarrollo con Node sea más liviano, rápido y eficiente. Podemos utilizar paquetes que 
 ha desarrollado la comunidad de una manera muy sencilla, ahorrando costes en el tiempo del desarrollo.
 
 
@@ -203,12 +203,12 @@ bases de datos \textbf{SQL} o \textbf{NoSQL}. Ambas son opciones completamente v
 
 Las bases de datos SQL utilizan un lenguaje de consulta estructurada (\textit{\textbf{S}tructured \textbf{Q}uery \textbf{L}anguage}) para manipular
 y definir los datos. Este tipo de consulta es una de las más usadas y es muy útil para realizar consultas complejas. 
-Pero, por otro lado, es muy restrictiva ya que te exige definir la estructura de los datos que vas a guardar \textbf{antes} 
+Pero, por otro lado, es muy restrictiva ya que te exige definir la estructura de los datos que se van a almacenar \textbf{antes} 
 de realizar cualquier operación y comenzar a trabajar. Esto impacta de manera directa con el tiempo que se debe dedicar a 
 la preparación y al planteamiento de los datos que vamos a utilizar y guardar, ya que modificar dicha estructura posteriormente
 puede ser realmente costoso y provocar una desestabilización completa de la base de datos.\\
 
-Por otra parte, las bases de datos NoSQL, usualmente llamados \textbf{no sólo SQL}, para destacar que también pueden soportar consultas de tipo SQL. Poseen una esquema dinámico para gestionar los datos no estructurados. Este hecho se puede traducir directamente en las siguientes características:
+Por otra parte, las bases de datos NoSQL, usualmente llamados \textbf{no sólo SQL}, para destacar que también pueden soportar consultas de tipo SQL. Poseen un esquema dinámico para gestionar los datos no estructurados. Este hecho se puede traducir directamente en las siguientes características:
 
 \begin{itemize}
 	\item Se pueden añadir datos sin haber definido previamente su estructura.
@@ -240,9 +240,9 @@ Una vez presentadas ambas opciones, podemos comparar sus características y opta
 \end{table}
 
 Una vez comparadas ambas, podemos comprobar que las bases de datos SQL son especialmente útiles en sistemas robustos, muy bien definidos desde el principio
-en el que no se esperan cambios drásticos en la estructura de sus datos. Mientras que las bases de datos NoSQL son útiles cuando buscamos un sistema de se adapte en función de las necesidades del usuario o del propio desarrollo y que además no suponga grandes costes aumentar la escalabilidad del sistema.\\
+en el que no se esperan cambios drásticos en la estructura de sus datos. Mientras que las bases de datos NoSQL son útiles cuando buscamos un sistema de se adapte en función de las necesidades del usuario o del propio desarrollo y que además no suponga grandes costes cuando se decida aumentar la escalabilidad del sistema.\\
 
-Por otro lado, también se debe tener en cuenta la \textbf{consistencia} de los datos. Como hemos comprobado, las bases de datos SQL garantizan la consistencia de sus datos por diseño, mientras que en el otro tipo, no se garantiza de una manera de un modo tan fiable. Por ello, las bases NoSQL se utilizan cuando manejamos un alto volumen de datos o estos son cambiantes. 
+Por otro lado, también se debe tener en cuenta la \textbf{consistencia} de los datos. Como hemos comprobado, las bases de datos SQL garantizan la consistencia de sus datos por diseño, mientras que en el otro tipo, no se garantiza de un modo tan fiable. Por ello, las bases NoSQL se utilizan cuando manejamos un alto volumen de datos ya que es necesario adaptarse a esta cantidad de tráfico. 
 
 
 \subsection{Front-end}
@@ -255,7 +255,7 @@ Se ha elegido Pug\cite{pug} ya que es un motor de plantillas de alto rendimiento
 los desarrolladores se dieron cuenta de que esa marca ya estaba registrada y por tanto tuvieron que cambiar el nombre al proyecto. Cabe destacar,
 que debido a la popularidad de Jade, se sigue utilizando en algunas webs pero el paquete ya no cuenta con el soporte oficial y todas las actualizaciones se lanzarán bajo el nuevo nombre. \\
 
-La principal ventaja de este motor de plantillas es su mínima curva de aprendizaje. Esto se debe a que la sintáxis que utiliza es extremadamente sencilla y puede permitir a cualquier usuario crear páginas web en HTML de una manera muy intuitiva como podemos comprobar en el siguiente ejemplo:
+La principal ventaja de este motor de plantillas es su mínima curva de aprendizaje. Esto se debe a que la sintaxis que utiliza es extremadamente sencilla y puede permitir a cualquier usuario crear páginas web en HTML de una manera muy intuitiva como podemos comprobar en el siguiente ejemplo:
 
 \begin{figure}[H]
 	\centering
@@ -274,7 +274,7 @@ Este código será transformado directamente en el siguiente, ya interpretable p
 
 \subsubsection{Elección del framework CSS}
 
-En \textbf{Chief} se perseguía conseguir una interfaz sencilla para que fuese lo más simple e intuitiva posible de cara al usuario. De esta manera, la curva de aprendizaje
+En \textbf{Chief} se persigue conseguir una interfaz sencilla para que sea lo más simple e intuitiva posible de cara al usuario. De esta manera, la curva de aprendizaje
 para utilizar el producto sería mínima. Por tanto, se ha optado por elegir Bootstrap.\\
 
 Boostrap\cite{bootstrap} es la herramienta \textit{open-source} para desarrollo web por excelencia. Es uno de los proyectos libres más populares y utilizado por toda la comunidad.
@@ -282,7 +282,7 @@ Fue creado por un trabajador de Twitter a mediados del 2010. Antes de ser el pro
 Pero todo cambió cuando Twitter celebró su primera Hack Week\cite{hack-week} y vieron la acogida del proyecto por parte de toda la comunidad de desarrolladores. Siguió en desarrollo
 durante un año después de dicho evento y, finalmente, se publicó la primera versión del \textit{framework} tan conocido a día de hoy.\\
 
-Debido a su simpleza a la hora de ser utilizado y a lo sencilla que es su sintáxis, puedes crear páginas web completamente adaptables de una manera muy rápida e intuitiva.
+Debido a su simpleza a la hora de ser utilizado y a lo sencilla que es su sintaxis, se pueden crear páginas web completamente adaptables de una manera muy rápida e intuitiva. Además, al ser tan conocido en la comunidad hay una gran cantidad de tutoriales en los que se enseña a utilizarlo desde 0.
 
 \newpage
 
@@ -297,7 +297,7 @@ la base de datos ni desestructurarla por completo.\\
 
 Además, dado que el objetivo del desarrollo es conseguir un prototipo funcional, con el tiempo se le podrán añadir
 nuevas funcionalidades, nuevos tipos de usuarios, nuevos campos a las incidencias... Por tanto, para garantizar 
-la consistencia del sistema se ha optado por este tipo de base de datos.\\
+la consistencia del sistema en un futuro se ha optado por este tipo de base de datos.\\
 
 Finalmente, después de un estudio completo de las tecnologías más usadas actualmente en aplicaciones con unas características similares a \textbf{Chief}, la solución al problema inicial se ha conseguido 
 mediante el uso de las siguientes tecnologías.
@@ -319,15 +319,13 @@ escalables de una manera muy sencilla, rápida y eficiente.\\
 	\caption{Sistema de Nodejs \label{fig:figura1}}
 \end{figure}
 
-Este diseño contrasta directamente con el modelo con el modelo de concurrencia más común hoy en 
-día en el que se usan hilos del Sistema Operativo. Las operaciones en red basadas en este modelo
-son relativamente ineficientes además de complejas en su uso. Cabe mencionar que, aunque Node.js 
-no utilice hilos del Sistema Operativo implique que no podamos aprovechar los múltiples cores
-de nuestro sistema.\\
+Este diseño contrasta directamente con el modelo de concurrencia más común hoy en 
+día en el que se usan hilos del Sistema Operativo para resolver peticiones. Las operaciones en red basadas en este modelo son relativamente ineficientes además de complejas en su uso. Cabe mencionar que, aunque Node.js 
+no utilice hilos del Sistema Operativo del mismo modo que los servidores clásicos, no implica que no podamos aprovechar los múltiples núcleos de nuestro sistema.\\
 
 Otro punto a favor de Node.js es que no tendremos que preocuparnos por la posibilidad de un 
 bloqueo en el proceso debido a que no existe dicha posibilidad por la naturaleza de dicha 
-tecnología, la cual está basada en un bucle de eventos.
+tecnología, la cual, como se ha comprobado, está basada en un bucle de eventos.
 
 \subsection{MongoDB}
 
@@ -368,7 +366,7 @@ libre.
 
 \subsection{Vagrant}
 
-Vagrant es una herramienta para construir y administrar entornos de máquinas virtuales de una 
+Vagrant\cite{vagrant} es una herramienta creada para construir y administrar entornos de máquinas virtuales de una 
 manera sencilla. Debido a que está diseñado para ser sencillo de utilizar y a que se centra en 
 la automatización hace que utilicemos el menor tiempo posible en la preparación del entorno virtual
 que necesitamos para comenzar a trabajar.\\
@@ -377,8 +375,7 @@ Nos proporciona un entorno muy rápido y simple de configurar, reproducible y po
 tecnología puntera en el sector de la virtualización como puede ser VirtualBox, VMWare, AWS, Docker...\\
 
 Una enorme ventaja que aporta Vagrant al desarrollo es la posibilidad de aislar toda la configuración
-del entorno y todas sus dependencias. Además, no tiene que deshacerse de las herramientras de trabajo
-a las que está acostumbrado, pues realmente se sigue trabajando en el mismo entorno. 
+del entorno y todas sus dependencias. Además, no hay que cambiarlas herramientas de trabajo usuales, pues realmente se sigue trabajando en la misma máquina. 
 De esta manera se consigue un desarrollo más eficiente y con mínimas pérdidas de tiempo, garantizando 
 de manera directa una eficiencia en la gestión de los recursos humanos empleados.\\
 
@@ -390,8 +387,6 @@ En la siguiente imagen se puede ver como funciona el flujo de trabajo utilizando
 	\caption{Flujo de trabajo de Vagrant. \label{fig:figura6}}
 \end{figure}
 
-% insertar vagrant advantages
-
 
 \subsection{Ansible}
 
@@ -399,13 +394,12 @@ Ansible\cite{ansible} es un software que se ha diseñado explícitamente para au
 conseguir una mayor productividad. De esta manera, se libera al equipo de tareas costosas
 y que siempre siguen el mismo proceso.\\
 
-Ansible está categorizado bajo el nombre de \textbf{herramineta de orquestación} debido a 
-las funciones que realiza. Se encarga de manejar nodos a través de SSH habiendo recibido
-una entrada por parte del usuario. De esta manera, se le entrega una entrada muy sencilla
+Ansible está categorizado bajo el nombre de \textbf{herramienta de orquestación} debido a 
+las funciones que realiza. Se encarga de manejar nodos a través de \textit{SSH} habiendo recibido
+una entrada por parte del usuario. De esta manera, se le proporciona una entrada muy sencilla
 y comprensible para la lectura del ser humano, que posteriormente es analizada y transformada
 en una serie de tareas hacia los nodos, consiguiendo quedar completamente configurados de una
-manera muy rápida y sencilla.\\
-
+manera eficiente.\\
 
 \begin{figure}[H]
 	\centering
@@ -424,17 +418,18 @@ en el desarrollo de esta herramienta ya que cuenta con más de 2.400 personas qu
 uno o varios módulos para mejorarla.
 
 \subsection{Carbone}
+Carbone\cite{carbone} no es una herramienta más en el desarrollo de la aplicación. Su uso deriva de la inexistencia de un sistema de gestión documental libre que ofrezca la posibilidad de administrar, rellenar y almacenar las plantillas necesarias. Por tanto, utilizando \textit{Carbone} como base se ha realizado un sistema de gestión documental a medida para este proyecto, consiguiendo todas las funcionalidades nesearias para el correcto funcionamiento de la aplicación y de una manera libre y gratuita.\\
 
-Carbone\cite{carbone} es una herramienta que permite la inyección de datos en documentos provenientes tanto de LibreOffice como de Microsoft Office, aceptando por tanto la gran mayoría de documentos de texto. De hecho, funciona con todos los documentos basados en el formato \textit{XML}, por lo que su alcance es mayor aún.\\
+Carbone es una herramienta que permite la inyección de datos en documentos provenientes tanto de LibreOffice como de Microsoft Office, aceptando por tanto la gran mayoría de documentos de texto. De hecho, funciona con todos los documentos basados en el formato \textit{XML}, por lo que su alcance no solo se remite a los programas y formatos previamente mencionados.\\
 
-Esta herramienta es la que ha conseguido que se puedan generar documentos de texto rellenos con los datos adquiridos a través de la aplicación web de una manera muy sencilla, rápida y segura. Su funcionamiento es simple.\\
+Esta herramienta es la que ha conseguido que se puedan generar documentos de texto rellenos con los datos adquiridos a través de la aplicación web. Su funcionamiento es simple.\\
 
 \begin{enumerate}
 	\item \textbf{Lee una plantilla adaptada.} Le indicamos donde se encuentra la plantilla sobre la que queremos escribir. 
-	\item \textbf{Analiza el documento.} Analiza completamente la plantilla en busca de los marcadores {}.  
-	\item \textbf{Recibe los datos en formato JSON.} Nuestra aplicación le provisiona con los datos que queremos inyectar en el documento con formato \textit{JSON}.  
+	\item \textbf{Analiza el documento.} Analiza completamente la plantilla en busca de los marcadores \{ y \}.  
+	\item \textbf{Recibe los datos en formato \textit{JSON}.} Nuestra aplicación le proporciona los datos que queremos inyectar en el documento con formato \textit{JSON}.  
 	\item \textbf{Inyecta los datos.} Realiza una sustitución del contenido de nuestros datos en los marcadores que ha encontrado previamente sobre el documento.
-	\item \textbf{Escribe en el fichero destino.} Una vez ha realizado las sustituciones, procede a escribir el documento resultante en el disco. 
+	\item \textbf{Escribe en el fichero destino.} Una vez realiza las sustituciones, procede a escribir el documento resultante en el disco. 
 \end{enumerate}
 
 Además de realizar sustituciones, esta herramienta se puede utilizar para dar formato a los datos, repetir porciones del documento como pueden ser filas de una tabla, añadir lógica a la inyección de los datos... Para ayudar a la comprensión, se presenta el siguiente caso de uso real como ejemplo:\\
