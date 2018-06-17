@@ -2,7 +2,7 @@
 
 La implementación del software se ha dividido en hitos. Estos, han sido definidos en Github
 y cada uno de ellos contiene un grupo de \textit{issues} que se corresponden con las distintas
-mejoras que ha ido incorporando el software a lo largo de su desarrollo.\\
+mejoras que se han ido incorporando al software a lo largo de su desarrollo.\\
 
 Los hitos han sido los siguientes en orden cronológico:
 
@@ -35,15 +35,23 @@ servidor de una manera más eficiente.\\
 Express.js ofrece un software liviano que dota de funcionalidades como negociación de contenido, una mejora en el 
 rendimiento del servidor, la posibilidad de seleccionar un motor de plantillas para servir el contenido... En este caso,
 se ha configurado para que utilice como motor de plantillas el ya mencionado \textbf{Pug}. De esta manera, cuando el usuario
-realice una petición sobre alguna ruta se renderizará dicha plantilla para que el usuario reciba el archivo HTML, el cual
+realice una petición sobre alguna ruta se traducirá dicha plantilla para que el usuario reciba el archivo HTML, el cual
 será interpretado por el navegador que esté utilizando.\\ 
 
-Un usuario que quiera acceder a la aplicación o a cualquiera de las funcionalidades que ofrece deberá estar autenticado.
-Para administrar de una manera más segura los datos de sesión de un usuario se ha utilizado la librería \textbf{Passport.js}\cite{passport}.
-Esta librería se encarga de autenticar las peticiones hacia el servidor a través de una serie de \textit{plugins} conocidos
-como \textit{strategies}. Gracias al comportamiento de esta librería podemos gestionar de una manera sencilla el acceso a los usuarios.
+Un usuario que quiera acceder a la aplicación o a cualquiera de las funcionalidades que ofrece deberá estar \textbf{autenticado}.
+Para administrar de una manera más segura los datos de sesión de un usuario se ha utilizado la biblioteca \textbf{Passport.js}\cite{passport}.
+Esta biblioteca se encarga de autenticar las peticiones hacia el servidor a través de una serie de \textit{plugins} conocidos
+como \textit{strategies}. Gracias al comportamiento de esta biblioteca podemos gestionar de una manera sencilla el acceso a los usuarios.
 En este caso, se ha establecido un inicio de sesión mediante \textbf{usuario} y \textbf{contraseña} definidos por el agente en el 
 momento de registrarse.\\
+
+En la siguiente imagen se puede comprobar como funciona Passport.js:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.65]{imagenes/passport-auth.png}
+	\caption{Esquema del funcionamiento de \textit{Passport.js}\cite{passport-func}. \label{fig:figura18}}
+\end{figure}
+
 
 Cuando un agente realiza un registro, sus datos se almacenan \textbf{encriptados} en la base de datos para que de ninguna manera
 se puedan alterar o recuperar de forma fraudulenta. El cifrado de dichos datos se realizan con un algoritmo basado en el cifrado
@@ -52,11 +60,11 @@ Blowfish\cite{blowfish} al que se le añaden unos bits aleatorios para proteger 
 
 \section{Desarrollo del sistema de documentación.}
 
-El primer objetivo de este hito es conseguir un sistema de incidencias completamente funcional y la posibiidad de generar todos los documentos
-soportados por la plataforma de manera interactiva y desde cualquier localización. De esta manera se consigue que los agentes aumenten su 
+El primer objetivo de este hito es conseguir un sistema de incidencias completamente funcional y la posibilidad de generar todos los documentos
+soportados por la plataforma de manera interactiva y desde cualquier localización. De este modo, se consigue que los agentes aumenten su 
 productividad ya que pueden rellenar los documentos de manera inmediata y no tendrán que realizarlo al final del turno.\\
 
-Para la realización de este hito se ha utilizado un módulo completamente propio llamado \textbf{doc\textunderscore functions}. Este módulo ha sido diseñado para ser usado
+Para la realización de este hito se ha utilizado un módulo completamente propio llamado  \verb|doc_functions.js|. Este módulo ha sido diseñado para ser usado
 como biblioteca externa ya que contiene un gran número de funciones para generar los distintos tipos de documentos que podrá manejar la aplicación. De esta manera
 se consigue una mejor reutilización del código, además de lograr un menor acoplamiento.\\
 
@@ -88,29 +96,29 @@ incidencia se deberán rellenar los siguientes campos:
 
 \begin{itemize}
 	\item \textbf{Número de incidencia.} Número para identificarla. El agente decide que código le asigna.
-	\item \textbf{Dependencia.} Dependencia desde la que se ha realizado la incidencia. Por ejemplo , alguien que llama por teléfono o una llamada de la central.
-	\item \textbf{CEN.} Identificador del PREGUNTAR.
+	\item \textbf{Dependencia.} Dependencia desde la que se ha realizado la incidencia. Por ejemplo, alguien que llama por teléfono o una llamada de la central.
+	\item \textbf{CEN.} Identificador del centro de operaciones.
 	\item \textbf{PP.LL.} Número del agente que registra la incidencia.
 	\item \textbf{Hecho.} Descripción del motivo de la incidencia.
-	\item \textbf{Actuación.} Acutación desempeñada por los agentes.
+	\item \textbf{Actuación.} Actuación desempeñada por los agentes.
 \end{itemize}
 
 \subsection{Terminar el turno de servicio.}
 
-Una vez terminado el servicio, se puede proceder a cerrar el parte de servicio. Cuando el agente realiza esta acción, \textbf{Chief} accede 
-a la base de datos interna y genera un documento final. Este documento tendrá un nombre con el siguiente formato: \textit{DD\textunderscore MM\textunderscore YYYY\textunderscore Turno}.\\	
+Una vez terminado el turno, se puede proceder a cerrar el parte de servicio. Cuando el agente realiza esta acción, \textbf{Chief} accede 
+a la base de datos interna y genera un documento final. Este fichero tendrá un nombre con el siguiente formato: \textit{DD\textunderscore MM\textunderscore YYYY\textunderscore Turno}.\\	
 
 De esta manera, identificaremos a los partes de incidencias con un día, mes, año y nombre del turno. Es así debido a que no podrá haber más de un fichero de fin 
-de turno para el mismo turno. Con este sistema se crean dichos documentos pero sin poder modificar las incidencias. Los registros que aparecen en el documento
+de turno para el mismo turno. Con este sistema se crean dichos documentos pero sin poder modificar las incidencias para garantizar una mejor seguridad del sistema. Los registros que aparecen en el documento
 final son todos los que han ocurrido dentro del intervalo del turno.
 
 \subsection{Desarrollo del sistema de ordenanzas y accidentes.}
 
-Una vez realizado el hito anterior, ya tenemos una aplicación con su sistema de identificación para los agentes y además pueden realizar todas las acciones
+Una vez realizado el hito anterior, ya tenemos una aplicación con un sistema de identificación para los agentes y además pueden realizar todas las acciones
 relacionadas con los partes de servicio habituales. Por tanto, faltaría incluir el sistema de accidentes y ordenanzas para completar el desarrollo de la
 creación de documentos administrativos.\\
 
-Todos los documentos serán generados en una carpeta específica donde serán agrupados todos los tipos de informes generados. En este caso, el nomrbe de los ficheros se
+Todos los documentos serán generados en una carpeta específica donde serán agrupados todos los tipos de informes generados. En este caso, el nombre de los ficheros se
 genera con el siguiente formato: \textit{DD\textunderscore MM\textunderscore YY\textunderscore HH:MM}.\\
 
 Los documentos que el agente puede registrar son los siguientes:
@@ -118,10 +126,10 @@ Los documentos que el agente puede registrar son los siguientes:
 \begin{itemize}
 	\item \textbf{Ordenanza de limpieza. } Se generará un acta de denuncia ante la ordenanza de limpieza.
 	\item \textbf{Ordenanza de ruidos en la vía pública. } Se generará un acta de denuncia por ruidos u otras actividades molestas en en la vía pública bajo el artículo número
-	43.2, del Decreto 326/03 y la Ley 7/06 de 24 de Octubre. REFS NEEDED.
-	\item \textbf{Ordenanza de ruidos en domicilio. } Se generará un acta de denuncia con el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
+	43.2, del Decreto 326/03 y la Ley 7/06 de 24 de Octubre.
+	\item \textbf{Ordenanza de ruidos en domicilio. } Se generará un acta de denuncia con el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03.
 	\item \textbf{Ordenanza de ruidos en local. }  Se generará un acta de denuncia con el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
-	\item \textbf{Acta de medición de ruidos. } Se generará un acta de medición de ruidos bajo el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03. REFS NEEDED.
+	\item \textbf{Acta de medición de ruidos. } Se generará un acta de medición de ruidos bajo el artículo elegido por el agente de la Ley 37/2003 y bajo el Decreto 326/03.
 	\item \textbf{Acta de inspección de obras. }  Se generará un acta de inspección de obras y quedará numerada bajo el número de acta elegido por el agente.
 	\item \textbf{Acta de hallazgo de residuos. } Se generará un acta de denuncia en la que queda constancia de que se dará parte a la Concejalía de Medioambiente y Urbanismo
 	\item \textbf{Accidente de 2 vehículos. } Se creará un diligencia en la que quedarán registrados los datos de todos los involucrados en el accidente, tanto testigos como 
@@ -129,6 +137,20 @@ Los documentos que el agente puede registrar son los siguientes:
 	\item \textbf{Accidente de 3 vehículos. } Se creará un diligencia en la que quedarán registrados los datos de todos los involucrados en el accidente, tanto testigos como 
 	conductores de los vehículos.
 \end{itemize}
+
+A continuación se muestra una plantilla antes y después de ser completada por la aplicación:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{imagenes/clean-template.png}
+	\caption{Plantilla de ejemplo antes de ser rellena.}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.75]{imagenes/clean-res.png}
+	\caption{Documento final.}
+\end{figure}
 
 \section{Desarrollo del sistema de croquis.}
 
@@ -140,20 +162,29 @@ vehículos. Los involucrados junto con los agentes realizan un parte en el que q
 involucrados debido a que su vehículo tiene más desperfectos de los que se apuntaron a causa del accidente y el seguro no se hace responsable de cubrir dichos desperfectos
 debido a que en el parte no se menciona nada acerca de dichos daños. En este caso, es su palabra contra la del agente.\\
 
-Para evitar estas situaciones se ha diseñado este sistema. El agente podrá tomar una fotografía de los hechos y dibujar sobre ella todo lo que quiera. Además, se 
+Para evitar estas situaciones se ha diseñado este sistema. El agente podrá tomar varias fotografías de los hechos y dibujar sobre ellas todo lo que necesite. Además, se 
 pueden hacer anotaciones sobre la propia imagen para reflejar datos de importancia como la dirección en la que venían los vehículos, resaltar puntos de la imagen...\\
 
 Una vez el agente ha realizado todas las fotografías pertinentes y con todo lujo de detalles para que no pueda ocurrir la situación previamente descrita,
-puede proceder a enviarlas al servidor donde quedarán almacenadas para posteriores consultas. De este modo, aunque pase mucho tiempo, siempre se podrán recurrir a 
+puede proceder a enviarlas al servidor donde quedarán almacenadas para posteriores consultas. De este modo, aunque pase mucho tiempo, siempre se podrá recurrir a 
 las fotografías de aquel momento con todas las anotaciones que se tomaron para situarse en un contexto lo más cercano posible al de la incidencia. \\
 
 Para desarrollar esta funcionalidad se ha utilizado \textit{canvas}\cite{canvas}. Este tipo de elemento es muy potente debido a que está expresamente diseñado para 
 dibujar gráficos en un entorno web utilizando JavaScript. Cabe destacar, que \textit{canvas} es \textbf{únicamente} un elemento que está preparado para contener gráficos.
-Es decir, dichos gráficos los tenemos que insertar mediante el uso de JavaScript y no forman parte del elemento de forma nativa.\\
+Es decir, los tenemos que insertar mediante el uso de JavaScript y no forman parte del elemento de forma nativa.\\
 
 Para crear el croquis, el agente puede tomar una foto o subir una desde el almacenamiento interno. Una vez cargada la imagen, se mostrará en pantalla y se podrá 
 dibujar sobre ella. Para lograr esta funcionalidad, se detecta cuando se ha subido una imagen a la aplicación y la inserta directamente en el canvas, sobre el que 
-podremos dibujar y, además, borrar el contenido del croquis si es erróneo, o se quiere volver a comenzar.
+podremos dibujar y, además, borrar el contenido del croquis si es erróneo, o se quiere volver a comenzar.\\
+
+Ejemplo de un croquis realizado en un accidente:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.45]{imagenes/sketch.png}
+	\caption{Uso del croquis en un accidente.}
+\end{figure}
+
 
 \section{Tests unitarios.}
 
@@ -161,7 +192,7 @@ En este hito ya se dan por realizadas las funcionalidades que podrán usar los a
 Para ello, se ha empleado un sistema de \textbf{test unitarios}.\\
 
 Los test unitarios están realizados con el propósito de probar las funcionalidades de la aplicación y así poder evitar los posibles errores en nuestro código \textbf{antes}
-del despliegue de la aplicación. Estos test se implementan de manera individual y el objetivo de cada uno de ellos es probar una funcionalidad. Para ello, se realizan varias
+del despliegue de la aplicación. Estos tests se implementan de manera individual y el objetivo de cada uno de ellos es probar una funcionalidad. Para ello, se realizan varias
 pruebas sobre la misma característica con distintas entradas y de las que conocemos los resultados que debieran ser correctos o erróneos. Un hecho relevante en la inclusión
 de estos tests en nuestro sistema es que, además de garantizar el correcto funcionamiento de la aplicación antes de realizar el despliegue, es que pueden ser automatizados. 
 De esta manera y con la ayuda de un sistema de integración continua que veremos en el siguiente punto, conseguimos que cada vez que se realice una modificación en nuestro software
@@ -170,10 +201,10 @@ se compruebe la integridad del sistema rehaciendo los tests.\\
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.45]{imagenes/unit-test.png}
-	\caption{Esquema del funcionamiento de los tests unitarios. \label{fig:figura13}}
+	\caption{Esquema del funcionamiento de los tests unitarios.\cite{image-unit-test}}
 \end{figure}
 
-En este caso, se ha utilizado la librería \textit{supertest}\cite{supertest}, la cual nos proporciona un alto nivel de abstracción para probar nuestro servidor web.
+En este caso, se ha utilizado la biblioteca \textit{supertest}\cite{supertest}, la cual nos proporciona un alto nivel de abstracción para probar nuestro servidor web.
 Los test unitarios que se han realizado prueban las siguientes funcionalidades:
 
 \begin{itemize}
@@ -193,7 +224,7 @@ La integración continua se creó con la intención de realizar el proceso de in
 podemos detectar los fallos de manera inmediata y antes de que pase a la etapa de producción.\\
 
 Para lograrlo se ha utilizado \textit{Travis CI}\cite{travis-ci}. Con esta herramienta es muy rápido y sencillo añadir la integración continua a nuestro repositorio. Para ello,
-tan solo tenemos registrarnos en su página web con nuestra cuenta de GitHub, dar de alta el repositorio. Para que funcione correctamente, se debe crear un fichero de configuración
+tan solo tenemos registrarnos en su página web con nuestra cuenta de GitHub y seleccionar el repositorio. Para que funcione correctamente, se debe crear un fichero de configuración
 llamado \verb|.travis.yml|. Este archivo es el encargado de indicarle a \textit{Travis} el contexto en el que se ejecutarán los test, por tanto contiene
 información relacionada con el lenguaje de programación utilizado, las versiones utilizadas, si se necesita permisos de superusuario...\\
 
@@ -202,17 +233,17 @@ En la siguiente imagen se representan los siguientes estados por los que pasa el
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.6]{imagenes/continuous-integration.png}
-	\caption{Esquema del funcionamiento de un sistema de integración continua. \label{fig:figura14}}
+	\caption{Esquema del funcionamiento de un sistema de integración continua.\cite{image-ci} \label{fig:figura14}}
 \end{figure}
 
 \section{Instalación de la aplicación de manera automática.}
-Para finalizar el desarrollo, se ha configurado el entorno de tal manera que la aplicación se configure automáticamente y esté lista para desplegarse de manera rápida y clara.\\
+Para finalizar el desarrollo, se ha configurado el entorno de tal manera que la aplicación se configure automáticamente y esté lista para desplegarse de manera inmediata.\\
 
 Para conseguir dichos objetivos, se han utilizado dos herramientas presentadas en el previo análisis: \textit{Vagrant} y \textit{Ansible}. 
 
 \subsection{Creación del entorno.}
 
-La aplicación se ejecutará bajo una máquina virtual que corre con \textit{Ubuntu 16.04}. La elección de este sistema operativo ha sido por los siguientes motivos:
+La aplicación se ejecutará bajo una máquina virtual que corre con \textit{Ubuntu 16.04}. La elección de este sistema operativo ha sido en base a los siguientes motivos:
 \begin{itemize}
 	\item \textbf{Compatibilidad.} Aunque la aplicación será compatible con todos los navegadores del mercado, el servidor deberá estar basado en Linux. Además, 
 	Ubuntu en la versión 16.04 es LTS(\textit{Long Term Support}), por lo tanto, es una buena opción para mantener una máquina virtual a largo plazo. Otro motivo para
@@ -231,7 +262,7 @@ Una vez elegido el sistema operativo, \textit{Vagrant} realiza las siguientes op
 	\item \textbf{Ajusta las claves ssh.} Utiliza un esquema de llave pública/privada y de este modo podremos acceder a la máquina virtual de manera segura y sin contraseña.
 	\item \textbf{Redirecciona los puertos.} Configura los puertos que queramos redireccionar de nuestra máquina local a la virtual, consiguiendo desviar el tráfico 
 	para ser atendido por nuestro servidor.
-	\item \textbf{Provisiona.} Ejecuta \textit{Ansible} para provisionar a la máquina con los recursos necesarios.
+	\item \textbf{Aprovisiona.} Ejecuta \textit{Ansible} para aprovisionar a la máquina con los recursos necesarios.
 \end{itemize}
 
 Una vez se llega a este punto, \textit{Vagrant} ejecuta el \textit{Playbook} de \textit{Ansible}. Dicho fichero contiene las instrucciones necesarias para 
